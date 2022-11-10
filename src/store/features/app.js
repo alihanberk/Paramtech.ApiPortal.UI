@@ -20,7 +20,11 @@ export const appSlice = createSlice({
     currentProduct: null,
     currentEndpoint: null,
     apiDocumentation: {},
-    normalizedApiDocumentation: {}
+    normalizedApiDocumentation: {},
+    parameters: [],
+    headerParams: [],
+    token: null,
+    warning: {}
   },
   reducers: {
     setCurrentOrganization: (state, action) => {
@@ -31,6 +35,18 @@ export const appSlice = createSlice({
     },
     setCurrentEndpoint: (state, action) => {
       state.currentEndpoint = action.payload
+    },
+    setParameters: (state, action) => {
+      state.parameters = action.payload
+    },
+    setHeaders: (state, action) => {
+      state.headerParams = action.payload
+    },
+    setToken: (state, action) => {
+      state.token = action.payload
+    },
+    setWarning: (state, action) => {
+      state.warning = action.payload
     }
   },
   extraReducers: builder => {
@@ -62,6 +78,6 @@ export const appSlice = createSlice({
   }
 });
 
-export const { setCurrentOrganization, setCurrentProduct, setCurrentEndpoint } = appSlice.actions;
+export const { setCurrentOrganization, setCurrentProduct, setCurrentEndpoint, setParameters, setHeaders, setToken, setWarning } = appSlice.actions;
 
 export default appSlice.reducer;

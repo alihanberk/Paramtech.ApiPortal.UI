@@ -22,7 +22,6 @@ const Responses = ({ selectedEndpoint }) => {
 
     data = getData();
 
-  console.log(data)
   return (
     <Card title="Response Statuses" className="content-card">
       <Row className="responses">

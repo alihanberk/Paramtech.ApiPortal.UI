@@ -20,7 +20,7 @@ const Parameters = ({ selectedEndpoint }) => {
               <Col className="flex parameters mb-16" key={x.key} sm={24}>
                 <Col sm={5}>
                   <div className="parameters-name">
-                    <span>{x.name} {x.allowEmpty && <strong>*</strong>}</span>
+                    <span>{x.name} {!x.allowEmpty && <strong>*</strong>}</span>
                   </div>
                   <div className="parameters-type">
                     <span>{x.type} | {`{ ${x.place} }`}</span>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Drawer, Menu, List, Tag, Input, Switch } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
-import { setCurrentEndpoint } from "store/features/app";
+import { setCurrentEndpoint, setHeaders, setParameters } from "store/features/app";
 import { methodColors } from "../../lib/contants";
 
 
@@ -16,6 +16,8 @@ const Sider = () => {
 
     onEndpointClick = path => {
       dispatch(setCurrentEndpoint(path));
+      dispatch(setHeaders([]));
+      dispatch(setParameters([]));
     }
 
   console.log(apiDocumentation.data?.[currentTag])

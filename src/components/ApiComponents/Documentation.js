@@ -11,8 +11,6 @@ const Info = () => {
     [apiDocumentation, currentEndpoint] = useSelector(({ app }) => [app.apiDocumentation, app.currentEndpoint]),
     selectedEndpoint = apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method];
 
-    console.log(selectedEndpoint, currentEndpoint)
-
   return (
     <div>
       {selectedEndpoint &&
