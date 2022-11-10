@@ -3,6 +3,7 @@ import { Drawer, Menu, List, Tag, Input, Switch } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { setCurrentEndpoint } from "store/features/app";
+import { methodColors } from "../../lib/contants";
 
 
 const Sider = () => {
@@ -12,18 +13,12 @@ const Sider = () => {
     [descriptions, showDescriptions] = useState(false),
     dispatch = useDispatch(),
     apiDocumentation = useSelector(({ app }) => app.normalizedApiDocumentation),
-    methodColors = {
-      get: "blue",
-      post: "green",
-      put: "orange",
-      delete: "red"
-    },
 
     onEndpointClick = path => {
       dispatch(setCurrentEndpoint(path));
     }
 
-
+  console.log(apiDocumentation.data?.[currentTag])
   return (
     <div>
       <Input.Search placeholder="input search text" className="p-16" />
@@ -49,21 +44,15 @@ const Sider = () => {
       >
         <List
           size="small"
-          dataSource={[
-            { method: "get", endpoint: "Customers", description: "Müşteri listesini getirir" },
-            { method: "get", endpoint: "Customers/{id}", description: "Id'si verilen müşteriyi getirir" },
-            { method: "post", endpoint: "Customers", description: "Yeni bir müşteri ekler" },
-            { method: "put", endpoint: "Customers", description: "Var olan müşteriyi günceller" },
-            { method: "delete", endpoint: "Customers/{id}", description: "Id'ye ait müşteriyi siler" },
-          ]}
+          dataSource={apiDocumentation.data?.[currentTag]}
           renderItem={item => (
-            <List.Item className="pointer" style={{ border: "none", justifyContent: "flex-start" }} onClick={() => onEndpointClick({ endpoint: "/api/Customers", method: "post" })}>
+            <List.Item className="pointer" style={{ border: "none", justifyContent: "flex-start" }} onClick={() => onEndpointClick({ endpoint: item.endpoint, method: item.method })}>
               <Tag style={{ width: 56, textAlign: "center" }} color={methodColors[item.method]}>{item.method}</Tag>
               <div>
                 <div style={{ fontWeight: descriptions ? "bold" : "normal" }}>{item.endpoint}</div>
                 {
                   descriptions &&
-                  <label>{item.description}</label>
+                  <label>{item.data.summary}</label>
                 }
               </div>
             </List.Item>

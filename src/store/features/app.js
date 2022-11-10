@@ -37,18 +37,26 @@ export const appSlice = createSlice({
     builder.addCase(getApiDocumentation.fulfilled, (state, action) => {
       state.apiDocumentation = action.payload;
 
-      const tags = [];
-      Object.values(action.payload.paths).forEach(paths => {
-        Object.values(paths).forEach(path => {
-          path.tags.forEach(tag => {
+      const tags = [],
+        data = [];
+      for (const [apiKey, paths] of Object.entries(action.payload.paths)) {
+        for (const [key, value] of Object.entries(paths)) {
+          value.tags.forEach(tag => {
+            if (data[tag]) {
+              data[tag].push({ method: key, data: value, endpoint: apiKey });
+            }
+            else {
+              data[tag] = [{ method: key, data: value, endpoint: apiKey }]
+            }
             if (!tags.includes(tag))
               tags.push(tag);
           });
-        })
-      });
+        }
+      };
 
       state.normalizedApiDocumentation = {
-        tags
+        tags,
+        data
       }
     });
   }

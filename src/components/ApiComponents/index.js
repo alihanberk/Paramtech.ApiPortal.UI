@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getApiDocumentation } from "store/features/app";
-import Info from "./Info";
 import Documentation from "./Documentation";
 import Sider from "./Sider";
 import { Layout } from "antd";
+import InfoComponents from "./Info";
+import RequestComponents from "./Request";
 
 const ApiComponents = () => {
-  const dispatch = useDispatch();
+  const
+    dispatch = useDispatch(),
+    currentEndpoint = useSelector(({ app }) => app.currentEndpoint);
+
   useEffect(() => {
     dispatch(getApiDocumentation("https://test_tenantapi.e-cozum.com/swagger/v1/swagger.json"))
   }, [dispatch]);
@@ -19,8 +23,14 @@ const ApiComponents = () => {
       </Layout.Sider>
       <div className="api-docs-content" style={{ position: "relative", width: "100%" }}>
         <Layout.Content className="container">
-          <Info />
-          <Documentation />
+          {
+            currentEndpoint ?
+              <>
+                <InfoComponents />
+                <RequestComponents />
+                {/* <Documentation /> */}
+              </> : "Lütfen Seçim Yapın"
+          }
         </Layout.Content>
       </div>
     </Layout>
