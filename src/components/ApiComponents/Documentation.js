@@ -5,7 +5,6 @@ import beautify from 'js-beautify';
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
-import Avatar from 'react-string-avatar';
 
 const Info = () => {
   const
@@ -16,7 +15,6 @@ const Info = () => {
 
   return (
     <div>
-      <Avatar initials="AB" pictureFormat="jpeg" bgColor="red" textColor="yellow" width={64} cornerRadius={5} />
       {selectedEndpoint &&
         <AceEditor
           mode="javascript"
