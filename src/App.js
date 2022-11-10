@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { Layout } from "antd";
+import "assets/less/main.less";
+import Logo from "components/Logo";
+import { Route, Routes, Navigate } from "react-router-dom";
+import appRoutes from "routes";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Layout.Header>
+        <Logo />
+      </Layout.Header>
+      <Layout.Content>
+        <Routes>
+          {
+            appRoutes.map(route => (
+              <Route key={route.name} path={route.path} element={<route.component />} />
+            ))
+          }
+          <Route path="*" element={<Navigate to="/organizations" />} />
+        </Routes>
+      </Layout.Content>
+    </Layout>
   );
 }
 

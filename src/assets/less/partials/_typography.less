@@ -1,0 +1,104 @@
+@font-face {
+  font-family: "Mark Pro";
+  src: url("../../../fonts/Mark-Pro-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mark Pro";
+  src: url("../../../fonts/Mark-Pro-Medium.ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mark Pro";
+  src: url("../../../fonts/Mark-Pro-Bold.ttf");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mark Pro";
+  src: url("../../../fonts/Mark-Pro-Heavy.ttf");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mark Pro";
+  src: url("../../../fonts/Mark-Pro-Black.otf");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@mark-pro : 'Mark Pro',
+sans-serif;
+
+.generate-font-weight(900);
+
+.generate-font-weight(@n, @i: 400) when (@i =< @n) {
+  .text-@{i} {
+    font-weight:~"@{i}" !important;
+  }
+
+  .generate-font-weight(@n, (@i + 100));
+}
+
+.generate-font-size(90);
+
+.generate-font-size(@n, @i: 12) when (@i =< @n) {
+  .font-@{i} {
+    font-size:~"@{i}px";
+  }
+
+  .generate-font-size(@n, (@i + 4));
+}
+
+h3,
+h3.ant-typography {
+  .text-500();
+  font-size: 50px;
+  line-height: 110%;
+}
+
+h4,
+h4.ant-typography {
+  .text-500();
+  font-size: 24px;
+  line-height: 110%;
+}
+
+h5,
+h5.ant-typography {
+  .text-500();
+  font-size: 20px;
+  line-height: 110%;
+}
+
+p {
+  .font-24();
+  line-height: 110%;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+@media @mobile-large {
+
+  h3,
+  h3.ant-typography {
+    font-size: 34px;
+  }
+
+  h5,
+  h5.ant-typography {
+    font-size: 16px;
+  }
+
+  p {
+    .font-16();
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "netekstre",
+    "name": "Netekstre",
+    "organizationId": "Finrota",
+    "description": "Açık Bankacılık"
+  },
+  {
+    "id": "netahsilat2",
+    "name": "Netahsilat 2.0",
+    "organizationId": "Finrota",
+    "description": "Yeni Nesil Tahsilat"
+  },
+  {
+    "id": "tenant",
+    "name": "Tenant",
+    "organizationId": "Finrota",
+    "description": "Müşteri Yönetimi"
+  },
+  {
+    "id": "kredim",
+    "name": "Kredim",
+    "organizationId": "Param",
+    "description": "Şimdi Al Sonra Öde"
+  }
+]
