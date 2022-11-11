@@ -33,7 +33,7 @@ const Parameters = () => {
                 open={warning.tokenError}
               >
                 <Input onChange={e => setAuthCode(e.target.value)} className="custom-input" placeholder="Bearer Token" />
-                <Button onClick={e => handleAuthorizeButton(e)} className="button-inside-input" >Authorize</Button>
+                <Button type="primary" onClick={e => handleAuthorizeButton(e)} className="button-inside-input" >Authorize</Button>
               </Popover>
             </Col>
           </Col>

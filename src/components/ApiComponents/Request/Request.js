@@ -57,7 +57,7 @@ const Request = () => {
           </SyntaxHighlighter>
         </Col>
       </Row>
-      <Button onClick={() => onHandleRequest()} className="custom-btn element-right">Run Request</Button>
+      <Button type="primary" onClick={() => onHandleRequest()} className="custom-btn element-right">Run Request</Button>
     </Card>
   )
 }

@@ -76,13 +76,13 @@ const SetHeaders = () => {
                 <Input defaultValue={x.value} className="custom-input" placeholder="Value" onChange={e => handleChangeParameters(x.key, e.target.value, "value")} />
               </Col>
               <Col className="centered" sm={4}>
-                <Button disabled={x.required} onClick={() => removeParameters(x.key)} className="remove-btn"><DeleteOutlined /></Button>
+                <Button  disabled={x.required} onClick={() => removeParameters(x.key)} className="remove-btn"><DeleteOutlined /></Button>
               </Col>
             </div>
           ))
         }
       </Row>
-      <Button onClick={() => addParameters()} className="custom-btn">Add Parameters</Button>
+      <Button type="primary" onClick={() => addParameters()} className="custom-btn">Add Parameters</Button>
     </div>
   )
 };

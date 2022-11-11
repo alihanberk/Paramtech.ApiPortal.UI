@@ -69,13 +69,13 @@ const SetParameters = ({ selectedEndpoint }) => {
                 <Input defaultValue={x.value} className="custom-input" placeholder="Value" onChange={e => handleChangeParameters(x.key, e.target.value, "value")} />
               </Col>
               <Col className="centered" sm={4}>
-                <Button onClick={() => removeParameters(x.key)} className="remove-btn">X</Button>
+                <Button type onClick={() => removeParameters(x.key)} className="remove-btn">X</Button>
               </Col>
             </div>
           ))
         }
       </Row>
-      <Button onClick={() => addParameters()} className="custom-btn">Add Parameters</Button>
+      <Button type="primary" onClick={() => addParameters()} className="custom-btn">Add Parameters</Button>
     </div>
   )
 };
