@@ -1,11 +1,15 @@
-import { Button, Card, Col, Divider, Row, Table, Tag } from "antd";
+import { Button, Card, Col, Divider, Row, Tag, Tooltip } from "antd";
+import { Table } from "components/UIComponents";
 import { statusColor } from "lib/contants";
 import React, { useCallback } from "react";
+import { CodeOutlined } from '@ant-design/icons';
+
 
 const Responses = ({ selectedEndpoint }) => {
   const
     columns = [
-      { title: "Kod", dataIndex: "status", key: "status" },
+      { title: "", dataIndex: "id", key: "id", render: () => <Button className="table-btn"><Tooltip title="Show Example Value" ><CodeOutlined /></Tooltip></Button> },
+      { title: "Kod", dataIndex: "status", key: "status", render: status => <span className="font-bold" style={{ color: statusColor[status] }}>{status}</span> },
       { title: "Açıklama", dataIndex: "description", key: "description" },
 
     ],
@@ -24,27 +28,7 @@ const Responses = ({ selectedEndpoint }) => {
 
   return (
     <Card title="Response Statuses" className="content-card">
-      <Row className="responses">
-        <Col className="space-around response-header mb-8" sm={24}>
-
-          <div className="response-header-item">
-            <label>Kod</label>
-          </div>
-          <div className="response-header-item">
-            <label>Açıklama</label>
-          </div>
-        </Col>
-        {
-          data.map(x => (
-            <Col className="space-around mb-8" sm={24}>
-              <>
-                <label className="font-bold" style={{ color: statusColor[x.status] }}  >{x.status}</label>
-                <label>{x.description}</label>
-              </>
-            </Col>
-          ))
-        }
-      </Row>
+      <Table {...{ data, columns }} />
     </Card>
   )
 };

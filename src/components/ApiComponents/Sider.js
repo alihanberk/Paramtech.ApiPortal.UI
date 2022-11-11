@@ -2,36 +2,50 @@ import React, { useState } from "react";
 import { Drawer, Menu, List, Tag, Input, Switch } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
-import { setCurrentEndpoint, setHeaders, setParameters } from "store/features/app";
+import { setCurrentEndpoint, setDrawerVisible, setHeaders, setParameters } from "store/features/app";
 import { methodColors } from "../../lib/contants";
-
+import { SearchOutlined } from '@ant-design/icons';
 
 const Sider = () => {
 
   const
     [currentTag, setCurrentTag] = useState(null),
     [descriptions, showDescriptions] = useState(false),
+    [searchData, setSearchData] = useState(""),
     dispatch = useDispatch(),
-    apiDocumentation = useSelector(({ app }) => app.normalizedApiDocumentation),
+    [apiDocumentation, visible] = useSelector(({ app }) => [app.normalizedApiDocumentation, app.drawerVisible]),
+    menuItem = apiDocumentation.tags?.map(item => ({ label: item, key: item })),
 
     onEndpointClick = path => {
       dispatch(setCurrentEndpoint(path));
       dispatch(setHeaders([]));
       dispatch(setParameters([]));
+      dispatch(setDrawerVisible(false));
+    },
+
+    onTagClick = (key, bool) => {
+      dispatch(setDrawerVisible(bool));
+      setCurrentTag(key);
+    },
+
+    onSearch = value => {
+      setSearchData(value);
     }
 
-  console.log(apiDocumentation.data?.[currentTag])
   return (
     <div>
-      <Input.Search placeholder="input search text" className="p-16" />
+      <div className="p-16">
+        <Input onChange={e => onSearch(e.target.value)} placeholder="Search Endpoint" className="search-input" suffix={<SearchOutlined />} />
+      </div>
       <Menu
+        className="scrollable-menu"
         mode="inline"
-        items={apiDocumentation.tags?.map(item => ({ label: item, key: item }))}
-        onClick={({ key }) => setCurrentTag(key)}
+        items={searchData.length ? menuItem.filter(x => x.label.includes(searchData)) : menuItem}
+        onClick={({ key }) => onTagClick(key, true)}
       />
       <Drawer
-        open={!!currentTag}
-        onClose={() => setCurrentTag(null)}
+        open={visible}
+        onClose={() => onTagClick(null, false)}
         placement="left"
         getContainer=".api-docs-content"
         style={{ position: "absolute" }}

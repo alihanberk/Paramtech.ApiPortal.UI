@@ -10,9 +10,9 @@ const Request = () => {
     dispatch = useDispatch(),
 
     getCodeString = useCallback(() => {
-      let requestParameter = `'https://test_tenantapi.e-cozum.com${currentEndpoint.endpoint}'`,
+      let requestParameter = `'https://test_tenantapi.e-cozum.com${currentEndpoint.endpoint}' \n \b`,
         requestHeader = "",
-        codeString = `curl -X ${currentEndpoint.method.toUpperCase()} ${requestParameter}`;
+        codeString = "";
 
       if (token) {
         requestHeader += `\n \b -H 'Authorization: ${token}'`;
@@ -36,7 +36,7 @@ const Request = () => {
         return requestHeader;
       });
 
-      codeString = `curl - X ${currentEndpoint.method.toUpperCase()} ${requestParameter}${requestHeader}`;
+      codeString = `curl ${requestParameter} -X '${currentEndpoint.method.toUpperCase()}' ${requestHeader}`;
 
       return codeString;
     }, [parameters, currentEndpoint, headers, token]),

@@ -24,7 +24,8 @@ export const appSlice = createSlice({
     parameters: [],
     headerParams: [],
     token: null,
-    warning: {}
+    warning: {},
+    drawerVisible: false,
   },
   reducers: {
     setCurrentOrganization: (state, action) => {
@@ -47,6 +48,9 @@ export const appSlice = createSlice({
     },
     setWarning: (state, action) => {
       state.warning = action.payload
+    },
+    setDrawerVisible: (state, action) => {
+      state.drawerVisible = action.payload
     }
   },
   extraReducers: builder => {
@@ -78,6 +82,6 @@ export const appSlice = createSlice({
   }
 });
 
-export const { setCurrentOrganization, setCurrentProduct, setCurrentEndpoint, setParameters, setHeaders, setToken, setWarning } = appSlice.actions;
+export const { setCurrentOrganization, setCurrentProduct, setCurrentEndpoint, setParameters, setHeaders, setToken, setWarning, setDrawerVisible } = appSlice.actions;
 
 export default appSlice.reducer;

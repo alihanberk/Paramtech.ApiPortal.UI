@@ -17,6 +17,31 @@
     color: white;
   }
 
+  &.table-btn {
+    width: 48px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+
+    span{
+      svg {
+        color: black;
+        font-size: 18px;
+        transition: 0.2s;
+      }
+    }
+  }
+
+  &.table-btn:hover {
+    span{
+      svg {
+        color: #5D05F2;
+        font-size: 20px;
+      }
+    }
+  }
+
   &.remove-btn {
     width: auto;
     text-align: center;
@@ -26,7 +51,7 @@
     color: white;
     font-size: 20px;
 
-    span{
+    span {
       height: 32px;
       width: 32px;
     }

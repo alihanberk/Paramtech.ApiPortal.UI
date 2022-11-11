@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setHeaders } from "store/features/app";
 import { v4 } from "uuid";
-
+import { DeleteOutlined } from '@ant-design/icons';
 
 
 const SetHeaders = () => {
@@ -41,7 +41,13 @@ const SetHeaders = () => {
   useEffect(() => {
     let
       _headers = [],
+      _initialHeader = [{key: v4(), name: "content-type", value: "application/json", required: true}],
       selectedEndpoint = apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method];
+
+    _initialHeader.map(header => {
+      if(!_headers.includes(header));
+      return _headers.push(header);
+    })
 
     selectedEndpoint.parameters.map(x => {
       if (x.in === "header") {
@@ -51,6 +57,7 @@ const SetHeaders = () => {
     });
 
     _headers = [...headers, ..._headers];
+    console.log(_headers, headers)
     dispatch(setHeaders(_headers));
   }, [currentEndpoint, dispatch])
 
@@ -69,7 +76,7 @@ const SetHeaders = () => {
                 <Input defaultValue={x.value} className="custom-input" placeholder="Value" onChange={e => handleChangeParameters(x.key, e.target.value, "value")} />
               </Col>
               <Col className="centered" sm={4}>
-                <Button disabled={x.required} onClick={() => removeParameters(x.key)} className="remove-btn">X</Button>
+                <Button disabled={x.required} onClick={() => removeParameters(x.key)} className="remove-btn"><DeleteOutlined /></Button>
               </Col>
             </div>
           ))
