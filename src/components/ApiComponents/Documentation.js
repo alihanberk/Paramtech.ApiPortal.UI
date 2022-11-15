@@ -1,19 +1,45 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import AceEditor from "react-ace";
 import beautify from 'js-beautify';
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
+import { v4 } from "uuid";
+import { setRequestBody } from "store/features/app";
 
-const Info = () => {
+const Editor = () => {
   const
-    [apiDocumentation, currentEndpoint] = useSelector(({ app }) => [app.apiDocumentation, app.currentEndpoint]),
-    selectedEndpoint = apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method];
+    [apiDocumentation, currentEndpoint, content, body] = useSelector(({ app }) => [app.apiDocumentation, app.currentEndpoint, app.responseContent, app.requestBody]),
+    selectedEndpoint = apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method],
+    dispatch = useDispatch(),
+
+    getContentSchema = _content => {
+      const array = _content?.["$ref"]?.split("/"),
+        itemArray = apiDocumentation.components.schemas[array?.[array?.length - 1]],
+        returnData = [{}];
+      for (const [key, value] of Object.entries(itemArray.properties)) {
+        if (value.format)
+          returnData[0][key] = v4();
+        else if (value?.["$ref"])
+          returnData[0][key] = getContentSchema(value);
+        else returnData[0][key] = value.type;
+      }
+      return returnData;
+    },
+
+    onBodyChange = body => {
+      dispatch(setRequestBody(body))
+    }
+
+  useEffect(() => {
+    onBodyChange(content && getContentSchema(selectedEndpoint.requestBody.content[content].schema))
+  }, [content])
+
 
   return (
     <div>
-      {selectedEndpoint &&
+      {selectedEndpoint?.requestBody &&
         <AceEditor
           mode="javascript"
           theme="github"
@@ -24,43 +50,12 @@ const Info = () => {
           highlightActiveLine={true}
           wrapEnabled={true}
           setOptions={{ enableLiveAutocompletion: true }}
-          value={`{
-          "name": "string",
-          "surname": "string",
-          "userCode": "string",
-          "isActive": true,
-          "customerRepresentativeId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-          "email": "string",
-          "phone": "string",
-          "countryCode": "string",
-          "passportNo": "string",
-          "tckn": "string",
-          "cityId": "Unknown Type: ınteger",
-          "districtId": "Unknown Type: ınteger",
-          "address": "string",
-          "isForeignNational": true,
-          "isVerifiedEmail": true,
-          "isVerifiedPhone": true,
-          "taxNumber": "string",
-          "taxOffice": "string",
-          "isIndividual": true,
-          "title": "string",
-          "erpCode": "string",
-          "paymentSetDefinitionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-          "workplaceCode": "string",
-          "departmentCode": "string",
-          "speCode": "string",
-          "authCode": "string",
-          "projectCode": "string",
-          "salesmanCode": "string",
-          "busTranCode": "string",
-          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-        }`
-          }
+          value={JSON.stringify(body, undefined, 2)}
+          onChange={e => onBodyChange(e)}
         />
       }
     </div>
   );
 };
 
-export default Info;
+export default Editor;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Drawer, Menu, List, Tag, Input, Switch } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
-import { setCurrentEndpoint, setDrawerVisible, setHeaders, setParameters } from "store/features/app";
+import { clearData, setCurrentEndpoint, setDrawerVisible, setHeaders, setParameters } from "store/features/app";
 import { methodColors } from "../../lib/contants";
 import { SearchOutlined } from '@ant-design/icons';
 
@@ -18,9 +18,14 @@ const Sider = () => {
 
     onEndpointClick = path => {
       dispatch(setCurrentEndpoint(path));
-      dispatch(setHeaders([]));
-      dispatch(setParameters([]));
-      dispatch(setDrawerVisible(false));
+      dispatch(clearData([
+        { key: "headerParams", initialState: [] },
+        { key: "parameters", initialState: [] },
+        { key: "drawerVisible", initialState: false },
+        { key: "body", initialState: null },
+        { key: "content", initialState: null }
+      ]
+      ));
     },
 
     onTagClick = (key, bool) => {

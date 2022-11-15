@@ -1,0 +1,29 @@
+.model-card {
+  display: flex;
+  margin: 16px;
+
+  &.with-items {
+    border: 1px solid gray;
+    height: 200px;
+    border-radius: 8px;
+
+    .model-card-header {
+      display: block !important;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+
+  .model-card-header {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .model-card-item {
+    font-style: italic;
+    color: gray;
+    text-align: center;
+  }
+}

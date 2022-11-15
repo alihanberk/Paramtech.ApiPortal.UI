@@ -1,7 +1,7 @@
 import React from "react";
 
 const Table = ({ columns, data }) => {
-  console.log(data)
+
   return (
     <table className="custom-table">
       <tr className="table-row table-head text-center">

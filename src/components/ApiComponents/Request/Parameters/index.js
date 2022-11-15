@@ -21,10 +21,9 @@ const Parameters = () => {
     }
 
   return (
-    <Card title="Set Request Parameters" className="mb-40 content-card">
-      <div>
-        <Row>
-          <Col className="mb-40" sm={24}>
+    <div className="m-40 content-card">
+      <Row>
+        {/* <Col className="mb-40" sm={24}>
             <Col className="space-between" sm={24}>
               <Popover
                 trigger="click"
@@ -36,18 +35,18 @@ const Parameters = () => {
                 <Button type="primary" onClick={e => handleAuthorizeButton(e)} className="button-inside-input" >Authorize</Button>
               </Popover>
             </Col>
-          </Col>
-
+          </Col> */}
+        {/* 
           <Col className="mb-40" sm={24}>
             <SetParameters />
-          </Col>
+          </Col> */}
 
-          <Col sm={24}>
-            <SetHeaders />
-          </Col>
-        </Row>
-      </div>
-    </Card >
+        <Col sm={24}>
+          <SetHeaders />
+        </Col>
+      </Row>
+    </div>
+
   )
 }
 

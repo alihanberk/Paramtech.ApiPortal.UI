@@ -14,7 +14,7 @@ const InfoComponents = () => {
     <div className="info-content">
       <Info {...{ currentEndpoint }} />
       <Divider />
-      <Row>
+      {/*       <Row>
         <Col className="flex" sm={24}>
           <Col className="pr-8 full-height" sm={12}>
             <Parameters {...{ selectedEndpoint }} />
@@ -23,7 +23,7 @@ const InfoComponents = () => {
             <Responses {...{ selectedEndpoint }} />
           </Col>
         </Col>
-      </Row>
+      </Row> */}
     </div>
   );
 };

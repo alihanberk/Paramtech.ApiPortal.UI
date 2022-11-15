@@ -4,7 +4,7 @@ import service from "store/service";
 export const getApiDocumentation = createAsyncThunk("apiDocumentation/get",
   async (endpoint, thunkApi) => {
     try {
-      const response = await service.get(endpoint);
+      const response = await service.getRequest(endpoint);
       return response.data;
     }
     catch (error) {
@@ -12,6 +12,18 @@ export const getApiDocumentation = createAsyncThunk("apiDocumentation/get",
     }
   }
 );
+
+export const submitRequest = createAsyncThunk("exampleRequest",
+  async (payload, thunkApi) => {
+    try {
+      const response = await service[payload.method](payload);
+      return response;
+    }
+    catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+)
 
 export const appSlice = createSlice({
   name: "app",
@@ -26,6 +38,10 @@ export const appSlice = createSlice({
     token: null,
     warning: {},
     drawerVisible: false,
+    requestResponse: {},
+    responseContent: null,
+    responseModelVisibility: [],
+    requestBody: null
   },
   reducers: {
     setCurrentOrganization: (state, action) => {
@@ -35,6 +51,7 @@ export const appSlice = createSlice({
       state.currentProduct = action.payload
     },
     setCurrentEndpoint: (state, action) => {
+      state.requestResponse = {}
       state.currentEndpoint = action.payload
     },
     setParameters: (state, action) => {
@@ -51,8 +68,24 @@ export const appSlice = createSlice({
     },
     setDrawerVisible: (state, action) => {
       state.drawerVisible = action.payload
+    },
+    clearResponse: (state, action) => {
+      state.requestResponse = {}
+    },
+    setResponseContent: (state, action) => {
+      state.responseContent = action.payload
+    },
+    setModelVisibility: (state, action) => {
+      state.responseModelVisibility = action.payload
+    },
+    setRequestBody: (state, action) => {
+      state.requestBody = action.payload
+    },
+    clearData: (state, action) => {
+      action.payload.forEach(x => (state[x.key] = x.initialState))
     }
   },
+
   extraReducers: builder => {
     builder.addCase(getApiDocumentation.fulfilled, (state, action) => {
       state.apiDocumentation = action.payload;
@@ -79,9 +112,16 @@ export const appSlice = createSlice({
         data
       }
     });
+
+    builder.addCase(submitRequest.rejected, (state, action) => {
+      state.requestResponse = action.payload;
+    })
+    builder.addCase(submitRequest.fulfilled, (state, action) => {
+      state.requestResponse = action.payload;
+    })
   }
 });
 
-export const { setCurrentOrganization, setCurrentProduct, setCurrentEndpoint, setParameters, setHeaders, setToken, setWarning, setDrawerVisible } = appSlice.actions;
+export const { setCurrentOrganization, setCurrentProduct, setCurrentEndpoint, setParameters, setHeaders, setToken, setWarning, setDrawerVisible, setResponseContent, setModelVisibility, clearData, setRequestBody } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -11,9 +11,20 @@ const
     300: "blue",
     400: "red",
     500: "orange"
-  }
+  },
+
+  httpMethods = {
+    get: "get",
+    getAll: "getAll",
+    post: "post",
+    put: "put",
+    delete: "delete",
+    patch: "patch",
+    getWithPost: "getWithPost"
+  };
 
 export {
   methodColors,
-  statusColor
+  statusColor,
+  httpMethods
 };
