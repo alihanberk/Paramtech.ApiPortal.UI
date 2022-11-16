@@ -36,10 +36,10 @@ const RequestComponents = () => {
         </Col>
         <Col className="pl-8" sm={12}>
           <Col>
-            <Request {...{ selectedEndpoint }} />
+            <Request />
           </Col>
           <Col>
-            <Response {...{ selectedEndpoint }} />
+            <Response />
           </Col>
         </Col>
       </Row>

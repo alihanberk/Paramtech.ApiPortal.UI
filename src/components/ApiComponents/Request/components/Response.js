@@ -6,7 +6,7 @@ import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import Responses from "../../Responses";
 
 
-const Response = ({ selectedEndpoint }) => {
+const Response = () => {
   const response = useSelector(({ app }) => app.requestResponse),
     responsesRef = useRef();
 
@@ -20,7 +20,6 @@ const Response = ({ selectedEndpoint }) => {
         </Col>
       </Row>
       <Responses
-        {...{ selectedEndpoint }}
         ref={el => responsesRef.current = el}
       />
     </Card >
