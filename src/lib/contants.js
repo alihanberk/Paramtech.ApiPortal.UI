@@ -21,10 +21,17 @@ const
     delete: "delete",
     patch: "patch",
     getWithPost: "getWithPost"
-  };
+  },
+
+  parameterTypes = {
+    header: "header",
+    query: "query",
+    path: "path"
+  }
 
 export {
   methodColors,
   statusColor,
-  httpMethods
+  httpMethods,
+  parameterTypes
 };

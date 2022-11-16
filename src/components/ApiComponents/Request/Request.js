@@ -5,48 +5,53 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { setWarning, submitRequest } from "store/features/app";
 import { CopyOutlined } from '@ant-design/icons';
+import { bindParameters } from "lib/helpers";
+import { parameterTypes } from "lib/contants";
 
 const Request = () => {
   const [parameters, headers, currentEndpoint, token, warning, body] = useSelector(({ app }) => [app.parameters, app.headerParams, app.currentEndpoint, app.token, app.warning, app.requestBody]),
     dispatch = useDispatch(),
     [isCopy, setCopy] = useState(false),
 
+    groupingParameter = _parameters => {
+      let data = {};
+
+      Object.keys(parameterTypes).forEach(key => {
+        if (_parameters.filter(x => x.place === key).length)
+          data[key] = _parameters.filter(x => x.place === key)
+      })
+      console.log(data)
+      return data;
+    },
+
     getCodeString = useCallback(() => {
       let requestParameter = `'https://test_tenantapi.e-cozum.com${currentEndpoint.endpoint}'`,
         requestHeader = "    -H 'Content-Type: application/json'\n",
         codeString = "",
-        requestBody = "";
+        requestBody = "",
+        groupedData = groupingParameter(parameters);
 
       if (token) {
         requestHeader += `    -H 'Authorization: ${token}' \n`;
       };
-
-      parameters?.map((x, i) => {
-        let _parameter = "";
-        if (x.name !== "") {
-          _parameter = `${x.name}=${x.value}`;
-          requestParameter = requestParameter.slice(0, -1) + `${i === 0 ? "?" : i === parameters.length - 1 ? "&" : ""}${_parameter}'`;
-        }
-        return requestParameter;
-      });
-
-      headers?.map((x, i) => {
-        let _headers = "";
-        if (x.name !== "") {
-          _headers = `'${x.name}: ${x.value}'`;
-          requestHeader += `    -H ${_headers}\n`;
-        }
-        return requestHeader;
-      });
-
       if (body) {
         requestBody += `    -d '${JSON.stringify(body, undefined, 3)}' \n`
       }
+
+      Object.keys(groupedData)?.map(key => {
+        if (key === "header")
+          return requestHeader += bindParameters(groupedData[key], key)
+        else if (key === "query")
+          return requestParameter = bindParameters(groupedData[key], key, requestParameter)
+
+        return true;
+      })
 
       codeString = `curl -X ${currentEndpoint.method.toUpperCase()} ${requestParameter} \n${requestHeader} \n ${requestBody}`;
 
       return codeString;
     }, [parameters, currentEndpoint, headers, token, body]),
+
 
     getRequest = () => {
       const url = `https://test_tenantapi.e-cozum.com${currentEndpoint.endpoint}`,
@@ -95,6 +100,7 @@ const Request = () => {
 
 
 
+  console.log(parameters)
   return (
     <Card title="Request" className="mb-40 content-card" extra={renderCardExtra()}>
       <Row>

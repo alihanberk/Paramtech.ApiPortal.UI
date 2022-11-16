@@ -2,58 +2,38 @@ import { Button, Card, Divider, Table, Tag, Row, Col, Input, Form } from "antd";
 import { cloneDeep } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setHeaders } from "store/features/app";
+import { setParameters } from "store/features/app";
 import { v4 } from "uuid";
 import { DeleteOutlined } from '@ant-design/icons';
 
 
 const SetHeaders = () => {
-  const [headers, currentEndpoint, apiDocumentation] = useSelector(({ app }) => [app.headerParams, app.currentEndpoint, app.apiDocumentation]),
+  const [currentEndpoint, apiDocumentation, parameters] = useSelector(({ app }) => [app.currentEndpoint, app.apiDocumentation, app.parameters]),
     dispatch = useDispatch(),
-
-    /* addParameters = () => {
-      const _headers = [...headers, { key: v4(), name: "", value: "" }]
-      dispatch(setHeaders(_headers));
-    }, */
-
-    /*  removeParameters = key => {
-       const index = headers.indexOf(headers.find(x => x.key === key)),
-         _headers = cloneDeep(headers);
-       if (index !== -1) {
-         _headers.splice(index, 1)
-       }
-       dispatch(setHeaders(_headers))
-     }, */
 
     handleChangeParameters = (key, value, dataKey) => {
       const
-        _headers = cloneDeep(headers),
-        parameterByKey = _headers.find(x => x.key === key),
-        index = headers.indexOf(headers.find(x => x.key === key));
-      if (index !== -1) {
-        _headers.splice(index, 1)
-      }
-      parameterByKey[dataKey] = value;
-      _headers.push(parameterByKey);
-      dispatch(setHeaders(_headers))
+        _parameters = [...parameters],
+        index = _parameters.indexOf(_parameters.find(x => x.key === key)),
+        _obj = { ..._parameters[index] };
+
+      _obj[dataKey] = value.toString();
+      _parameters[index] = { ..._parameters[index], ..._obj }
+      return dispatch(setParameters(_parameters))
     };
 
   useEffect(() => {
     let
-      _headers = [],
+      _parameters = [],
       selectedEndpoint = apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method];
 
     selectedEndpoint.parameters.map(x => {
-      if (x.in === "header") {
-        _headers.push({ key: v4(), name: x.name, value: "", required: !x.allowEmptyValue })
-      }
-      return _headers;
+      return _parameters.push({ key: v4(), place: x.in, name: x.name, value: "", required: !x.allowEmptyValue })
     });
 
-    _headers = [...headers, ..._headers];
+    dispatch(setParameters(_parameters));
 
-    dispatch(setHeaders(_headers));
-  }, [currentEndpoint, dispatch])
+  }, [currentEndpoint, dispatch, apiDocumentation.paths])
 
   return (
     <div>
@@ -61,11 +41,11 @@ const SetHeaders = () => {
       <Divider />
       <Row className="mb-16 block">
         {
-          headers?.map(x => (
+          parameters?.map(x => (
             <div className="flex mb-8" key={x.key}>
               <Col className="pr-8" sm={5}>
                 <div className="parameters-name">
-                  <span>{x.name} {!x.allowEmpty && <strong>*</strong>}</span>
+                  <span>{x.name} {x.required && <strong>*</strong>}</span>
                 </div>
                 <div className="parameters-type">
                   <span>{x.type} | {`{ ${x.place} }`}</span>
@@ -75,7 +55,8 @@ const SetHeaders = () => {
                 <Input defaultValue={x.value} className="custom-input" placeholder="Value" onChange={e => handleChangeParameters(x.key, e.target.value, "value")} />
               </Col>
             </div>
-          ))
+          )
+          )
         }
       </Row>
       {/* <Button type="primary" onClick={() => addParameters()} className="custom-btn">Add Parameters</Button> */}

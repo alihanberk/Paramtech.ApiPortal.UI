@@ -33,7 +33,7 @@ export const appSlice = createSlice({
     currentEndpoint: null,
     apiDocumentation: {},
     normalizedApiDocumentation: {},
-    parameters: [],
+    parameters: {},
     headerParams: [],
     token: null,
     warning: {},
@@ -55,7 +55,7 @@ export const appSlice = createSlice({
       state.currentEndpoint = action.payload
     },
     setParameters: (state, action) => {
-      state.parameters = action.payload
+      state.parameters = action.payload;
     },
     setHeaders: (state, action) => {
       state.headerParams = action.payload
