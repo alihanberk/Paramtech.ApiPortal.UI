@@ -16,6 +16,13 @@ export const getParameterString = (obj, prefix) => {
   return str.join("&");
 };
 
+export const endpointManipulation = (endpoint, value) => {
+  let parameter = endpoint.split("/");
+  parameter[parameter.length - 1] = value;
+  parameter = parameter.toString().replaceAll(",", "/")
+  return parameter;
+}
+
 export const bindParameters = (data, type, initialValue = "") => {
   let
     parameter = "",
@@ -32,7 +39,12 @@ export const bindParameters = (data, type, initialValue = "") => {
       case "query":
         if (x.value !== "") {
           parameter = `${x.name}=${x.value}`;
-          requestParameter = requestParameter.slice(0, -1) + `${i === 0 ? "?" : i === data.length - 1 ? "&" : ""}${parameter}'`;
+          requestParameter += `${requestParameter.indexOf("?") === -1 ? "?" : "&"}${parameter}`;
+        }
+        break;
+      case "path":
+        if (x.value !== "") {
+          requestParameter = endpointManipulation(requestParameter, x.value);
         }
         break;
 

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getApiDocumentation } from "store/features/app";
-import Documentation from "./Documentation";
 import Sider from "./Sider";
 import { Layout } from "antd";
 import InfoComponents from "./Info";
@@ -28,7 +27,6 @@ const ApiComponents = () => {
               <>
                 <InfoComponents />
                 <RequestComponents />
-                {/* <Documentation /> */}
               </> : "Lütfen Seçim Yapın"
           }
         </Layout.Content>

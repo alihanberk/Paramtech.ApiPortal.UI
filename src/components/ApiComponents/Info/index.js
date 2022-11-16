@@ -2,8 +2,6 @@ import { Divider, Row, Col } from "antd";
 import React from "react";
 import { useSelector } from "react-redux";
 import Info from "./Info";
-import Parameters from "./Parameters";
-import Responses from "./Responses";
 
 
 const InfoComponents = () => {

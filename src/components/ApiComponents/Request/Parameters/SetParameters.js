@@ -1,41 +1,24 @@
-import { Button, Card, Divider, Table, Tag, Row, Col, Input, Form } from "antd";
-import { cloneDeep } from "lodash";
-import React, { useEffect, useState } from "react";
+import { Divider, Row, Col, Input } from "antd";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setParameters } from "store/features/app";
 import { v4 } from "uuid";
+import { parameterTypes } from "lib/contants";
 
 
-
-const SetParameters = ({ selectedEndpoint }) => {
-  const [parameters, currentEndpoint, apiDocumentation] = useSelector(({ app }) => [app.parameters, app.currentEndpoint, app.apiDocumentation]),
+const SetParameters = () => {
+  const [currentEndpoint, apiDocumentation, parameters] = useSelector(({ app }) => [app.currentEndpoint, app.apiDocumentation, app.parameters]),
     dispatch = useDispatch(),
-
-    addParameters = () => {
-      const _parameter = [...parameters, { key: v4(), name: "", value: "" }]
-      dispatch(setParameters(_parameter));
-    },
-
-    removeParameters = key => {
-      const index = parameters.indexOf(parameters.find(x => x.key === key)),
-        _parameters = cloneDeep(parameters);
-      if (index !== -1) {
-        _parameters.splice(index, 1)
-      }
-      dispatch(setParameters(_parameters))
-    },
 
     handleChangeParameters = (key, value, dataKey) => {
       const
-        _parameters = cloneDeep(parameters),
-        parameterByKey = _parameters.find(x => x.key === key),
-        index = parameters.indexOf(parameters.find(x => x.key === key));
-      if (index !== -1) {
-        _parameters.splice(index, 1)
-      }
-      parameterByKey[dataKey] = value;
-      _parameters.push(parameterByKey);
-      dispatch(setParameters(_parameters))
+        _parameters = [...parameters],
+        index = _parameters.indexOf(_parameters.find(x => x.key === key)),
+        _obj = { ..._parameters[index] };
+
+      _obj[dataKey] = value.toString();
+      _parameters[index] = { ..._parameters[index], ..._obj }
+      return dispatch(setParameters(_parameters))
     };
 
   useEffect(() => {
@@ -44,15 +27,14 @@ const SetParameters = ({ selectedEndpoint }) => {
       selectedEndpoint = apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method];
 
     selectedEndpoint.parameters.map(x => {
-      if (x.in === "query") {
-        _parameters.push({ key: v4(), name: x.name, value: x.schema.type, required: !x.allowEmptyValue })
-      }
-      return _parameters;
+      if (!selectedEndpoint.parameters.find(y => `{${y.name}}` === x.name))
+        return _parameters.push({ key: v4(), place: x.in, name: x.name, value: "", required: !x.allowEmptyValue, formattedStyle: x.in === parameterTypes.path && `{${x.name}}` })
+      return true;
     });
 
-    _parameters = [...parameters, ..._parameters];
     dispatch(setParameters(_parameters));
-  }, [currentEndpoint, dispatch])
+
+  }, [currentEndpoint, dispatch, apiDocumentation.paths])
 
   return (
     <div>
@@ -62,20 +44,23 @@ const SetParameters = ({ selectedEndpoint }) => {
         {
           parameters?.map(x => (
             <div className="flex mb-8" key={x.key}>
-              <Col className="pr-8" sm={10}>
-                <Input defaultValue={x.name} className="custom-input" placeholder="Name" onChange={e => handleChangeParameters(x.key, e.target.value, "name")} />
+              <Col className="pr-8" sm={5}>
+                <div className="parameters-name">
+                  <span>{x.name} {x.required && <strong>*</strong>}</span>
+                </div>
+                <div className="parameters-type">
+                  <span>{x.type} | {`{ ${x.place} }`}</span>
+                </div>
               </Col>
-              <Col className="pl-8" sm={10}>
+              <Col className="pl-8" sm={19}>
                 <Input defaultValue={x.value} className="custom-input" placeholder="Value" onChange={e => handleChangeParameters(x.key, e.target.value, "value")} />
               </Col>
-              <Col className="centered" sm={4}>
-                <Button type onClick={() => removeParameters(x.key)} className="remove-btn">X</Button>
-              </Col>
             </div>
-          ))
+          )
+          )
         }
       </Row>
-      <Button type="primary" onClick={() => addParameters()} className="custom-btn">Add Parameters</Button>
+      {/* <Button type="primary" onClick={() => addParameters()} className="custom-btn">Add Parameters</Button> */}
     </div>
   )
 };

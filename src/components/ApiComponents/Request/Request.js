@@ -1,15 +1,15 @@
-import { Button, Card, Divider, Table, Tag, Row, Col, Input, Tooltip } from "antd";
-import React, { useCallback, useRef, useState } from "react";
+import { Button, Card, Row, Col, Tooltip } from "antd";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { setWarning, submitRequest } from "store/features/app";
 import { CopyOutlined } from '@ant-design/icons';
-import { bindParameters } from "lib/helpers";
+import { bindParameters, endpointManipulation } from "lib/helpers";
 import { parameterTypes } from "lib/contants";
 
 const Request = () => {
-  const [parameters, headers, currentEndpoint, token, warning, body] = useSelector(({ app }) => [app.parameters, app.headerParams, app.currentEndpoint, app.token, app.warning, app.requestBody]),
+  const [parameters, currentEndpoint, token, warning, body] = useSelector(({ app }) => [app.parameters, app.currentEndpoint, app.token, app.warning, app.requestBody]),
     dispatch = useDispatch(),
     [isCopy, setCopy] = useState(false),
 
@@ -20,14 +20,15 @@ const Request = () => {
         if (_parameters.filter(x => x.place === key).length)
           data[key] = _parameters.filter(x => x.place === key)
       })
-      console.log(data)
       return data;
     },
 
     getCodeString = useCallback(() => {
-      let requestParameter = `'https://test_tenantapi.e-cozum.com${currentEndpoint.endpoint}'`,
+      let
+        endpoint = currentEndpoint.endpoint,
+        url = "https://test_tenantapi.e-cozum.com",
+        requestParameter = "",
         requestHeader = "    -H 'Content-Type: application/json'\n",
-        codeString = "",
         requestBody = "",
         groupedData = groupingParameter(parameters);
 
@@ -43,32 +44,34 @@ const Request = () => {
           return requestHeader += bindParameters(groupedData[key], key)
         else if (key === "query")
           return requestParameter = bindParameters(groupedData[key], key, requestParameter)
+        else if (key === "path")
+          return endpoint = bindParameters(groupedData[key], key, endpoint)
 
         return true;
       })
 
-      codeString = `curl -X ${currentEndpoint.method.toUpperCase()} ${requestParameter} \n${requestHeader} \n ${requestBody}`;
-
-      return codeString;
-    }, [parameters, currentEndpoint, headers, token, body]),
+      return `curl -X ${currentEndpoint.method.toUpperCase()} '${url}${endpoint}${requestParameter}' \n${requestHeader} \n ${requestBody}`;
+    }, [parameters, currentEndpoint, token, body]),
 
 
     getRequest = () => {
-      const url = `https://test_tenantapi.e-cozum.com${currentEndpoint.endpoint}`,
-        _parameters = {},
-        _headers = {};
+      const
+        _parameters = { headers: [], parameters: [], path: currentEndpoint.endpoint };
 
       parameters.forEach(element => {
-        _parameters[element["name"]] = element["value"]
+        if (element.place === parameterTypes.query)
+          _parameters.parameters[element["name"]] = element["value"];
+        else if (element.place === parameterTypes.header)
+          _parameters.headers[element["name"]] = element["value"];
+        else if (element.place === parameterTypes.path)
+          _parameters.path = endpointManipulation(_parameters.path, element["value"]);
       });
 
-      headers.forEach(element => {
-        _headers[element["name"]] = element["value"]
-      });
+      _parameters.headers["Authorization"] = token;
 
-      _headers["Authorization"] = token;
+      const url = `https://test_tenantapi.e-cozum.com${_parameters.path}`;
 
-      dispatch(submitRequest({ url, method: currentEndpoint.method, parameters: _parameters, headers: _headers, data: body }));
+      dispatch(submitRequest({ url, method: currentEndpoint.method, parameters: _parameters.parameters, headers: _parameters.headers, data: body }));
     },
 
     onHandleRequest = () => {
