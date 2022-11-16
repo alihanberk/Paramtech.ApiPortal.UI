@@ -9,17 +9,19 @@ const ResponseExampleValue = ({ schemas }) => {
   const [content, apiDocumentation] = useSelector(({ app }) => [app.responseContent, app.apiDocumentation]),
 
     getContentSchema = _content => {
-      const array = _content?.items?.["$ref"]?.split("/"),
-        itemArray = apiDocumentation.components.schemas[array?.[array?.length - 1]],
-        returnData = [{}];
-      for (const [key, value] of Object.entries(itemArray.properties)) {
-        if (value.format)
-          returnData[0][key] = v4();
-        else if (value.items?.["$ref"])
-          returnData[0][key] = getContentSchema(value);
-        else returnData[0][key] = value.type;
+      if (_content?.items?.["$ref"]) {
+        const array = _content?.items?.["$ref"]?.split("/"),
+          itemArray = apiDocumentation.components.schemas[array?.[array?.length - 1]],
+          returnData = {};
+        for (const [key, value] of Object.entries(itemArray.properties)) {
+          if (value.format)
+            returnData[key] = v4();
+          else if (value.items?.["$ref"])
+            returnData[key] = getContentSchema(value);
+          else returnData[key] = value.type;
+        }
+        return returnData;
       }
-      return returnData;
     }
 
 

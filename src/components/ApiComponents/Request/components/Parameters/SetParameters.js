@@ -25,8 +25,7 @@ const SetParameters = () => {
     let
       _parameters = [],
       selectedEndpoint = apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method];
-
-    selectedEndpoint.parameters.map(x => {
+    selectedEndpoint.parameters?.map(x => {
       if (!selectedEndpoint.parameters.find(y => `{${y.name}}` === x.name))
         return _parameters.push({ key: v4(), place: x.in, name: x.name, value: "", required: !x.allowEmptyValue, formattedStyle: x.in === parameterTypes.path && `{${x.name}}` })
       return true;

@@ -1,11 +1,11 @@
-import { Divider, Row, Col, Select } from "antd";
+import { Row, Col, Select } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setResponseContent } from "store/features/app";
 import Editor from "../Documentation";
-import Parameters from "./Parameters";
-import Request from "./Request";
-import Response from "./Response";
+import Parameters from "./components/Parameters";
+import Request from "./components/Request";
+import Response from "./components/Response";
 
 
 const RequestComponents = () => {

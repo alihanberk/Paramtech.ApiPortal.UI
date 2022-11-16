@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Drawer, Menu, List, Tag, Input, Switch } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
-import { clearData, setCurrentEndpoint, setDrawerVisible, setHeaders, setParameters } from "store/features/app";
+import { clearData, setCurrentEndpoint, setDrawerVisible } from "store/features/app";
 import { methodColors } from "../../lib/contants";
 import { SearchOutlined } from '@ant-design/icons';
 
@@ -23,7 +23,7 @@ const Sider = () => {
         { key: "parameters", initialState: [] },
         { key: "drawerVisible", initialState: false },
         { key: "body", initialState: null },
-        { key: "content", initialState: null }
+        { key: "responseContent", initialState: null }
       ]
       ));
     },

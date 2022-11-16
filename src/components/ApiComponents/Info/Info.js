@@ -1,4 +1,4 @@
-import { Button, Divider, Tag, Input } from "antd";
+import { Button, Tag, Input } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { methodColors } from "../../../lib/contants";
@@ -6,9 +6,9 @@ import { setToken, setWarning } from "store/features/app";
 import { cloneDeep } from "lodash";
 
 
-const Info = ({ currentEndpoint }) => {
+const Info = () => {
   const [authCode, setAuthCode] = useState(null),
-    [warning, token] = useSelector(({ app }) => [app.warning, app.token]),
+    [warning, token, currentEndpoint] = useSelector(({ app }) => [app.warning, app.token, app.currentEndpoint]),
     dispatch = useDispatch(),
 
     handleAuthorizeButton = e => {

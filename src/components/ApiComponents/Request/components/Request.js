@@ -101,9 +101,6 @@ const Request = () => {
       </div>
     )
 
-
-
-  console.log(parameters)
   return (
     <Card title="Request" className="mb-40 content-card" extra={renderCardExtra()}>
       <Row>

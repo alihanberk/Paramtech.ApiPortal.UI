@@ -1,10 +1,10 @@
-import { Button, Card, Divider, Table, Tag, Row, Col, Input } from "antd";
+import { Button, Card, Row, Col } from "antd";
 import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import app from "store/features/app";
-import Responses from "../Info/Responses";
+import Responses from "../../Responses";
+
 
 const Response = ({ selectedEndpoint }) => {
   const response = useSelector(({ app }) => app.requestResponse),
