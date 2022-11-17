@@ -1,5 +1,6 @@
 import { Card, Row, Col } from "antd";
 import organizations from "data/organizations.data.json";
+import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCurrentOrganization } from "store/features/app";
@@ -8,6 +9,7 @@ const Organizations = () => {
   const
     navigate = useNavigate(),
     dispatch = useDispatch(),
+    intl = useIntl(),
 
     onOrganizationClick = organization => {
       dispatch(setCurrentOrganization(organization));
@@ -23,7 +25,7 @@ const Organizations = () => {
               <Card
                 title={organization.name}
               >
-                <p>{organization.description}</p>
+                <p>{intl.formatMessage({id: organization.description})}</p>
               </Card>
             </Col>
           )

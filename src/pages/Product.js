@@ -4,10 +4,12 @@ import { PageHeader, Tag } from "antd";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ApiComponents from "components/ApiComponents";
+import { useIntl } from "react-intl";
 
 const Products = () => {
   const
     navigate = useNavigate(),
+    intl = useIntl(),
     [currentOrganization, currentProduct] = useSelector(({ app }) => [app.currentOrganization, app.currentProduct])
 
   useEffect(() => {

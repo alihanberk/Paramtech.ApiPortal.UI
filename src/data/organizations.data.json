@@ -2,16 +2,16 @@
   {
     "id": "finrota",
     "name": "Finrota",
-    "description": "Finansal Teknolojide Rota"
+    "description": "label.finrotaDescription"
   },
   {
     "id": "param",
     "name": "Param",
-    "description": "Paradan Fazlası Param"
+    "description": "label.paramDescription"
   },
   {
     "id": "momento",
     "name": "Momento",
-    "description": "Ödüllendirme Sistemi"
+    "description": "label.mementoDescription"
   }
 ]

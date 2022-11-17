@@ -1,0 +1,53 @@
+.persist-addon {
+  margin-left: 16px;
+
+  &.lang-selector {
+    .flex();
+    .align-center();
+    background: @primary-color;
+    height: 51px;
+    line-height: 51px;
+    border-radius: 12px;
+    width: 110px;
+    padding: 0 12px;
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 10%);
+
+    .lang-flag {
+      >div {
+        .flex();
+        svg{
+          path{
+            stroke: white
+          }
+        }
+      }
+    }
+
+    .trigger-icon {
+      .ml-auto();
+
+      svg {
+        path {
+          fill: white;
+        }
+
+        transition: .3s;
+      }
+    }
+
+    &.ant-dropdown-open {
+      .trigger-icon {
+        svg {
+          path {
+            fill: white;
+          }
+
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}
