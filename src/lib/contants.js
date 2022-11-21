@@ -1,3 +1,5 @@
+import { getcURL, getFetchString } from "./helpers";
+
 const
   methodColors = {
     get: "blue",
@@ -27,11 +29,17 @@ const
     header: "header",
     query: "query",
     path: "path"
-  }
+  },
+
+  requestTypes = [
+    { type: "bash", function: payload => getcURL(payload) },
+    { type: "js", function: payload => getFetchString(payload) },
+  ]
 
 export {
   methodColors,
   statusColor,
   httpMethods,
-  parameterTypes
+  parameterTypes,
+  requestTypes
 };

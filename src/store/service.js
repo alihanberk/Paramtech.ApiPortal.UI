@@ -44,7 +44,7 @@ class service {
       headers = { ...payload.headers };
       delete payload.headers;
     }
-    if (payload.params) {
+    if (payload.parameters) {
       params = { ...payload.parameters };
       delete payload.parameters;
     }
@@ -59,7 +59,7 @@ class service {
       headers = { ...payload.headers };
       delete payload.headers;
     }
-    if (payload.params) {
+    if (payload.parameters) {
       params = { ...payload.parameters };
       delete payload.parameters;
     }
@@ -74,7 +74,7 @@ class service {
       headers = { ...payload.headers };
       delete payload.headers;
     }
-    if (payload.params) {
+    if (payload.parameters) {
       params = { ...payload.parameters };
       delete payload.parameters;
     }
@@ -85,7 +85,7 @@ class service {
   static delete = payload => {
     let endpoint = payload.url, headers = {}, params = {};
     if (payload.id) endpoint += `/${payload.id}`;
-    if (payload.params) {
+    if (payload.parameters) {
       params = { ...payload.parameters };
       delete payload.parameters;
     }

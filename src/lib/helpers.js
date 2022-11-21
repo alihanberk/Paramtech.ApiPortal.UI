@@ -1,3 +1,5 @@
+import { parameterTypes } from "./contants";
+
 export const getParameterString = (obj, prefix) => {
 
   let p;
@@ -23,6 +25,14 @@ export const endpointManipulation = (endpoint, value) => {
   return parameter;
 }
 
+export const getQueryString = (data, requestParameter) => {
+  const
+    parameter = `${data.name}=${data.value}`;
+  requestParameter += `${requestParameter.indexOf("?") === -1 ? "?" : "&"}${parameter}`;
+
+  return requestParameter;
+}
+
 export const bindParameters = (data, type, initialValue = "") => {
   let
     parameter = "",
@@ -38,8 +48,7 @@ export const bindParameters = (data, type, initialValue = "") => {
         break;
       case "query":
         if (x.value !== "") {
-          parameter = `${x.name}=${x.value}`;
-          requestParameter += `${requestParameter.indexOf("?") === -1 ? "?" : "&"}${parameter}`;
+          requestParameter = getQueryString(x, requestParameter);
         }
         break;
       case "path":
@@ -55,4 +64,79 @@ export const bindParameters = (data, type, initialValue = "") => {
   })
 
   return requestParameter;
+}
+
+export const groupingParameter = _parameters => {
+  let data = {};
+
+  Object.keys(parameterTypes).forEach(key => {
+    if (_parameters.filter(x => x.place === key).length)
+      data[key] = _parameters.filter(x => x.place === key)
+  })
+  return data;
+}
+
+export const getRequestPayload = (token, currentEndpoint, parameters, queryType) => {
+  const
+    _parameters = { headers: [], parameters: [], path: currentEndpoint.endpoint, url: "" };
+  parameters.forEach(element => {
+    if (element.place === parameterTypes.query) {
+      if (queryType === "stringQuery")
+        getQueryString(element, _parameters.parameters)
+      else if (queryType === "objectQuery"){
+        console.log(element)
+        _parameters.parameters[element["name"]] = element["value"];
+      }
+    }
+    else if (element.place === parameterTypes.header)
+      _parameters.headers[element["name"]] = element["value"];
+    else if (element.place === parameterTypes.path)
+      _parameters.path = endpointManipulation(_parameters.path, element["value"]);
+  });
+  if (token)
+    _parameters.headers["Authorization"] = token;
+
+  _parameters.url = `https://test_tenantapi.e-cozum.com${_parameters.path}${queryType === "stringQuery" ? _parameters.parameters : ""}`;
+
+  return _parameters;
+}
+
+export const getcURL = ({ currentEndpoint, token, parameters, body }) => {
+  let
+    endpoint = currentEndpoint.endpoint,
+    url = "https://test_tenantapi.e-cozum.com",
+    requestParameter = "",
+    requestHeader = "    -H 'Content-Type: application/json'\n",
+    requestBody = "",
+    groupedData = groupingParameter(parameters);
+
+  if (token) {
+    requestHeader += `    -H 'Authorization: ${token}' \n`;
+  };
+  if (body) {
+    requestBody += `    -d '${JSON.stringify(body, undefined, 3)}' \n`
+  }
+
+  Object.keys(groupedData)?.map(key => {
+    if (key === "header")
+      return requestHeader += bindParameters(groupedData[key], key)
+    else if (key === "query")
+      return requestParameter = bindParameters(groupedData[key], key, requestParameter)
+    else if (key === "path")
+      return endpoint = bindParameters(groupedData[key], key, endpoint)
+
+    return true;
+  })
+
+  return `curl -X ${currentEndpoint.method.toUpperCase()} '${url}${endpoint}${requestParameter}' \n${requestHeader} \n ${requestBody}`;
+}
+
+export const getFetchString = ({ currentEndpoint, token, parameters, body }) => {
+  let
+    endpoint = currentEndpoint.endpoint,
+    url = "https://test_tenantapi.e-cozum.com",
+    _parameters = getRequestPayload(token, currentEndpoint, parameters, "stringQuery");
+    console.log(_parameters);
+
+  return `fetch('${url}${endpoint}', { \n method: '${currentEndpoint.method.toUpperCase()}',\n headers:  \n ${body ? `body: ${JSON.stringify(body, undefined, 3)}\n` : ""} } \n )`
 }

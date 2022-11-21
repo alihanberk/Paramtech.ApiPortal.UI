@@ -42,7 +42,8 @@ export const appSlice = createSlice({
     responseContent: null,
     responseModelVisibility: [],
     requestBody: null,
-    language: "tr"
+    language: "tr",
+    requestLanguage: "bash"
   },
   reducers: {
     setCurrentOrganization: (state, action) => {
@@ -85,6 +86,9 @@ export const appSlice = createSlice({
     changeLanguage: (state, action) => {
       state.language = action.payload
     },
+    changeRequestLanguage: (state, action) => {
+      state.requestLanguage = action.payload
+    },
     clearData: (state, action) => {
       action.payload.forEach(x => (state[x.key] = x.initialState))
     }
@@ -126,6 +130,6 @@ export const appSlice = createSlice({
   }
 });
 
-export const { setCurrentOrganization, setCurrentProduct, setCurrentEndpoint, setParameters, setHeaders, setToken, setWarning, setDrawerVisible, setResponseContent, setModelVisibility, clearData, setRequestBody, changeLanguage } = appSlice.actions;
+export const { setCurrentOrganization, setCurrentProduct, setCurrentEndpoint, setParameters, setHeaders, setToken, setWarning, setDrawerVisible, setResponseContent, setModelVisibility, clearData, setRequestBody, changeLanguage, changeRequestLanguage } = appSlice.actions;
 
 export default appSlice.reducer;
