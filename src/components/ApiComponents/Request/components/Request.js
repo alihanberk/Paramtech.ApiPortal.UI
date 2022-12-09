@@ -64,7 +64,7 @@ const Request = () => {
       <Row>
         <Col sm={24}>
           <SyntaxHighlighter className="syntax-highlighter" language={requestLanguage} style={docco}>
-            {getCodeString()}
+            {getCodeString().replace(/\n\s*\n/g, '\n')}
           </SyntaxHighlighter>
         </Col>
       </Row>

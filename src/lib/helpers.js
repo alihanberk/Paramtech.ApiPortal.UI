@@ -1,4 +1,13 @@
+import { isEmpty } from "lodash";
 import { parameterTypes } from "./contants";
+
+export const objectFilterByEmptyValue = object => {
+  for (const [key, value] of Object.entries(object)) {
+    if (value === "")
+      delete object[key];
+  }
+  return Object.assign({}, object);
+};
 
 export const getParameterString = (obj, prefix) => {
 
@@ -26,9 +35,11 @@ export const endpointManipulation = (endpoint, value) => {
 }
 
 export const getQueryString = (data, requestParameter) => {
-  const
-    parameter = `${data.name}=${data.value}`;
-  requestParameter += `${requestParameter.indexOf("?") === -1 ? "?" : "&"}${parameter}`;
+  if (data.value !== "") {
+    const
+      parameter = `${data.name}=${data.value}`;
+    requestParameter += `${requestParameter.indexOf("?") === -1 ? "?" : "&"}${parameter}`;
+  }
 
   return requestParameter;
 }
@@ -43,13 +54,11 @@ export const bindParameters = (data, type, initialValue = "") => {
       case "header":
         if (x.value !== "") {
           parameter = `'${x.name}: ${x.value}'`;
-          requestParameter += `    -H ${parameter}\n`;
+          requestParameter += `   -H ${parameter}\n`;
         }
         break;
       case "query":
-        if (x.value !== "") {
-          requestParameter = getQueryString(x, requestParameter);
-        }
+        requestParameter = getQueryString(x, requestParameter);
         break;
       case "path":
         if (x.value !== "") {
@@ -78,20 +87,20 @@ export const groupingParameter = _parameters => {
 
 export const getRequestPayload = (token, currentEndpoint, parameters, queryType) => {
   const
-    _parameters = { headers: [], parameters: [], path: currentEndpoint.endpoint, url: "" };
+    _parameters = { headers: [], parameters: queryType === "stringQuery" ? "" : [], path: currentEndpoint.endpoint, url: "" };
   parameters.forEach(element => {
     if (element.place === parameterTypes.query) {
       if (queryType === "stringQuery")
-        getQueryString(element, _parameters.parameters)
-      else if (queryType === "objectQuery"){
+        _parameters.parameters = getQueryString(element, _parameters.parameters)
+      else if (queryType === "objectQuery") {
         console.log(element)
         _parameters.parameters[element["name"]] = element["value"];
       }
     }
     else if (element.place === parameterTypes.header)
       _parameters.headers[element["name"]] = element["value"];
-    else if (element.place === parameterTypes.path)
-      _parameters.path = endpointManipulation(_parameters.path, element["value"]);
+    else if (element.place === parameterTypes.path && element.value !== "")
+      _parameters.path = endpointManipulation(_parameters.path, element.value);
   });
   if (token)
     _parameters.headers["Authorization"] = token;
@@ -106,15 +115,15 @@ export const getcURL = ({ currentEndpoint, token, parameters, body }) => {
     endpoint = currentEndpoint.endpoint,
     url = "https://test_tenantapi.e-cozum.com",
     requestParameter = "",
-    requestHeader = "    -H 'Content-Type: application/json'\n",
+    requestHeader = " -H 'Content-Type: application/json'\n",
     requestBody = "",
     groupedData = groupingParameter(parameters);
 
   if (token) {
-    requestHeader += `    -H 'Authorization: ${token}' \n`;
+    requestHeader += `   -H 'Authorization: ${token}'\n`;
   };
   if (body) {
-    requestBody += `    -d '${JSON.stringify(body, undefined, 3)}' \n`
+    requestBody += `  -d '${JSON.stringify(body, undefined, 3)}'`
   }
 
   Object.keys(groupedData)?.map(key => {
@@ -128,15 +137,20 @@ export const getcURL = ({ currentEndpoint, token, parameters, body }) => {
     return true;
   })
 
-  return `curl -X ${currentEndpoint.method.toUpperCase()} '${url}${endpoint}${requestParameter}' \n${requestHeader} \n ${requestBody}`;
+  return `curl -X ${currentEndpoint.method.toUpperCase()} '${url}${endpoint}${requestParameter}'
+  ${requestHeader}
+  ${requestBody}`;
 }
 
 export const getFetchString = ({ currentEndpoint, token, parameters, body }) => {
-  let
-    endpoint = currentEndpoint.endpoint,
-    url = "https://test_tenantapi.e-cozum.com",
-    _parameters = getRequestPayload(token, currentEndpoint, parameters, "stringQuery");
-    console.log(_parameters);
+  const
+    _parameters = getRequestPayload(token, currentEndpoint, parameters, "stringQuery"),
+    _defaultHeaders = { "Content-Type": "application/json" },
+    headers = { ...objectFilterByEmptyValue(_parameters.headers), ..._defaultHeaders };
 
-  return `fetch('${url}${endpoint}', { \n method: '${currentEndpoint.method.toUpperCase()}',\n headers:  \n ${body ? `body: ${JSON.stringify(body, undefined, 3)}\n` : ""} } \n )`
+  return (`fetch('${_parameters.url}', { 
+    method: '${currentEndpoint.method.toUpperCase()}',
+    ${!isEmpty(headers) ? `headers: ${JSON.stringify(headers, undefined, 3)},` : ""}
+    ${body ? `body: ${JSON.stringify(body, undefined, 4)},` : ""}
+    })`).replaceAll('"', "'");
 }
