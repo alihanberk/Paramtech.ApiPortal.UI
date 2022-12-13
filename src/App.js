@@ -10,6 +10,7 @@ import { IntlProvider } from "react-intl";
 import { useSelector } from "react-redux";
 import tr from "../src/lang/tr.json";
 import en from "../src/lang/en.json";
+import Header from "components/Layout/Header";
 
 
 const
@@ -29,9 +30,8 @@ const App = () => {
     <IntlProvider locale={language} messages={locales[language]}>
       <ConfigProvider locale={antLocales[language]}>
         <Layout>
-          <Layout.Header className="space-between">
-            <Logo />
-            <LanguageSelection />
+          <Layout.Header className="header">
+            <Header />
           </Layout.Header>
           <Layout.Content>
             <Routes>
