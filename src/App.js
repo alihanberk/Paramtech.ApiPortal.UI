@@ -1,7 +1,5 @@
 import { ConfigProvider, Layout } from "antd";
 import "assets/less/main.less";
-import LanguageSelection from "components/layouts/headers/LanguageSelection";
-import Logo from "components/Logo";
 import { Route, Routes, Navigate } from "react-router-dom";
 import appRoutes from "routes";
 import trTR from "antd/lib/locale-provider/tr_TR";
@@ -10,7 +8,7 @@ import { IntlProvider } from "react-intl";
 import { useSelector } from "react-redux";
 import tr from "../src/lang/tr.json";
 import en from "../src/lang/en.json";
-import Header from "components/Layout/Header";
+import Header from "components/Layout/Header/Header";
 
 
 const
@@ -24,7 +22,7 @@ const
   };
 
 const App = () => {
-  const language = useSelector(({ app }) => app.language);
+  const language = useSelector(({ app }) => app.languageSlice.language);
 
   return (
     <IntlProvider locale={language} messages={locales[language]}>

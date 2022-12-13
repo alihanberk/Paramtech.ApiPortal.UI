@@ -1,0 +1,14 @@
+[
+  {
+    "id": "Param-Api",
+    "name": "label.paramApi"
+  },
+  {
+    "id": "Kredim-Api",
+    "name": "label.kredimApi"
+  },
+  {
+    "id": "Finrota-Api",
+    "name": "label.finrotaApi"
+  }
+]

@@ -1,3 +1,47 @@
-.header{
+.header {
   border-bottom: 1px solid #EEF0F4;
+
+  .header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo-svg {
+      >div {
+        .flex();
+      }
+    }
+
+    .navbar-container {
+      .full-width();
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+
+      .ant-menu {
+        .full-width();
+        display: flex;
+        background: transparent;
+        align-items: flex-start;
+        justify-content: flex-end;
+
+        .ant-menu-item {
+          margin-right: 24px;
+
+          .ant-menu-title-content {
+            font-family: 'Mark Pro';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            text-transform: capitalize;
+            color: white;
+          }
+        }
+      }
+    }
+  }
 }

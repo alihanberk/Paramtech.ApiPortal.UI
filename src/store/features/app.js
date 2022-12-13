@@ -42,7 +42,6 @@ export const appSlice = createSlice({
     responseContent: null,
     responseModelVisibility: [],
     requestBody: null,
-    language: "tr",
     requestLanguage: "bash"
   },
   reducers: {
@@ -82,9 +81,6 @@ export const appSlice = createSlice({
     },
     setRequestBody: (state, action) => {
       state.requestBody = action.payload
-    },
-    changeLanguage: (state, action) => {
-      state.language = action.payload
     },
     changeRequestLanguage: (state, action) => {
       state.requestLanguage = action.payload
@@ -130,6 +126,6 @@ export const appSlice = createSlice({
   }
 });
 
-export const { setCurrentOrganization, setCurrentProduct, setCurrentEndpoint, setParameters, setHeaders, setToken, setWarning, setDrawerVisible, setResponseContent, setModelVisibility, clearData, setRequestBody, changeLanguage, changeRequestLanguage } = appSlice.actions;
+export const { setCurrentOrganization, setCurrentProduct, setCurrentEndpoint, setParameters, setHeaders, setToken, setWarning, setDrawerVisible, setResponseContent, setModelVisibility, clearData, setRequestBody, changeRequestLanguage } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -1,5 +1,8 @@
 {
   "label.finrotaDescription": "Finansal Teknolojide Rota",
   "label.paramDescription": "Paradan Fazlası Param",
-  "label.mementoDescription": "Ödüllendirme Sistemi"
+  "label.mementoDescription": "Ödüllendirme Sistemi",
+  "label.finrotaApi": "Finrota APIs",
+  "label.paramApi": "Param APIs",
+  "label.kredimApi": "Kredim APIs"
 }

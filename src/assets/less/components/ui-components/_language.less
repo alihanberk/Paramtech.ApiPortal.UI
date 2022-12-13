@@ -1,0 +1,29 @@
+.lang-selection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .ant-divider-vertical{
+    top: 0;
+    border-left: 2px solid #C2BBCF;
+  }
+
+
+  .language {
+    cursor: pointer;
+    font-family: 'Mark Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    color: #C2BBCF;
+
+    &.active {
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+  }
+}
