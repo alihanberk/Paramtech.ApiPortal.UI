@@ -1,6 +1,8 @@
 import { isEmpty } from "lodash";
 import { parameterTypes } from "./contants";
 
+export const classNames = (classNamesList = []) => classNamesList.filter(x => x !== false && x !== undefined && x !== null && x !== "" && x !== "false").join(" ").trim();
+
 export const objectFilterByEmptyValue = object => {
   for (const [key, value] of Object.entries(object)) {
     if (value === "")

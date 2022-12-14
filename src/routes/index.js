@@ -1,5 +1,10 @@
 const appRoutes = [
   {
+    path: "/home",
+    name: "home",
+    component: require("pages/Home").default,
+  },
+  {
     path: "/organizations",
     name: "organizations",
     component: require("pages/Organizations").default,

@@ -40,7 +40,7 @@ const App = () => {
                   <Route key={route.name} path={route.path} element={<route.component />} />
                 ))
               }
-              <Route path="*" element={<Navigate to="/organizations" />} />
+              <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
           </Layout.Content>
         </Layout>
