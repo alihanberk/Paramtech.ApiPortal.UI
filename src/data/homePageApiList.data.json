@@ -1,0 +1,338 @@
+[
+  {
+    "key": "param",
+    "name": "Param APIs",
+    "color": "#450D87",
+    "children": [
+      {
+        "key": "sanalPos",
+        "name": "Sanal POS",
+        "children": [
+          {
+            "key": "sanal-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "sanal-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "sanal-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      },
+      {
+        "key": "paramTik",
+        "name": "ParamTIK",
+        "children": [
+          {
+            "key": "tik-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "tik-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "tik-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      },
+      {
+        "key": "kolatTahsilat",
+        "name": "Kolay Tahsilat",
+        "children": [
+          {
+            "key": "tahsilat-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "tahsilat-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "tahsilat-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      },
+      {
+        "key": "posMini",
+        "name": "POS Mini",
+        "children": [
+          {
+            "key": "mini-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "mini-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "mini-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      },
+      {
+        "key": "pazarYeri",
+        "name": "Pazaryeri",
+        "children": [
+          {
+            "key": "pazarYeri-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "pazarYeri-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "pazarYeri-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "kredim",
+    "name": "Kredim APIs",
+    "color": "#64CD84",
+    "children": [
+      {
+        "key": "sanalPos",
+        "name": "Sanal POS",
+        "children": [
+          {
+            "key": "sanal-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "sanal-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "sanal-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      },
+      {
+        "key": "paramTik",
+        "name": "ParamTIK",
+        "children": [
+          {
+            "key": "tik-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "tik-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "tik-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      },
+      {
+        "key": "kolatTahsilat",
+        "name": "Kolay Tahsilat",
+        "children": [
+          {
+            "key": "tahsilat-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "tahsilat-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "tahsilat-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      },
+      {
+        "key": "posMini",
+        "name": "POS Mini",
+        "children": [
+          {
+            "key": "mini-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "mini-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "mini-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      },
+      {
+        "key": "pazarYeri",
+        "name": "Pazaryeri",
+        "children": [
+          {
+            "key": "pazarYeri-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "pazarYeri-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "pazarYeri-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "finrota",
+    "name": "Finrota APIs",
+    "color": "#FF7420",
+    "children": [
+      {
+        "key": "sanalPos",
+        "name": "Sanal POS",
+        "children": [
+          {
+            "key": "sanal-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "sanal-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "sanal-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      },
+      {
+        "key": "paramTik",
+        "name": "ParamTIK",
+        "children": [
+          {
+            "key": "tik-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "tik-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "tik-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      },
+      {
+        "key": "kolatTahsilat",
+        "name": "Kolay Tahsilat",
+        "children": [
+          {
+            "key": "tahsilat-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "tahsilat-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "tahsilat-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      },
+      {
+        "key": "posMini",
+        "name": "POS Mini",
+        "children": [
+          {
+            "key": "mini-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "mini-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "mini-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      },
+      {
+        "key": "pazarYeri",
+        "name": "Pazaryeri",
+        "children": [
+          {
+            "key": "pazarYeri-payment-1",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "pazarYeri-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          },
+          {
+            "key": "pazarYeri-payment-2",
+            "name": "Payment",
+            "label": "Online payments"
+          }
+        ]
+      }
+    ]
+  }
+]

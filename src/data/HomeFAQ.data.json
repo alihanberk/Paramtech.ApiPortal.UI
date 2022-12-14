@@ -1,0 +1,21 @@
+  {
+    "key": "homeFAQ",
+    "name": "FAQ",
+    "questions": [
+      {
+        "key": "q1",
+        "name": "Lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+        "label": "Online payments"
+      },
+      {
+        "key": "q2",
+        "name": "Lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+        "label": "Online payments"
+      },
+      {
+        "key": "q3",
+        "name": "Lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+        "label": "Online payments"
+      }
+    ]
+  }

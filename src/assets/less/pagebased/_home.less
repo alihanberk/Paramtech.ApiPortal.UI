@@ -1,41 +1,61 @@
-.hero {
-  height: 515px;
+.home {
+  .hero {
+    height: 515px;
 
-  .hero-description {
-    display: flex;
-    align-items: center;
+    .hero-description {
+      display: flex;
+      align-items: center;
 
-    .description-header {
-      margin-bottom: 5px;
-      font-size: 26px;
-      font-weight: 700;
-    }
+      .description-header {
+        margin-bottom: 5px;
+        font-size: 26px;
+        font-weight: 700;
+      }
 
-    .description-input {
-      width: 559px;
-      height: 60px;
-      border: 1px solid #EEF0F4;
-    }
+      .description-input {
+        width: 559px;
+        height: 60px;
+        border: 1px solid #EEF0F4;
+      }
 
-    .svg-prefix {
-      >div {
-        display: flex;
+      .svg-prefix {
+        >div {
+          display: flex;
+          align-items: center;
+          margin: 0 8px;
+        }
+      }
+
+      .hero-button {
         align-items: center;
-        margin: 0 8px;
+        justify-content: center;
+        width: 300px;
+        height: 60px;
       }
     }
 
-    .hero-button {
-      align-items: center;
-      justify-content: center;
-      width: 300px;
-      height: 60px;
+    .hero-svg {
+      display: flex;
+      justify-content: end;
+      align-items: end;
+
+      .svg {
+        height: 80%;
+        width: 96%;
+
+        >div {
+          height: 100%;
+          width: 100%;
+        }
+      }
     }
   }
 
-  .hero-svg {
-    display: flex;
-    justify-content: end;
-    align-items: end;
+  .home-list {
+    .ant-divider {
+      &.home-list-divider {
+        border-top: 2px solid #EEF0F4;
+      }
+    }
   }
 }
