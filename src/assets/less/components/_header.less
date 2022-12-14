@@ -45,3 +45,18 @@
     }
   }
 }
+
+.ant-menu-horizontal {
+  &:not(.ant-menu-dark) {
+    .ant-menu-item-selected::after {
+      border-bottom: 1.5px solid #fff;
+    }
+    .ant-menu-item:hover::after {
+      border-bottom: 1.5px solid #fff;
+    }
+  }
+
+  .ant-menu-item::after {
+    bottom: 14px;
+  }
+}

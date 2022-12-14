@@ -1,6 +1,8 @@
 {
   "label.finrotaDescription": "Route in Financial Technology",
   "label.paramDescription": "More Than Money Param",
-  "label.mementoDescription": "Reward System"
-
+  "label.mementoDescription": "Reward System",
+  "label.finrotaApi": "Finrota APIs",
+  "label.paramApi": "Param APIs",
+  "label.kredimApi": "Kredim APIs"
 }

@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import tr from "../src/lang/tr.json";
 import en from "../src/lang/en.json";
 import Header from "components/Layout/Header/Header";
+import BrandHeader from "components/Layout/BrandHeader";
 
 
 const
@@ -31,6 +32,7 @@ const App = () => {
           <Layout.Header className="header">
             <Header />
           </Layout.Header>
+          <BrandHeader />
           <Layout.Content>
             <Routes>
               {
