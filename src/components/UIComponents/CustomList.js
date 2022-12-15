@@ -15,9 +15,9 @@ const CustomList = ({ data, type = "row" }) => {
       }
       <Col className={type === "row" ? "" : "space-between full-width"}>
         {
-          data.children.map(child => (
+          data.children.map((child, index) => (
             type === "row" ?
-              <Col className="mb-20" xs={24}>
+              <Col className="mb-20" xs={24} key={index}>
                 < Row >
                   <Col className="flex align-center mr-16">
                     <Button type="secondary" ><ReactSVG className="plus-svg" src={plus} /></Button>
@@ -35,7 +35,7 @@ const CustomList = ({ data, type = "row" }) => {
                 </Row>
               </Col >
               :
-              <Row className="column-type">
+              <Row className="column-type" key={index}>
                 <Col className="mb-20" xs={24}>
                   <Row>
                     <Col xs={24} className="flex align-center mr-16 mb-8">

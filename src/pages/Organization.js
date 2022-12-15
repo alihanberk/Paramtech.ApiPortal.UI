@@ -1,11 +1,9 @@
 import Content from "components/Layout/Content/Content";
 import OrganizationContent from "components/Organization";
 import React from "react";
-import { useSelector } from "react-redux";
 
-const Organization = () => {
-  const product = useSelector(({ app }) => app.appSlice.currentProduct);
-  console.log(product)
+const Organization = () => {  
+
   return (
     <div className="layout-container">
       <Content {...{
@@ -21,10 +19,10 @@ const Organization = () => {
               { title: "Deneme" },
               { title: "Deneme" }
             ],
-            organization: product
+            organization: ""
           }
         }
-      }} >
+      }}>
         <OrganizationContent />
       </Content>
     </div>

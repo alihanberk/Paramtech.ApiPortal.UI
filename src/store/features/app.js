@@ -1,6 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import service from "store/service";
 
+const initialState = {
+  currentOrganization: null,
+  currentProduct: null,
+  currentEndpoint: null,
+  apiDocumentation: {},
+  normalizedApiDocumentation: {},
+  parameters: {},
+  headerParams: [],
+  token: null,
+  warning: {},
+  drawerVisible: false,
+  requestResponse: {},
+  responseContent: null,
+  responseModelVisibility: [],
+  requestBody: null,
+  requestLanguage: "bash"
+}
+
 export const getApiDocumentation = createAsyncThunk("apiDocumentation/get",
   async (endpoint, thunkApi) => {
     try {
@@ -27,28 +45,15 @@ export const submitRequest = createAsyncThunk("exampleRequest",
 
 export const appSlice = createSlice({
   name: "app",
-  initialState: {
-    currentOrganization: null,
-    currentProduct: null,
-    currentEndpoint: null,
-    apiDocumentation: {},
-    normalizedApiDocumentation: {},
-    parameters: {},
-    headerParams: [],
-    token: null,
-    warning: {},
-    drawerVisible: false,
-    requestResponse: {},
-    responseContent: null,
-    responseModelVisibility: [],
-    requestBody: null,
-    requestLanguage: "bash"
-  },
+  initialState,
   reducers: {
     setCurrentOrganization: (state, action) => {
+      console.log("asf",action);
       state.currentOrganization = action.payload
     },
     setCurrentProduct: (state, action) => {
+      console.log("asf",action);
+
       state.currentProduct = action.payload
     },
     setCurrentEndpoint: (state, action) => {
@@ -126,6 +131,20 @@ export const appSlice = createSlice({
   }
 });
 
-export const { setCurrentOrganization, setCurrentProduct, setCurrentEndpoint, setParameters, setHeaders, setToken, setWarning, setDrawerVisible, setResponseContent, setModelVisibility, clearData, setRequestBody, changeRequestLanguage } = appSlice.actions;
+export const { 
+  setCurrentOrganization, 
+  setCurrentProduct, 
+  setCurrentEndpoint, 
+  setParameters, 
+  setHeaders,
+  setToken, 
+  setWarning, 
+  setDrawerVisible, 
+  setResponseContent, 
+  setModelVisibility, 
+  clearData, 
+  setRequestBody, 
+  changeRequestLanguage 
+} = appSlice.actions;
 
 export default appSlice.reducer;
