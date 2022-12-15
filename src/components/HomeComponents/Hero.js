@@ -6,9 +6,9 @@ import hero from "../../assets/img/hero.svg";
 import seacrhIcon from "../../assets/img/ui-icons/search.svg";
 import arrow from "../../assets/img/ui-icons/union.svg";
 
-const Hero = () => {
+const Hero = ({ hasLayout = true, withInput = true }) => {
   return (
-    <Row className="hero layout-container">
+    <Row className={`hero ${hasLayout && "layout-container"}`}>
       <Col className="hero-description mt-24" md={10}>
         <Row>
           <Col xs={24}>
@@ -17,9 +17,12 @@ const Hero = () => {
           <Col xs={24}>
             <Typography.P className="color-light-gray font-16 mb-24">Explore our guides and examples to integrate Param</Typography.P>
           </Col>
-          <Col xs={24}>
-            <Input prefix={<ReactSVG className="svg-prefix" src={seacrhIcon} />} className="description-input mb-40" placeholder="Search API or endpoint" />
-          </Col>
+          {
+            withInput &&
+            <Col xs={24}>
+              <Input prefix={<ReactSVG className="svg-prefix" src={seacrhIcon} />} className="description-input mb-40" placeholder="Search API or endpoint" />
+            </Col>
+          }
           <Col xs={24}>
             <Typography.H className="font-20 text-700 mb-8">Payment</Typography.H>
           </Col>

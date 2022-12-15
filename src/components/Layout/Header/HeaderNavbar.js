@@ -13,12 +13,13 @@ const Navbar = () => {
     navigate = useNavigate(),
     dispatch = useDispatch(),
 
-    handleClick = (key, route) => {
-      dispatch(setCurrentProduct(key));
+    handleClick = (route, key) => {
+      console.log(key);
+      key && dispatch(setCurrentProduct(key));
       navigate(route);
     },
 
-    navbarItem = Apis.map(api => ({ label: intl.formatMessage({ id: api.name }), key: api.id, onClick: () => handleClick(api.key, api.route) }));
+    navbarItem = Apis.map(api => ({ label: intl.formatMessage({ id: api.name }), key: api.id, onClick: () => handleClick(api.route, api.product) }));
 
   return (
     <div className="navbar-container">
