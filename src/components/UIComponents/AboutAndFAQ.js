@@ -12,7 +12,7 @@ const AboutAndFAQ = ({ data, FAQData }) => (
         ))
       }
     </Col>
-    <Col className="full-width faq" sm={12}>
+    <Col className="full-width faq" sm={{ span: 11, offset: 1 }}>
       <Typography.Label color="#000" className="font-16 text-700">{FAQData.name}</Typography.Label>
       <Row className="mt-16 flex direction-column">
         {

@@ -48,7 +48,7 @@ sans-serif;
 
 .generate-font-size(90);
 
-.generate-font-size(@n, @i: 12) when (@i =< @n) {
+.generate-font-size(@n, @i: 0) when (@i =< @n) {
   .font-@{i} {
     font-size:~"@{i}px";
   }

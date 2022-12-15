@@ -10,14 +10,14 @@ const appRoutes = [
     component: require("pages/Organizations").default,
   },
   {
-    path: "/organizations/:organizationId",
-    name: "products",
-    component: require("pages/Products").default,
-  },
-  {
     path: "/organizations/:organizationId/:applicationId",
     name: "products",
-    component: require("pages/Product").default,
+    component: require("pages/ProductOld").default,
+  },
+  {
+    path: "/organizations/:organizationId",
+    name: "organizations",
+    component: require("pages/Organization").default,
   }
 ];
 

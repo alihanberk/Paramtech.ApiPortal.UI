@@ -1,14 +1,17 @@
 [
   {
     "id": "Param-Api",
-    "name": "label.paramApi"
+    "name": "label.paramApi",
+    "route": "/organizations/param"
   },
   {
     "id": "Kredim-Api",
-    "name": "label.kredimApi"
+    "name": "label.kredimApi",
+    "route": "/organizations/kredim"
   },
   {
     "id": "Finrota-Api",
-    "name": "label.finrotaApi"
+    "name": "label.finrotaApi",
+    "route": "/organizations/finrota"
   }
 ]

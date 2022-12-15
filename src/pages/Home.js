@@ -22,7 +22,7 @@ const Home = () => {
           ))
         }
       </div>
-      <div className="layout-container">
+      <div className="layout-container pb-96">
         <AboutAndFAQ {...{ data: testList, FAQData: FAQ }} />
       </div>
     </div>

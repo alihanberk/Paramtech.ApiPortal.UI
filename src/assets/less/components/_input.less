@@ -4,6 +4,11 @@
     font-size: 14px;
   }
 
+  &.input-type-secondary {
+    background: #FCFCFD;
+    border: 1px solid #E6E9EE;
+  }
+
 
   &.parameters-input {
     height: 100%;
@@ -21,6 +26,25 @@
 }
 
 .ant-input-affix-wrapper {
+
+  .ant-input-prefix {
+    .svg-prefix {
+      >div {
+        display: flex;
+        align-items: center;
+        margin: 0 8px;
+      }
+    }
+  }
+
+  &.input-type-secondary {
+    background: #FCFCFD;
+    border: 1px solid #E6E9EE;
+
+    input{
+      background: #FCFCFD;
+    }
+  }
 
 
   &.search-input {
