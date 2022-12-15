@@ -1,8 +1,12 @@
 import Content from "components/Layout/Content/Content";
 import OrganizationContent from "components/Organization";
 import React from "react";
+import { useSelector } from "react-redux";
+import app from "store/features/app";
 
 const Organization = () => {
+  const product = useSelector(({ app }) => app.appSlice.currentProduct);
+  console.log(product)
   return (
     <div className="layout-container">
       <Content {...{

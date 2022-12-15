@@ -4,17 +4,21 @@ import Apis from "data/navbar.data.json";
 import { useIntl } from "react-intl";
 import LanguageSelection from "components/UIComponents/LanguageSelection";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCurrentProduct } from "store/features/app";
 
 const Navbar = () => {
   const
     intl = useIntl(),
     navigate = useNavigate(),
+    dispatch = useDispatch(),
 
-    handleClick = route => {
-      navigate(route)
+    handleClick = (key, route) => {
+      dispatch(setCurrentProduct(key));
+      navigate(route);
     },
 
-    navbarItem = Apis.map(api => ({ label: intl.formatMessage({ id: api.name }), key: api.id, onClick: () => handleClick(api.route) }));
+    navbarItem = Apis.map(api => ({ label: intl.formatMessage({ id: api.name }), key: api.id, onClick: () => handleClick(api.key, api.route) }));
 
   return (
     <div className="navbar-container">
