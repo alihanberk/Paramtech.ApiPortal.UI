@@ -1,22 +1,13 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import apiList from "data/homePageApiList.data.json";
 import testList from "data/homePageTest.data.json";
 import FAQ from "data/HomeFAQ.data.json";
 import { AboutAndFAQ, Hero, SummaryList } from "components/UIComponents";
-import { useLocation } from "react-router-dom";
-import { setCurrentProduct } from "store/features/app";
 
 const OrganizationContent = () => {
-  const product = useSelector(({ app }) => app.appSlice.currentProduct),
-    data = apiList.find(x => x.key === product),
-    location = useLocation(),
-    dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!product && location.pathname.split("/")[2])
-      dispatch(setCurrentProduct(location.pathname.split("/")[2]))
-  }, [product, location])
+  const organization = useSelector(({ app }) => app.appSlice.currentOrganization),
+    data = apiList.find(x => x.key === organization);
 
   return (
     <div>
@@ -25,7 +16,7 @@ const OrganizationContent = () => {
       </div>
       <div className="mb-48">
         {
-          product &&
+          organization &&
           <SummaryList {...{ data, isSeenAll: false }} />
         }
       </div>

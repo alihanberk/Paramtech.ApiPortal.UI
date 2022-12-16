@@ -1,0 +1,37 @@
+[
+  {
+    "key": "netekstre",
+    "route": "netekstre",
+    "name": "Netekstre"
+  },
+  {
+    "key": "tos",
+    "route": "tos",
+    "name": "TÖS"
+  },
+  {
+    "key": "netahsilat",
+    "route": "netahsilat",
+    "name": "Netahsilat"
+  },
+  {
+    "key": "posrapor",
+    "route": "posrapor",
+    "name": "Posrapor"
+  },
+  {
+    "key": "dbs",
+    "route": "dbs",
+    "name": "DBS"
+  },
+  {
+    "key": "tenant",
+    "route": "tenant",
+    "name": "Tenant"
+  },
+  {
+    "key": "pos",
+    "route": "pos",
+    "name": "POS"
+  }
+]

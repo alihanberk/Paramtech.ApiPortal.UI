@@ -56,6 +56,16 @@ sans-serif;
   .generate-font-size(@n, (@i + 2));
 }
 
+.generate-line-height(90);
+
+.generate-line-height(@n, @i: 0) when (@i =< @n) {
+  .line-@{i} {
+    line-height:~"@{i}px";
+  }
+
+  .generate-line-height(@n, (@i + 2));
+}
+
 h3,
 h3.ant-typography {
   .text-500();

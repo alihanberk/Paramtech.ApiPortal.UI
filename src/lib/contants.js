@@ -34,12 +34,23 @@ const
   requestTypes = [
     { type: "bash", function: payload => getcURL(payload) },
     { type: "js", function: payload => getFetchString(payload) },
-  ]
+  ],
+
+  moduleTypes = {
+    netekstre: "nte",
+    netahsilat: "nth",
+    tenant: "tenant",
+    pos: "pos",
+    tos: "tos",
+    posrapor: "posrapor",
+    dbs: "dbs"
+  }
 
 export {
   methodColors,
   statusColor,
   httpMethods,
   parameterTypes,
-  requestTypes
+  requestTypes,
+  moduleTypes
 };

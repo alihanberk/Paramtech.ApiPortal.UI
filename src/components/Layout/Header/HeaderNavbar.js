@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import LanguageSelection from "components/UIComponents/LanguageSelection";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCurrentProduct } from "store/features/app";
+import { setCurrentOrganization } from "store/features/app";
 
 const Navbar = () => {
   const
@@ -15,7 +15,7 @@ const Navbar = () => {
 
     handleClick = (route, key) => {
       console.log(key);
-      key && dispatch(setCurrentProduct(key));
+      key && dispatch(setCurrentOrganization(key));
       navigate(route);
     },
 

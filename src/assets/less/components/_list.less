@@ -1,4 +1,15 @@
 .ant-list {
+  &.scrollable-menu {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 60vh;
+    scrollbar-width: none;
+  }
+
+  &.scrollable-menu::-webkit-scrollbar {
+    display: none;
+  }
+
   &.clickable {
     cursor: pointer;
 
@@ -23,7 +34,8 @@
 
       .ant-list-item {
         border-bottom: 1px solid #f0f0f0;
-        &:hover{
+
+        &:hover {
           border-bottom: none;
         }
       }

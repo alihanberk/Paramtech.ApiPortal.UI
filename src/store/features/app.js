@@ -31,6 +31,7 @@ export const appSlice = createSlice({
     currentOrganization: null,
     currentProduct: null,
     currentEndpoint: null,
+    currentTag: null,
     apiDocumentation: {},
     normalizedApiDocumentation: {},
     parameters: {},
@@ -42,7 +43,8 @@ export const appSlice = createSlice({
     responseContent: null,
     responseModelVisibility: [],
     requestBody: null,
-    requestLanguage: "bash"
+    requestLanguage: "bash",
+    environment: "test"
   },
   reducers: {
     setCurrentOrganization: (state, action) => {
@@ -54,6 +56,9 @@ export const appSlice = createSlice({
     setCurrentEndpoint: (state, action) => {
       state.requestResponse = {}
       state.currentEndpoint = action.payload
+    },
+    setCurrentTag: (state, action) => {
+      state.currentTag = action.payload
     },
     setParameters: (state, action) => {
       state.parameters = action.payload;
@@ -87,6 +92,9 @@ export const appSlice = createSlice({
     },
     clearData: (state, action) => {
       action.payload.forEach(x => (state[x.key] = x.initialState))
+    },
+    setEnvironment: (state, action) => {
+      state.environment = action.payload
     }
   },
 
@@ -105,8 +113,8 @@ export const appSlice = createSlice({
             else {
               data[tag] = [{ method: key, data: value, endpoint: apiKey }]
             }
-            if (!tags.includes(tag))
-              tags.push(tag);
+            if (!tags.find(x => x.name === tag))
+              tags.push({ name: tag, key: tag });
           });
         }
       };
@@ -126,6 +134,22 @@ export const appSlice = createSlice({
   }
 });
 
-export const { setCurrentOrganization, setCurrentProduct, setCurrentEndpoint, setParameters, setHeaders, setToken, setWarning, setDrawerVisible, setResponseContent, setModelVisibility, clearData, setRequestBody, changeRequestLanguage } = appSlice.actions;
+export const {
+  setEnvironment,
+  setCurrentOrganization,
+  setCurrentProduct,
+  setCurrentEndpoint,
+  setCurrentTag,
+  setParameters,
+  setHeaders,
+  setToken,
+  setWarning,
+  setDrawerVisible,
+  setResponseContent,
+  setModelVisibility,
+  clearData,
+  setRequestBody,
+  changeRequestLanguage
+} = appSlice.actions;
 
 export default appSlice.reducer;
