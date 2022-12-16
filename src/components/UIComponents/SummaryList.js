@@ -5,8 +5,8 @@ import Typography from "./Typography";
 
 const SummaryList = ({ data, type, isSeenAll = true }) => {
   return (
-    <Row className="summary-list">
-      <Col xs={24} className="flex align-center justify-start">
+    <Row className="summary-list mb-48">
+        <Col xs={24} className="flex align-center justify-start">
         {
           data.name &&
           <Typography.H className="font-32 text-600 mr-24" >{data.name}</Typography.H>

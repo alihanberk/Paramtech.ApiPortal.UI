@@ -6,7 +6,7 @@ import hero from "../../assets/img/hero.svg";
 import seacrhIcon from "../../assets/img/ui-icons/search.svg";
 import arrow from "../../assets/img/ui-icons/union.svg";
 
-const Hero = ({ hasLayout = true, withInput = true }) => {
+const Hero = ({ hasLayout = true, withInput = true, buttonSuffix = true }) => {
   return (
     <Row className={`hero ${hasLayout && "layout-container"}`}>
       <Col className="hero-description mt-24" md={10}>
@@ -31,8 +31,11 @@ const Hero = ({ hasLayout = true, withInput = true }) => {
           </Col>
           <Col xs={24}>
             <Button type="primary" className="flex hero-button">
-              <span className="font-16 mr-8">Explore</span>
-              <ReactSVG src={arrow} />
+              <span className="font-16">Explore</span>
+              {
+                buttonSuffix &&
+                <ReactSVG className="ml-8" src={arrow} />
+              }
             </Button>
           </Col>
         </Row>

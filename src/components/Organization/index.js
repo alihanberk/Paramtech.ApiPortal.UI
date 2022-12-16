@@ -1,21 +1,33 @@
-import Hero from "components/HomeComponents/Hero";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import apiList from "data/homePageApiList.data.json";
 import testList from "data/homePageTest.data.json";
 import FAQ from "data/HomeFAQ.data.json";
-import { AboutAndFAQ, SummaryList } from "components/UIComponents";
+import { AboutAndFAQ, Hero, SummaryList } from "components/UIComponents";
+import { useLocation } from "react-router-dom";
+import { setCurrentProduct } from "store/features/app";
 
 const OrganizationContent = () => {
-  const product = useSelector(({ app }) => app.appSlice.currentProduct);
+  const product = useSelector(({ app }) => app.appSlice.currentProduct),
+    data = apiList.find(x => x.key === product),
+    location = useLocation(),
+    dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!product && location.pathname.split("/")[2])
+      dispatch(setCurrentProduct(location.pathname.split("/")[2]))
+  }, [product, location])
 
   return (
     <div>
       <div className="mb-48">
-        <Hero {...{ hasLayout: false, withInput: false }} />
+        <Hero {...{ title: data?.name }} />
       </div>
       <div className="mb-48">
-        <SummaryList {...{ data: apiList.find(x => x.key === product), isSeenAll: false }} />
+        {
+          product &&
+          <SummaryList {...{ data, isSeenAll: false }} />
+        }
       </div>
       <div>
         <AboutAndFAQ {...{ data: testList, FAQData: FAQ }} />
