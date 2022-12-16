@@ -1,24 +1,7 @@
-const appRoutes = [
-  {
-    path: "/home",
-    name: "home",
-    component: require("pages/Home").default,
-  },
-  {
-    path: "/organizations",
-    name: "organizations",
-    component: require("pages/Organizations").default,
-  },
-  {
-    path: "/organizations/:organizationId/:applicationId",
-    name: "products",
-    component: require("pages/ProductOld").default,
-  },
-  {
-    path: "/organizations/:organizationId",
-    name: "organizations",
-    component: require("pages/Organization").default,
-  }
-];
+import { useRoutes } from 'react-router-dom';
+import MainRoutes from "./MainRoutes";
+import OrganizationRoutes from "./OrganizationRoutes";
 
-export default appRoutes;
+export default function Router() {
+  return useRoutes([MainRoutes, OrganizationRoutes]);
+};

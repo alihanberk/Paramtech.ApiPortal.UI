@@ -7,8 +7,8 @@ const AboutAndFAQ = ({ data, FAQData }) => (
   <Row className="aboutAndFAQ">
     <Col sm={12}>
       {
-        data.map(data => (
-          <SummaryList {...{ data, type: "column", isSeenAll: false }} />
+        data.map((data, index) => (
+          <SummaryList {...{ data, type: "column", isSeenAll: false }} key={index} />
         ))
       }
     </Col>

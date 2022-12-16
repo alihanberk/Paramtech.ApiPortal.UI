@@ -19,8 +19,8 @@ const SummaryList = ({ data, type, isSeenAll = true }) => {
       <Col xs={24}>
         <Row className="list-grid">
           {
-            data.children?.map(child => (
-              <Col>
+            data.children?.map((child, index) => (
+              <Col key={index}>
                 <CustomList {...{ data: child, type }} />
               </Col>
             ))
