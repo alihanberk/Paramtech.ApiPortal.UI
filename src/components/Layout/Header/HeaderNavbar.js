@@ -5,30 +5,31 @@ import { useIntl } from "react-intl";
 import LanguageSelection from "components/UIComponents/LanguageSelection";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCurrentOrganization } from "store/features/app";
+import { clearOrganizationState, setCurrentOrganization } from "store/features/organization";
 
 const Navbar = () => {
   const
     intl = useIntl(),
     navigate = useNavigate(),
     dispatch = useDispatch(),
+    clearFields = ["currentOrganization", "currentTag", "currentEndpoint", "currentProduct"],
 
-    handleClick = (route, key) => {
-      console.log(key);
+    handleClick = (route, key, fields) => {
+      dispatch(clearOrganizationState(fields))
       key && dispatch(setCurrentOrganization(key));
       navigate(route);
     },
 
-    navbarItem = Apis.map(api => ({ label: intl.formatMessage({ id: api.name }), key: api.id, onClick: () => handleClick(api.route, api.product) }));
+    navbarItem = Apis.map(api => ({ label: intl.formatMessage({ id: api.name }), key: api.id, onClick: () => handleClick(api.route, api.product, clearFields) }));
 
   return (
     <div className="navbar-container">
       <Menu
         mode="horizontal"
         items={[
-          { label: "Home", key: "home", onClick: () => handleClick("home") },
+          { label: "Home", key: "home", onClick: () => handleClick("home", null, clearFields) },
           ...navbarItem,
-          { label: "FAQ", key: "faq", onClick: () => handleClick("faq") }
+          { label: "FAQ", key: "faq", onClick: () => handleClick("faq", null, clearFields) }
         ]}
       />
       <LanguageSelection />

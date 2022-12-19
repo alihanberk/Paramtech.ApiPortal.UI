@@ -9,7 +9,7 @@ import { getRequestPayload } from "lib/helpers";
 import { requestTypes } from "lib/contants";
 
 const Request = () => {
-  const [parameters, currentEndpoint, token, warning, body, requestLanguage] = useSelector(({ app }) => [app.appSlice.parameters, app.appSlice.currentEndpoint, app.appSlice.token, app.appSlice.warning, app.appSlice.requestBody, app.appSlice.requestLanguage]),
+  const [parameters, currentEndpoint, token, warning, body, requestLanguage] = useSelector(({ app }) => [app.appSlice.parameters, app.organization.currentEndpoint, app.appSlice.token, app.appSlice.warning, app.appSlice.requestBody, app.appSlice.requestLanguage]),
     dispatch = useDispatch(),
     [isCopy, setCopy] = useState(false),
 

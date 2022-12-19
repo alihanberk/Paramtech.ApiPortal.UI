@@ -28,10 +28,6 @@ export const submitRequest = createAsyncThunk("exampleRequest",
 export const appSlice = createSlice({
   name: "app",
   initialState: {
-    currentOrganization: null,
-    currentProduct: null,
-    currentEndpoint: null,
-    currentTag: null,
     apiDocumentation: {},
     normalizedApiDocumentation: {},
     parameters: {},
@@ -47,19 +43,6 @@ export const appSlice = createSlice({
     environment: "test"
   },
   reducers: {
-    setCurrentOrganization: (state, action) => {
-      state.currentOrganization = action.payload
-    },
-    setCurrentProduct: (state, action) => {
-      state.currentProduct = action.payload
-    },
-    setCurrentEndpoint: (state, action) => {
-      state.requestResponse = {}
-      state.currentEndpoint = action.payload
-    },
-    setCurrentTag: (state, action) => {
-      state.currentTag = action.payload
-    },
     setParameters: (state, action) => {
       state.parameters = action.payload;
     },
@@ -136,10 +119,6 @@ export const appSlice = createSlice({
 
 export const {
   setEnvironment,
-  setCurrentOrganization,
-  setCurrentProduct,
-  setCurrentEndpoint,
-  setCurrentTag,
   setParameters,
   setHeaders,
   setToken,

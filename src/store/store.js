@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import appSlice from "./features/app";
 import languageSlice from "./features/language";
+import organization from "./features/organization";
 
 const reducers = combineReducers({
 	appSlice,
-	languageSlice
+	languageSlice,
+	organization
 })
 
 export const store = configureStore({

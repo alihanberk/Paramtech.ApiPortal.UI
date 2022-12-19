@@ -9,7 +9,7 @@ import Response from "./components/Response";
 
 
 const RequestComponents = () => {
-  const [apiDocumentation, currentEndpoint] = useSelector(({ app }) => [app.appSlice.apiDocumentation, app.appSlice.currentEndpoint]),
+  const [apiDocumentation, currentEndpoint] = useSelector(({ app }) => [app.appSlice.apiDocumentation, app.organization.currentEndpoint]),
     selectedEndpoint = apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method],
     dispatch = useDispatch(),
 

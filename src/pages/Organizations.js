@@ -3,7 +3,7 @@ import organizations from "data/organizations.data.json";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setCurrentOrganization } from "store/features/app";
+import { setCurrentOrganization } from "store/features/organization";
 
 const Organizations = () => {
   const

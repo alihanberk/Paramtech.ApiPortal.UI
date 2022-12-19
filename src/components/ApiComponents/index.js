@@ -5,7 +5,7 @@ import RequestComponents from "./Request";
 
 const ApiComponents = () => {
   const
-    currentEndpoint = useSelector(({ app }) => app.appSlice.currentEndpoint);
+    currentEndpoint = useSelector(({ app }) => app.organization.currentEndpoint);
 
   return (
     <div className="api-docs-content" style={{ position: "relative", width: "100%" }}>

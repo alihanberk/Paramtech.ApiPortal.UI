@@ -3,10 +3,11 @@ import OrganizationContent from "components/Organization";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { setCurrentOrganization, setCurrentProduct } from "store/features/app";
+import { clearOrganizationState, setCurrentOrganization, setCurrentProduct } from "store/features/organization";
 
 const Organization = () => {
-  const organization = useSelector(({ app }) => app.appSlice.currentOrganization),
+  const
+    organization = useSelector(({ app }) => app.organization.currentOrganization),
     importList = organization ? require(`../data/${organization}ProductName.data.json`) : [],
     params = useParams(),
 
@@ -27,6 +28,7 @@ const Organization = () => {
   },
 
     handleBackButton = () => {
+      dispatch(clearOrganizationState(["currentOrganization"]))
       navigate("/home");
     }
 

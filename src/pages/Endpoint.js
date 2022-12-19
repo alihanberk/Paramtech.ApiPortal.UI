@@ -4,7 +4,8 @@ import { moduleTypes } from "lib/contants";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { clearData, getApiDocumentation, setCurrentEndpoint, setCurrentOrganization, setCurrentProduct, setCurrentTag } from "store/features/app";
+import { clearData, getApiDocumentation } from "store/features/app";
+import { setCurrentEndpoint, setCurrentOrganization, setCurrentProduct, setCurrentTag } from "store/features/organization";
 
 const Endpoint = () => {
   const [
@@ -15,12 +16,12 @@ const Endpoint = () => {
     currentEndpoint,
     currentTag
   ] = useSelector(({ app }) => [
-    app.appSlice.currentOrganization,
+    app.organization.currentOrganization,
     app.appSlice.environment,
-    app.appSlice.currentProduct,
+    app.organization.currentProduct,
     app.appSlice.normalizedApiDocumentation,
-    app.appSlice.currentEndpoint,
-    app.appSlice.currentTag
+    app.organization.currentEndpoint,
+    app.organization.currentTag
   ]),
     params = useParams(),
     [listData, setListdata] = useState({ header: "", list: [], field: "" }),

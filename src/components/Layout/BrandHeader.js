@@ -3,10 +3,13 @@ import React from "react";
 import { DownOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { setEnvironment } from "store/features/app";
+import { upperCaseFirstLetter } from "lib/helpers";
 
 const BrandHeader = () => {
   const
     dispatch = useDispatch(),
+    [environment, currentProduct, organizations, currentTag] = useSelector(({ app }) => [app.appSlice.environment, app.organization.currentProduct, app.organization.currentOrganization, app.organization.currentTag]),
+
     handleChangeEnv = (e) => {
       dispatch(setEnvironment(e.key));
     },
@@ -19,12 +22,15 @@ const BrandHeader = () => {
         <Menu.Item key="dev" className="env-item">DEV</Menu.Item>
       </Menu>
     ),
-    environment = useSelector(({ app }) => app.appSlice.environment);
+
+    getRouteString = () => {
+      return `Home${organizations ? `  \xa0/\xa0 ${upperCaseFirstLetter(organizations)}` : ""}${currentProduct ? ` \xa0/\xa0 ${upperCaseFirstLetter(currentProduct)}` : ""}${currentTag ? ` \xa0/\xa0 ${upperCaseFirstLetter(currentTag)}` : ""}`
+    }
 
   return (
     <div className="brand-header space-between layout-container">
-      <div>
-        Home
+      <div className="font-14 text-400 color-black">
+        {getRouteString()}
       </div>
       <Dropdown
         trigger={["click"]}

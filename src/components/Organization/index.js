@@ -6,7 +6,7 @@ import FAQ from "data/HomeFAQ.data.json";
 import { AboutAndFAQ, Hero, SummaryList } from "components/UIComponents";
 
 const OrganizationContent = () => {
-  const organization = useSelector(({ app }) => app.appSlice.currentOrganization),
+  const organization = useSelector(({ app }) => app.organization.currentOrganization),
     data = apiList.find(x => x.key === organization);
 
   return (

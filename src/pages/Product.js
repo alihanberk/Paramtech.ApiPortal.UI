@@ -3,7 +3,8 @@ import { moduleTypes } from "lib/contants";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { clearData, getApiDocumentation, setCurrentEndpoint, setCurrentOrganization, setCurrentProduct, setCurrentTag } from "store/features/app";
+import { clearData, getApiDocumentation } from "store/features/app";
+import { clearOrganizationState, setCurrentEndpoint, setCurrentOrganization, setCurrentProduct, setCurrentTag } from "store/features/organization";
 
 const Product = () => {
   const [
@@ -14,12 +15,12 @@ const Product = () => {
     currentEndpoint,
     currentTag
   ] = useSelector(({ app }) => [
-    app.appSlice.currentOrganization,
+    app.organization.currentOrganization,
     app.appSlice.environment,
-    app.appSlice.currentProduct,
+    app.organization.currentProduct,
     app.appSlice.normalizedApiDocumentation,
-    app.appSlice.currentEndpoint,
-    app.appSlice.currentTag
+    app.organization.currentEndpoint,
+    app.organization.currentTag
   ]),
     params = useParams(),
     [listData, setListdata] = useState({ header: "", list: [], field: "" }),
@@ -43,7 +44,6 @@ const Product = () => {
   const
     handleClick = (e, item) => {
       e.stopPropagation();
-      console.log(currentTag)
       if (currentTag) {
         if (item)
           dispatch(setCurrentEndpoint(item))
@@ -64,10 +64,11 @@ const Product = () => {
 
     handleBackButton = () => {
       if (!currentTag) {
+        dispatch(clearOrganizationState(["currentProduct"]))
         navigate(`/organizations/${organization}`);
       }
       else {
-        dispatch(clearData([{ key: "currentTag", initialState: null }]))
+        dispatch(clearOrganizationState(["currentTag"]))
       }
     }
 
