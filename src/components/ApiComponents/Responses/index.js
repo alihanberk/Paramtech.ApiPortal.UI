@@ -26,7 +26,7 @@ const Responses = forwardRef((_, ref) => {
     };
 
   useImperativeHandle(ref, () => ({ handleModalButton }))
-  console.log(responses)
+
   return (
     <Modal
       width={1100}

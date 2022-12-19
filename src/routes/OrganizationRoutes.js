@@ -11,7 +11,7 @@ const
 const OrganizationRoutes = {
     path: '/',
     element: (
-        <MainLayout />
+        <MainLayout withSider />
     ),
     children: [
         {

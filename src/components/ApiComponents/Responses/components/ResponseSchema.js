@@ -23,7 +23,7 @@ const ResponseSchema = ({ schemas }) => {
         const array = _content?.items?.["$ref"]?.split("/"),
           header = array?.[array?.length - 1],
           itemArray = apiDocumentation.components.schemas[header];
-        console.log(_content)
+
         return (
           <Row>
             <Col sm={24} >

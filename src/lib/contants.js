@@ -44,7 +44,13 @@ const
     tos: "tos",
     posrapor: "posrapor",
     dbs: "dbs"
-  }
+  },
+
+pageTypes = {
+  product: "product",
+  organization: "organization",
+  endpoint: "endpoint"
+}
 
 export {
   methodColors,
@@ -52,5 +58,6 @@ export {
   httpMethods,
   parameterTypes,
   requestTypes,
-  moduleTypes
+  moduleTypes,
+  pageTypes
 };

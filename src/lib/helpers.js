@@ -97,7 +97,6 @@ export const getRequestPayload = (token, currentEndpoint, parameters, queryType)
       if (queryType === "stringQuery")
         _parameters.parameters = getQueryString(element, _parameters.parameters)
       else if (queryType === "objectQuery") {
-        console.log(element)
         _parameters.parameters[element["name"]] = element["value"];
       }
     }
