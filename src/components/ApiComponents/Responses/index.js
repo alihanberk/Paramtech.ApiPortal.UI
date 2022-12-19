@@ -12,7 +12,7 @@ const Responses = forwardRef((_, ref) => {
   const
     { isOpenModal, onOpenModal, onCloseModal } = useModal(),
     responses = useSelector(({ app }) => {
-      const { apiDocumentation, currentEndpoint } = app;
+      const { apiDocumentation, currentEndpoint } = app.appSlice;
       return apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method]?.responses
     }),
     dispatch = useDispatch(),

@@ -1,9 +1,44 @@
-import { Card, List } from "antd";
-import React from "react";
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Card, List, Switch, Tag } from "antd";
+import React, { useState } from "react";
+import { LeftOutlined, RightOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { methodColors } from "lib/contants";
+import { useSelector } from "react-redux";
 
 const MenuList = ({ data }) => {
-  console.log(data)
+  const
+    currentTag = useSelector(({ app }) => app.appSlice.currentTag),
+    [descriptions, showDescriptions] = useState(false),
+
+    RenderItem = ({ item }) => (
+      data.withTag ?
+        <div className="flex">
+          <Tag className="text-center pl-8 pr-8 pt-4 pb-4 border-none" color={methodColors[item.method]}>{item.method}</Tag>
+          <div>
+            <div style={{ fontWeight: descriptions ? "bold" : "normal" }}>{item.endpoint}</div>
+            {
+              descriptions &&
+              <label>{item.data.summary}</label>
+            }
+          </div>
+        </div>
+        :
+        <span>{item[data.field]}</span>
+    ),
+
+    Footer = () => (
+      <div className="p-24 space-between color-black font-14 text-400">
+        <div>
+          <span>{currentTag}</span>
+        </div>
+        <div>
+          <Switch
+            checkedChildren={<EyeOutlined />}
+            unCheckedChildren={<EyeInvisibleOutlined />}
+          />
+        </div>
+      </div>
+    )
+
   return (
     <div className="menu-list-container">
       {
@@ -27,12 +62,16 @@ const MenuList = ({ data }) => {
             renderItem={item => (
               <div onClick={e => data.onClick(e, item)} key={item.key} className={`list-item ${data.organizationOrProduct}`}>
                 <List.Item className="pt-24 pb-24 ml-24 mr-24">
-                  <span>{item[data.field]}</span>
+                  <RenderItem item={item} />
                   <RightOutlined className="font-10" />
                 </List.Item>
               </div>
             )}
           />
+          {
+            data.withFooter &&
+            <Footer />
+          }
         </Card>
       </div>
     </div >

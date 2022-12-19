@@ -43,6 +43,7 @@ const Product = () => {
   const
     handleClick = (e, item) => {
       e.stopPropagation();
+      console.log(currentTag)
       if (currentTag) {
         if (item)
           dispatch(setCurrentEndpoint(item))
@@ -76,7 +77,8 @@ const Product = () => {
     else
       setListdata({ header: "Go Back to Product List", field: "name" })
   }, [currentTag, apiDocumentation.data])
-  console.log(apiDocumentation.data, currentTag, apiDocumentation.data?.[currentTag], listData.list)
+
+
   return (
     <div className="layout-container">
       <Content {...{
@@ -92,7 +94,9 @@ const Product = () => {
             organizationOrProduct: organization,
             onBack: handleBackButton,
             clickable: true,
-            field: listData.field
+            field: listData.field,
+            withTag: !!currentTag,
+            withFooter: !!currentTag
           }
         }
       }} >

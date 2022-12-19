@@ -10,7 +10,7 @@ import { setRequestBody } from "store/features/app";
 
 const Editor = () => {
   const
-    [apiDocumentation, currentEndpoint, content, body] = useSelector(({ app }) => [app.apiDocumentation, app.currentEndpoint, app.responseContent, app.requestBody]),
+    [apiDocumentation, currentEndpoint, content, body] = useSelector(({ app }) => [app.appSlice.apiDocumentation, app.appSlicecurrentEndpoint, app.appSlice.responseContent, app.appSlice.requestBody]),
     selectedEndpoint = apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method],
     dispatch = useDispatch(),
 

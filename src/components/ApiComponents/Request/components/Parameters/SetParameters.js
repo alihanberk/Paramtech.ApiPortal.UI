@@ -7,7 +7,7 @@ import { parameterTypes } from "lib/contants";
 
 
 const SetParameters = () => {
-  const [currentEndpoint, apiDocumentation, parameters] = useSelector(({ app }) => [app.currentEndpoint, app.apiDocumentation, app.parameters]),
+  const [currentEndpoint, apiDocumentation, parameters] = useSelector(({ app }) => [app.appSlice.currentEndpoint, app.appSlice.apiDocumentation, app.appSlice.parameters]),
     dispatch = useDispatch(),
 
     handleChangeParameters = (key, value, dataKey) => {
