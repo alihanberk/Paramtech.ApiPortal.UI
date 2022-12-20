@@ -49,7 +49,7 @@ const
 pageTypes = {
   product: "product",
   organization: "organization",
-  endpoint: "endpoint"
+  developer: "developer"
 }
 
 export {

@@ -30,7 +30,7 @@ export const appSlice = createSlice({
   initialState: {
     apiDocumentation: {},
     normalizedApiDocumentation: {},
-    parameters: {},
+    parameters: [],
     headerParams: [],
     token: null,
     warning: {},

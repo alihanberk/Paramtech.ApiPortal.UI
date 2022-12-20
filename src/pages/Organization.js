@@ -1,5 +1,6 @@
 import Content from "components/Layout/Content/Content";
 import OrganizationContent from "components/Organization";
+import { pageTypes } from "lib/contants";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearSiderProps, setSiderProps } from "store/features/sider";
@@ -12,7 +13,7 @@ const Organization = () => {
 
   useEffect(() => () => {
     dispatch(clearSiderProps());
-  });
+  }, [dispatch]);
 
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const Organization = () => {
           organizationOrProduct: organization,
           clickable: true,
           field: "name",
-          type: "organization"
+          page: pageTypes.organization
         }
       }
     dispatch(setSiderProps(list));

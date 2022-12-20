@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { LeftOutlined, RightOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { methodColors, pageTypes } from "lib/contants";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { clearOrganizationState, setCurrentEndpoint, setCurrentProduct, setCurrentTag } from "store/features/organization";
 import { clearData } from "store/features/app";
+import ListUtils from "./utils";
 
 const reducerTypes = {
   endpoint: setCurrentEndpoint,
@@ -14,7 +15,9 @@ const reducerTypes = {
 };
 
 const MenuList = ({ data }) => {
+
   const
+    params = useParams(),
     location = useLocation(),
     navigate = useNavigate(),
     dispatch = useDispatch(),
@@ -53,52 +56,11 @@ const MenuList = ({ data }) => {
 
     handleListClick = (e, item) => {
       e.stopPropagation();
-      console.log(item);
-      if ([pageTypes.endpoint, pageTypes.product].includes(data.type)) {
-        if (currentTag) {
-          dispatch(reducerTypes[data.type](item))
-          navigate(location.pathname + "/" + currentTag);
-        }
-        else {
-          dispatch(reducerTypes[data.type](item.name));
-          dispatch(clearData([
-            { key: "headerParams", initialState: [] },
-            { key: "parameters", initialState: [] },
-            { key: "drawerVisible", initialState: false },
-            { key: "body", initialState: null },
-            { key: "responseContent", initialState: null }
-          ]
-          ));
-        }
-      }
-      else {
-        dispatch(reducerTypes[data.type](item.route));
-        navigate(location.pathname + "/" + item.route);
-      }
+      ListUtils[`${data.page}Forward`]({ item, dispatch, type: data.type, page: data.page, navigate, location, options: { currentTag }, params });
     },
 
     handleBackButton = () => {
-      if (data.type === pageTypes.organization) {
-        dispatch(clearOrganizationState(["currentOrganization"]));
-        navigate("/home");
-      }
-      else {
-        const locationArr = location.pathname.split("/");
-        let _location = "";
-
-        locationArr.forEach((x, i) => {
-          if (i !== locationArr.length - 1 && i !== 0)
-            _location += "/" + x
-        });
-
-        if (!currentTag) {
-          dispatch(clearOrganizationState(["currentProduct"]))
-          navigate(_location);
-        }
-        else {
-          dispatch(clearOrganizationState(["currentTag"]))
-        }
-      }
+      ListUtils[`${data.page}Back`]({ type: data.type, dispatch, navigate, location, params });
     }
 
   return (

@@ -6,7 +6,7 @@ const
     OrganizationsPage = Loadable(lazy(() => import('../pages/Organizations'))),
     OrganizationPage = Loadable(lazy(() => import('../pages/Organization'))),
     ProductsPage = Loadable(lazy(() => import('../pages/Product'))),
-    EndpointPages = Loadable(lazy(() => import('../pages/Endpoint')));
+    EndpointPages = Loadable(lazy(() => import('../pages/Developer')));
 
 const OrganizationRoutes = {
     path: '/',

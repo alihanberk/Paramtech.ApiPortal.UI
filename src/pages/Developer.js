@@ -1,32 +1,42 @@
+import { ApiComponents } from "components";
 import Content from "components/Layout/Content/Content";
 import { moduleTypes, pageTypes } from "lib/contants";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getApiDocumentation } from "store/features/app";
-import { clearSiderProps, setSiderProps } from "store/features/sider";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { clearData, getApiDocumentation } from "store/features/app";
+import { setCurrentEndpoint, setCurrentOrganization, setCurrentProduct, setCurrentTag } from "store/features/organization";
+import { setSiderProps } from "store/features/sider";
 
-const Product = () => {
+const Developer = () => {
   const [
     organization,
     environment,
     product,
     apiDocumentation,
+    currentEndpoint,
     currentTag
   ] = useSelector(({ app }) => [
     app.organization.currentOrganization,
     app.appSlice.environment,
     app.organization.currentProduct,
     app.appSlice.normalizedApiDocumentation,
+    app.organization.currentEndpoint,
     app.organization.currentTag
   ]),
+    params = useParams(),
     [listData, setListdata] = useState({ header: "", list: [], field: "" }),
 
-    dispatch = useDispatch();
+    location = useLocation(),
+    dispatch = useDispatch(),
+    navigate = useNavigate();
 
   useEffect(() => {
-    if (product)
-      dispatch(getApiDocumentation(`https://${environment}_${moduleTypes[product]}api.e-cozum.com/swagger/v1/swagger.json`));
-  }, [environment, product, apiDocumentation, dispatch]);
+    if (!organization && params.organizationId && params.applicationId) {
+      dispatch(setCurrentOrganization(params.organizationId))
+      dispatch(setCurrentProduct(params.applicationId))
+    }
+  }, [organization, location]);
 
   useEffect(() => {
     const
@@ -43,11 +53,16 @@ const Product = () => {
           withTag: !!currentTag,
           withFooter: !!currentTag,
           type: currentTag ? pageTypes.developer : pageTypes.product,
-          page: pageTypes.product
+          page: pageTypes.developer
         }
       }
     dispatch(setSiderProps(list));
   }, [currentTag, apiDocumentation, listData, dispatch, organization]);
+
+  useEffect(() => {
+    if (product)
+      dispatch(getApiDocumentation(`https://${environment}_${moduleTypes[product]}api.e-cozum.com/swagger/v1/swagger.json`));
+  }, [environment, product]);
 
   useEffect(() => {
     if (currentTag)
@@ -59,9 +74,9 @@ const Product = () => {
 
   return (
     <Content>
-      deneme
+      <ApiComponents />
     </Content>
   )
 }
 
-export default Product;
+export default Developer;
