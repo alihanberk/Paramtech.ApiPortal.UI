@@ -46,11 +46,16 @@ const
     dbs: "dbs"
   },
 
-pageTypes = {
-  product: "product",
-  organization: "organization",
-  developer: "developer"
-}
+  pageTypes = {
+    product: "product",
+    organization: "organization",
+    developer: "developer"
+  },
+
+  requestLanguages = {
+    js: "Javascript",
+    bash: "cURL"
+  }
 
 export {
   methodColors,
@@ -59,5 +64,6 @@ export {
   parameterTypes,
   requestTypes,
   moduleTypes,
-  pageTypes
+  pageTypes,
+  requestLanguages
 };

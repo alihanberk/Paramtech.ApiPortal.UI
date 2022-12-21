@@ -3,7 +3,7 @@ import MainLayout from "components/Layout/MainLayout";
 import Loadable from 'components/Loadable';
 
 const HomePage = Loadable(lazy(() => import('../pages/Home')));
-const FaqPage = Loadable(lazy(() => import('../pages/faq/Faq')));
+const FaqPage = Loadable(lazy(() => import('../pages/Faq')));
 
 
 const MainRoutes = {

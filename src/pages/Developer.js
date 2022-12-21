@@ -1,11 +1,11 @@
-import { ApiComponents } from "components";
+import DeveloperPage from "components/DeveloperPage";
 import Content from "components/Layout/Content/Content";
 import { moduleTypes, pageTypes } from "lib/contants";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { clearData, getApiDocumentation } from "store/features/app";
-import { setCurrentEndpoint, setCurrentOrganization, setCurrentProduct, setCurrentTag } from "store/features/organization";
+import { useLocation, useParams } from "react-router-dom";
+import { getApiDocumentation } from "store/features/app";
+import { setCurrentOrganization, setCurrentProduct } from "store/features/organization";
 import { setSiderProps } from "store/features/sider";
 
 const Developer = () => {
@@ -14,37 +14,33 @@ const Developer = () => {
     environment,
     product,
     apiDocumentation,
-    currentEndpoint,
     currentTag
   ] = useSelector(({ app }) => [
     app.organization.currentOrganization,
     app.appSlice.environment,
     app.organization.currentProduct,
     app.appSlice.normalizedApiDocumentation,
-    app.organization.currentEndpoint,
     app.organization.currentTag
   ]),
     params = useParams(),
-    [listData, setListdata] = useState({ header: "", list: [], field: "" }),
+    [listData, setListdata] = React.useState({ header: "", list: [], field: "" }),
 
     location = useLocation(),
-    dispatch = useDispatch(),
-    navigate = useNavigate();
+    dispatch = useDispatch();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!organization && params.organizationId && params.applicationId) {
       dispatch(setCurrentOrganization(params.organizationId))
       dispatch(setCurrentProduct(params.applicationId))
     }
-  }, [organization, location]);
+  }, [organization, location, dispatch, params]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const
       list = {
         placeholder: "Search API's",
         data: {
           className: "scrollable-menu",
-          header: "API's",
           cardTitle: listData.header,
           list: currentTag ? apiDocumentation.data?.[currentTag] : apiDocumentation?.tags,
           organizationOrProduct: organization,
@@ -59,12 +55,12 @@ const Developer = () => {
     dispatch(setSiderProps(list));
   }, [currentTag, apiDocumentation, listData, dispatch, organization]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (product)
       dispatch(getApiDocumentation(`https://${environment}_${moduleTypes[product]}api.e-cozum.com/swagger/v1/swagger.json`));
-  }, [environment, product]);
+  }, [environment, product, dispatch]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (currentTag)
       setListdata({ header: "Go Back to Api List", field: "endpoint" })
     else
@@ -74,7 +70,7 @@ const Developer = () => {
 
   return (
     <Content>
-      <ApiComponents />
+      <DeveloperPage />
     </Content>
   )
 }
