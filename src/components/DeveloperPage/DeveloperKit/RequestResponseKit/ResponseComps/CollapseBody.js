@@ -46,7 +46,7 @@ const CollapseBody = () => {
               activeSwitch === responseModalDetailType.exampleValue && <CollapseExampleValue {...{ data: selectedEndpoint?.requestBody?.content, option: data }} />
             }
             {
-              activeSwitch === responseModalDetailType.schema && <CollapseSchema />
+              activeSwitch === responseModalDetailType.schema && <CollapseSchema  {...{ data: selectedEndpoint?.requestBody?.content, option: data }} />
             }
           </React.Suspense>
         </Col>
