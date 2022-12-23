@@ -1,19 +1,27 @@
 import { Button, Col, Input, Row, Tag } from "antd";
 import { methodColors } from "lib/contants";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken } from "store/features/app";
+import { setAuthorizedWarning, setToken } from "store/features/app";
 
 const EndpointInfo = () => {
   const
     [authCode, setAuthCode] = React.useState(null),
-    currentEndpoint = useSelector(({ app }) => app.organization.currentEndpoint),
+    [currentEndpoint, token, warning] = useSelector(({ app }) => [app.organization.currentEndpoint, app.appSlice.token, app.appSlice.authorizedWarning]),
     dispatch = useDispatch(),
 
     handleAuthorizeButton = e => {
       e.stopPropagation();
       dispatch(setToken(authCode));
     }
+
+  useEffect(() => {
+    if (warning) {
+      setTimeout(() => {
+        dispatch(setAuthorizedWarning(false));
+      }, 3000)
+    }
+  }, [warning, dispatch])
 
   return (
     <Row>
@@ -23,11 +31,19 @@ const EndpointInfo = () => {
       </Col>
       <Col xs={{ span: 8, offset: 4 }}>
         <Input
+          disabled={token}
           onChange={e => setAuthCode(e.target.value)}
-          className="input-type-secondary input-secondary"
+          className={`input-type-secondary p-8 input-secondary ${token ? "closeInput" : ""} ${warning ? "unauthorized" : ""} element-right auto-width`}
           placeholder="Bearer Token"
           suffix={
-            <Button onClick={e => handleAuthorizeButton(e)}  type="primary">Authorize</Button>
+            <Button
+              className={`${token ? "successAuthorized" : ""} ${warning ? "unauthorized shakeButton" : ""}`}
+              onClick={e => token ? null : handleAuthorizeButton(e)}
+              type="primary">
+              {token ?
+                "Authorized" :
+                "Authorize"}
+            </Button>
           } />
       </Col>
     </Row>

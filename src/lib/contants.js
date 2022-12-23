@@ -55,6 +55,11 @@ const
   requestLanguages = {
     js: "Javascript",
     bash: "cURL"
+  },
+
+  responseModalDetailType = {
+    exampleValue: "Example Value",
+    schema: "Schema"
   }
 
 export {
@@ -65,5 +70,6 @@ export {
   requestTypes,
   moduleTypes,
   pageTypes,
-  requestLanguages
+  requestLanguages,
+  responseModalDetailType
 };

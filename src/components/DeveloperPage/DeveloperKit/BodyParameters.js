@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AceEditor from "react-ace";
 import { v4 } from "uuid";
 import { setRequestBody, setResponseContent } from "store/features/app";
+import CardExtra from "./RequestKit/CardExtra";
 
 const BodyParameters = () => {
   const
@@ -53,6 +54,7 @@ const BodyParameters = () => {
     <Card
       className="secondary-type"
       title="Body Parameters"
+      extra={<CardExtra hasCopyButton text={JSON.stringify(body, undefined, 2)} />}
     >
       {
         selectedEndpoint?.requestBody ?

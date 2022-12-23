@@ -5,7 +5,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { submitRequest } from "store/features/app";
+import { setAuthorizedWarning, submitRequest } from "store/features/app";
 import CardExtra from "./CardExtra";
 
 const RequestKit = () => {
@@ -38,6 +38,9 @@ const RequestKit = () => {
     onHandleRequest = () => {
       if (token)
         getRequest();
+      else {
+        dispatch(setAuthorizedWarning(true));
+      }
     },
 
     codeString = getCodeString();
@@ -47,7 +50,7 @@ const RequestKit = () => {
     <Card
       className="secondary-type"
       title="Request"
-      extra={<CardExtra text={codeString} />}
+      extra={<CardExtra text={codeString} hasCopyButton hasDropdown />}
     >
       <Row>
         <Col xs={24}>

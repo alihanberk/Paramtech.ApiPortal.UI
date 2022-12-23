@@ -7,6 +7,16 @@
 
 .ant-input-affix-wrapper {
 
+  &.closeInput {
+    input {
+      animation: closingInput 0.5s forwards;
+    }
+
+    .ant-input-suffix {
+      margin: 0;
+    }
+  }
+
   .ant-input-prefix {
     .svg-prefix {
       >div {
@@ -26,8 +36,70 @@
     background: #FCFCFD;
     border: 1px solid #E6E9EE;
 
+    &.unauthorized{
+      border-color: #9A0000;
+    }
+
     input {
+      width: 310px;
       background: #FCFCFD;
     }
+
+    .ant-input-suffix {
+      .successAuthorized {
+        border: none;
+        background-color: #5D05F2;
+        animation: successAuth 0.5s forwards;
+        cursor: initial;
+      }
+
+      .unauthorized {
+        border: none;
+        background-color: #5D05F2;
+        animation: errorAuth 3s forwards;
+      }
+
+      button {
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+@keyframes closingInput {
+  0% {
+    width: 310px;
+  }
+
+  100% {
+    width: 0px;
+  }
+}
+
+@keyframes successAuth {
+  from {
+    background-color: #450D87;
+  }
+
+  to {
+    background-color: #00B7B3;
+  }
+}
+
+@keyframes errorAuth {
+  0% {
+    background-color: #450D87;
+  }
+  
+  10% {
+    background-color: #9A0000;
+  }
+
+  90% {
+    background-color: #9A0000;
+  }
+  
+  100%{
+    background-color: #450D87;
   }
 }

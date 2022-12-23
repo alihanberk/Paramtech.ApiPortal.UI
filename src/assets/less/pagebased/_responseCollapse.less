@@ -1,0 +1,51 @@
+.response-collapse {
+  border: 1px solid #E6E9EE;
+  border-radius: 10px;
+  background: white;
+
+  .ant-collapse {
+    border-radius: 0px;
+    border: none;
+    background: transparent;
+
+    .ant-collapse-item {
+      border: none;
+
+      &.ant-collapse-item-active{
+        .response-collapse-arrow{
+          img{
+            rotate: 180deg;
+          }
+        }
+      }
+
+      .ant-collapse-header {
+        padding: 20px;
+
+        .ant-collapse-header-text {
+          .response-status {
+            display: flex;
+            align-items: center;
+            padding-right: 20px;
+            margin-right: 20px;
+            border-right: 1px solid #EEF0F4;
+          }
+
+          .response-description {
+            color: #7D8E9F;
+          }
+
+          .response-collapse-arrow{
+            img{
+              transition: 0.5s;
+            }
+          }
+        }
+      }
+
+      .ant-collapse-content {
+        border: none;
+      }
+    }
+  }
+}

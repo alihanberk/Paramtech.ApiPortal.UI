@@ -5,3 +5,5 @@ export { default as CustomList } from "./CustomList";
 export { default as AboutAndFAQ } from "./AboutAndFAQ";
 export { default as MenuList } from "./MenuList/MenuList";
 export { default as Hero } from "./Hero";
+export { default as CopyButton } from "./CopyButton";
+export { default as CustomSwitch } from "./Switch";
