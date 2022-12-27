@@ -54,5 +54,37 @@
     border: 1px solid #EEF0F4;
     border-radius: 10px;
     padding: 20px;
+
+    .collapse-schema-model {
+      .model-item {
+        .parent-item {
+          position: absolute;
+          box-shadow: 0px 3px 75px 12px rgba(23, 44, 71, 20%);
+          border-radius: 8px;
+          background: white;
+          opacity: 0;
+          width: 0;
+          top: 0;
+          left: 0;
+          transition: 0.3s;
+          z-index: -1;
+
+          &.visible {
+            opacity: 1;
+            width: 546px;
+            z-index: 999999;
+          }
+
+/*           .item {
+            display: none;
+            transition: 0.5s;
+
+            &.visible {
+              display: block;
+            }
+          } */
+        }
+      }
+    }
   }
 }
