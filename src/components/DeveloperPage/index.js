@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import DeveloperKit from "./DeveloperKit";
 import EndpointInfo from "./EndpointInfo";
+import { WarningOutlined } from '@ant-design/icons';
 
 const DeveloperPage = () => {
   const currentEndpoint = useSelector(({ app }) => app.organization.currentEndpoint);
@@ -20,7 +21,10 @@ const DeveloperPage = () => {
             </Col>
           </Row>
           :
-          "Lütfen bir seçim yapın."
+          <div className="empty-endpoint">
+            <WarningOutlined />
+            <div>Lütfen bir seçim yapınız</div>
+          </div>
     }
     </>
   )

@@ -19,6 +19,7 @@ const Organization = () => {
   useEffect(() => {
     const
       list = {
+        searchFields: "name",
         placeholder: "Search Product",
         data: {
           className: "scrollable-menu",

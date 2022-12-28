@@ -41,7 +41,8 @@ export const appSlice = createSlice({
     requestBody: null,
     requestLanguage: "bash",
     environment: "test",
-    authorizedWarning: false
+    authorizedWarning: false,
+    descriptionVisible: false
   },
   reducers: {
     setParameters: (state, action) => {
@@ -82,6 +83,9 @@ export const appSlice = createSlice({
     },
     setAuthorizedWarning: (state, action) => {
       state.authorizedWarning = action.payload
+    },
+    setDescriptionsVisible: (state, action) => {
+      state.descriptionVisible = action.payload
     }
   },
 
@@ -133,7 +137,8 @@ export const {
   clearData,
   setRequestBody,
   changeRequestLanguage,
-  setAuthorizedWarning
+  setAuthorizedWarning,
+  setDescriptionsVisible
 } = appSlice.actions;
 
 export default appSlice.reducer;

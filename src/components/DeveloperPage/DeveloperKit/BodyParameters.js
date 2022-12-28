@@ -47,7 +47,7 @@ const BodyParameters = () => {
     };
 
   React.useEffect(() => {
-    onBodyChange(content && getContentSchema(selectedEndpoint.requestBody.content[content].schema))
+    onBodyChange(content && getContentSchema(selectedEndpoint.requestBody?.content[content].schema))
   }, [content, selectedEndpoint, getContentSchema, onBodyChange])
 
   return (

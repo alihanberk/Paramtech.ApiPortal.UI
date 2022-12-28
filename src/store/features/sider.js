@@ -3,7 +3,8 @@ const { createSlice } = require("@reduxjs/toolkit");
 const initialState = {
   list: {
     data: [],
-    placeholder: ""
+    placeholder: "",
+    searchFields: "name"
   }
 }
 
@@ -15,7 +16,7 @@ export const siderSlice = createSlice({
       state.list = action.payload
     },
 
-    clearSiderProps: (state)  => {
+    clearSiderProps: (state) => {
       state.list = initialState;
     }
   }

@@ -1,20 +1,45 @@
 import { Input } from "antd";
 import { MenuList } from "components/UIComponents";
-import React from "react";
+import _ from "lodash";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { ReactSVG } from "react-svg";
 import seacrhIcon from "../../../assets/img/ui-icons/search.svg";
 
 const ContentList = () => {
-  const sider = useSelector(({ app }) => app.sider.list);
+  const
+    sider = useSelector(({ app }) => app.sider.list),
+    [filter, setFilter] = React.useState(null),
+    [data, setData] = React.useState([]),
+
+    handleChange = value => {
+      setFilter(value);
+    }
+
+  useEffect(() => {
+    if (filter) {
+      setFilter(null);
+    }
+    setData(sider.data);
+  }, [sider]);
+
+  useEffect(() => {
+    if (sider.data?.list && filter) {
+      const
+        list = sider.data.list.filter(x => x[sider.searchFields]?.includes(filter)),
+        _data = _.cloneDeep(data);
+      _data.list = list;
+      setData(_data);
+    }
+  }, [filter, sider]);
 
   return (
     <div>
       <div className="mb-40" >
-        <Input prefix={<ReactSVG className="svg-prefix" src={seacrhIcon} />} className="input-type-secondary" placeholder={sider.placeholder} />
+        <Input value={filter} onChange={e => handleChange(e.target.value)} prefix={<ReactSVG className="svg-prefix" src={seacrhIcon} />} className="input-type-secondary" placeholder={sider.placeholder} />
       </div>
       <div>
-        <MenuList {...{ data: sider.data, }} />
+        <MenuList {...{ data: filter ? data : sider.data, }} />
       </div>
     </div>
   )

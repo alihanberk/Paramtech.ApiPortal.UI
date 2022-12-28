@@ -38,6 +38,7 @@ const Developer = () => {
   React.useEffect(() => {
     const
       list = {
+        searchFields: currentTag ? "endpoint" : "name",
         placeholder: "Search API's",
         data: {
           className: "scrollable-menu",
@@ -58,7 +59,7 @@ const Developer = () => {
   React.useEffect(() => {
     if (product)
       dispatch(getApiDocumentation(`https://${environment}_${moduleTypes[product]}api.e-cozum.com/swagger/v1/swagger.json`));
-  }, [environment, product, dispatch]);
+  }, [environment, product]);
 
   React.useEffect(() => {
     if (currentTag)
