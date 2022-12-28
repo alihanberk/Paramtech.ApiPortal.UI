@@ -2,22 +2,16 @@ import { Dropdown, Menu } from "antd";
 import React from "react";
 import { DownOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
-import { setEnvironment } from "store/features/app";
+import { setBrandVisible, setEnvironment } from "store/features/app";
 import { upperCaseFirstLetter } from "lib/helpers";
-import { clearOrganizationState } from "store/features/organization";
-import { useNavigate, useParams } from "react-router-dom";
 
 const BrandHeader = () => {
   const
     dispatch = useDispatch(),
-    navigate = useNavigate(),
-    params = useParams(),
     [environment, currentProduct, organizations, currentTag] = useSelector(({ app }) => [app.appSlice.environment, app.organization.currentProduct, app.organization.currentOrganization, app.organization.currentTag]),
 
     handleChangeEnv = (e) => {
-      dispatch(clearOrganizationState(["currentTag", "currentEndpoint"]));
-      if (params.applicationId)
-        navigate(`/organizations/${params.organizationId}/${params.applicationId}`)
+      dispatch(setBrandVisible(true));
       dispatch(setEnvironment(e.key));
     },
 

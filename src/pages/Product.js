@@ -11,22 +11,24 @@ const Product = () => {
     environment,
     product,
     apiDocumentation,
-    currentTag
+    currentTag,
+    brandVisible
   ] = useSelector(({ app }) => [
     app.organization.currentOrganization,
     app.appSlice.environment,
     app.organization.currentProduct,
     app.appSlice.normalizedApiDocumentation,
-    app.organization.currentTag
+    app.organization.currentTag,
+    app.appSlice.brandVisible,
   ]),
     [listData, setListdata] = useState({ header: "", list: [], field: "" }),
 
     dispatch = useDispatch();
 
   useEffect(() => {
-    if (product)
+    if (product && !brandVisible)
       dispatch(getApiDocumentation(`https://${environment}_${moduleTypes[product]}api.e-cozum.com/swagger/v1/swagger.json`));
-  }, [product, environment]);
+  }, [product, environment, brandVisible]);
 
   useEffect(() => {
     const

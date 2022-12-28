@@ -195,3 +195,34 @@ body {
 .opacity-0{
   opacity: 0;
 }
+
+.fadeOut {
+  visibility: hidden;
+  position: fixed;
+  background: white;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 9999999;
+  transition: 1s;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  display: flex;
+  color: @primary-color;
+
+  &.out {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  svg {
+    fill: @primary-color;
+    width: 200px;
+    height: auto;
+
+    *:not(.gradient) {
+      fill: @primary-color;
+    }
+  }
+}

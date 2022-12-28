@@ -6,6 +6,7 @@ import BrandHeader from './BrandHeader';
 import ContentList from './Content/ContentList';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentOrganization, setCurrentProduct } from 'store/features/organization';
+import { FullPageLoading } from 'components/UIComponents';
 
 const MainLayout = ({ withSider }) => {
   const
@@ -28,6 +29,7 @@ const MainLayout = ({ withSider }) => {
       <Layout.Header className="header">
         <HeaderComponent />
       </Layout.Header>
+      <FullPageLoading />
       <BrandHeader />
       <Layout>
         {

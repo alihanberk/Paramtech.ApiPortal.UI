@@ -1,24 +1,19 @@
 import DeveloperPage from "components/DeveloperPage";
 import Content from "components/Layout/Content/Content";
-import { moduleTypes, pageTypes } from "lib/contants";
+import { pageTypes } from "lib/contants";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
-import { getApiDocumentation } from "store/features/app";
 import { setCurrentOrganization, setCurrentProduct } from "store/features/organization";
 import { setSiderProps } from "store/features/sider";
 
 const Developer = () => {
   const [
     organization,
-    environment,
-    product,
     apiDocumentation,
     currentTag
   ] = useSelector(({ app }) => [
     app.organization.currentOrganization,
-    app.appSlice.environment,
-    app.organization.currentProduct,
     app.appSlice.normalizedApiDocumentation,
     app.organization.currentTag
   ]),
@@ -55,11 +50,6 @@ const Developer = () => {
       }
     dispatch(setSiderProps(list));
   }, [currentTag, apiDocumentation, listData, dispatch, organization]);
-
-  React.useEffect(() => {
-    if (product)
-      dispatch(getApiDocumentation(`https://${environment}_${moduleTypes[product]}api.e-cozum.com/swagger/v1/swagger.json`));
-  }, [environment, product]);
 
   React.useEffect(() => {
     if (currentTag)
