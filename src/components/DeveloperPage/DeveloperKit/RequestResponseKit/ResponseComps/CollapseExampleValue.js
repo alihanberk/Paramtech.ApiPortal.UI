@@ -7,7 +7,7 @@ import { v4 } from "uuid";
 
 const CollapseExampleValue = ({ data, option }) => {
 
-  const apiDocumentation = useSelector(({ app }) => app.appSlice.apiDocumentation),
+  const documentation = useSelector(({ app }) => app.documentation),
 
     getContentSchema = _content => {
       console.log(_content);
@@ -23,7 +23,7 @@ const CollapseExampleValue = ({ data, option }) => {
       }
 
       const
-        itemArray = apiDocumentation?.components.schemas[array?.[array?.length - 1]],
+        itemArray = documentation.data?.components.schemas[array?.[array?.length - 1]],
         returnData = {};
 
       for (const [key, value] of Object.entries(itemArray.properties)) {

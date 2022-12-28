@@ -9,23 +9,23 @@ import CardExtra from "./RequestKit/CardExtra";
 const BodyParameters = () => {
   const
     [
-      apiDocumentation,
+      documentation,
       currentEndpoint,
       content,
       body
     ] = useSelector(({ app }) => [
-      app.appSlice.apiDocumentation,
+      app.documentation,
       app.organization.currentEndpoint,
       app.appSlice.responseContent,
       app.appSlice.requestBody
     ]),
-    selectedEndpoint = apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method],
+    selectedEndpoint = documentation.data.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method],
     dispatch = useDispatch(),
 
     getContentSchema = React.useCallback(_content => {
       if (_content?.["$ref"]) {
         const array = _content?.["$ref"]?.split("/"),
-          itemArray = apiDocumentation.components.schemas[array?.[array?.length - 1]],
+          itemArray = documentation.data.components.schemas[array?.[array?.length - 1]],
           returnData = {};
         for (const [key, value] of Object.entries(itemArray.properties)) {
           if (value.format)
@@ -36,7 +36,7 @@ const BodyParameters = () => {
         }
         return returnData;
       }
-    }, [apiDocumentation]),
+    }, [documentation]),
 
     onBodyChange = React.useCallback(_body => {
       dispatch(setRequestBody(typeof _body === "string" ? JSON.parse(_body) : _body))

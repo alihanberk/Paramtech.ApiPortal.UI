@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setParameters } from "store/features/app";
 
 const ParameterKit = () => {
-  const [currentEndpoint, apiDocumentation, parameters] = useSelector(({ app }) => [app.organization.currentEndpoint, app.appSlice.apiDocumentation, app.appSlice.parameters]),
+  const [currentEndpoint, documentation, parameters] = useSelector(({ app }) => [app.organization.currentEndpoint, app.documentation, app.appSlice.parameters]),
 
     dispatch = useDispatch(),
 
     changeParameters = useCallback(() => {
       let _parameters = [];
-      const selectedEndpoint = apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method];
+      const selectedEndpoint = documentation.data.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method];
 
       selectedEndpoint.parameters?.map(x => {
         if (!selectedEndpoint.parameters.find(y => `{${y.name}}` === x.name))
@@ -22,7 +22,7 @@ const ParameterKit = () => {
 
       dispatch(setParameters(_parameters));
 
-    }, [currentEndpoint, apiDocumentation, dispatch]),
+    }, [currentEndpoint, documentation, dispatch]),
 
     handleChangeParameters = (key, value, dataKey) => {
       const

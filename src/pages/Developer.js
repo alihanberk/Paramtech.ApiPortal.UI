@@ -10,11 +10,11 @@ import { setSiderProps } from "store/features/sider";
 const Developer = () => {
   const [
     organization,
-    apiDocumentation,
+    documentation,
     currentTag
   ] = useSelector(({ app }) => [
     app.organization.currentOrganization,
-    app.appSlice.normalizedApiDocumentation,
+    app.documentation,
     app.organization.currentTag
   ]),
     params = useParams(),
@@ -38,7 +38,7 @@ const Developer = () => {
         data: {
           className: "scrollable-menu",
           cardTitle: listData.header,
-          list: currentTag ? apiDocumentation.data?.[currentTag] : apiDocumentation?.tags,
+          list: currentTag ? documentation.normalizedData.data?.[currentTag] : documentation.normalizedData?.tags,
           organizationOrProduct: organization,
           clickable: true,
           field: listData.field,
@@ -49,14 +49,14 @@ const Developer = () => {
         }
       }
     dispatch(setSiderProps(list));
-  }, [currentTag, apiDocumentation, listData, dispatch, organization]);
+  }, [currentTag, documentation, listData, dispatch, organization]);
 
   React.useEffect(() => {
     if (currentTag)
       setListdata({ header: "Go Back to Api List", field: "endpoint" })
     else
       setListdata({ header: "Go Back to Product List", field: "name" })
-  }, [currentTag, apiDocumentation.data]);
+  }, [currentTag, documentation.normalizedData.data]);
 
 
   return (

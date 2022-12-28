@@ -1,5 +1,6 @@
 
 import { pageTypes } from "lib/contants";
+import { clearDocumentation } from "store/features/documentation";
 import { setCurrentEndpoint, setCurrentTag, setCurrentProduct, clearOrganizationState } from "store/features/organization";
 
 const reducerTypes = {
@@ -40,7 +41,8 @@ export const productBack = payload => {
 
   if (type === pageTypes.product) {
     const _location = `/organizations/${params.organizationId}`;
-    dispatch(clearOrganizationState(["currentProduct"]))
+    dispatch(clearOrganizationState(["currentProduct"]));
+    dispatch(clearDocumentation());
     navigate(_location);
   }
   else if (type === pageTypes.developer) {
@@ -65,11 +67,11 @@ export const developerForward = payload => {
 
 export const developerBack = payload => {
   const { dispatch, type, navigate, params } = payload;
-  if(type === pageTypes.product){
+  if (type === pageTypes.product) {
     dispatch(clearOrganizationState(["currentProduct"]));
     navigate(`/organizations/${params.organizationId}`);
   }
-  else if(type === pageTypes.developer){
+  else if (type === pageTypes.developer) {
     dispatch(clearOrganizationState(["currentTag", "currentEndpoint"]));
   }
 }

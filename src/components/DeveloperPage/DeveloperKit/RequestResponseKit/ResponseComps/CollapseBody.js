@@ -15,17 +15,15 @@ const CollapseBody = () => {
     [activeSwitch, setActiveSwitch] = React.useState("Example Value"),
 
     [
-      apiDocumentation,
+      documentation,
       currentEndpoint
     ] = useSelector(({ app }) => [
-      app.appSlice.apiDocumentation,
+      app.documentation,
       app.organization.currentEndpoint
     ]),
 
-    selectedEndpoint = apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method];
+    selectedEndpoint = documentation.data.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method];
 
-
-  console.log(activeSwitch);
   return (
     selectedEndpoint?.requestBody ?
       <Row gutter={[20, 20]}>

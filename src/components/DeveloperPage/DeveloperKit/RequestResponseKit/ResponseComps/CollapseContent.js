@@ -9,9 +9,9 @@ const { Panel } = Collapse;
 const CollapseContent = () => {
   const responses = useSelector(({ app }) => {
     const
-      { apiDocumentation } = app.appSlice,
+      { documentation } = app.documentation.data,
       { currentEndpoint } = app.organization;
-    return apiDocumentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method]?.responses;
+    return documentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method]?.responses;
   }),
 
     RenderHeader = ({ status }) => (

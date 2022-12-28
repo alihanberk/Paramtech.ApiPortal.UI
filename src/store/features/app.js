@@ -1,18 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import service from "store/service";
 
-export const getApiDocumentation = createAsyncThunk("apiDocumentation/get",
-  async (endpoint, thunkApi) => {
-    try {
-      const response = await service.getRequest(endpoint);
-      return response.data;
-    }
-    catch (error) {
-      return thunkApi.rejectWithValue(error.response.data);
-    }
-  }
-);
-
 export const submitRequest = createAsyncThunk("exampleRequest",
   async (payload, thunkApi) => {
     try {
@@ -28,8 +16,6 @@ export const submitRequest = createAsyncThunk("exampleRequest",
 export const appSlice = createSlice({
   name: "app",
   initialState: {
-    apiDocumentation: {},
-    normalizedApiDocumentation: {},
     parameters: [],
     headerParams: [],
     token: null,
@@ -94,32 +80,6 @@ export const appSlice = createSlice({
   },
 
   extraReducers: builder => {
-    builder.addCase(getApiDocumentation.fulfilled, (state, action) => {
-      state.apiDocumentation = action.payload;
-
-      const tags = [],
-        data = [];
-      for (const [apiKey, paths] of Object.entries(action.payload.paths)) {
-        for (const [key, value] of Object.entries(paths)) {
-          value.tags.forEach(tag => {
-            if (data[tag]) {
-              data[tag].push({ method: key, data: value, endpoint: apiKey });
-            }
-            else {
-              data[tag] = [{ method: key, data: value, endpoint: apiKey }]
-            }
-            if (!tags.find(x => x.name === tag))
-              tags.push({ name: tag, key: tag });
-          });
-        }
-      };
-
-      state.normalizedApiDocumentation = {
-        tags,
-        data
-      }
-    });
-
     builder.addCase(submitRequest.rejected, (state, action) => {
       state.requestResponse = action.payload;
     })

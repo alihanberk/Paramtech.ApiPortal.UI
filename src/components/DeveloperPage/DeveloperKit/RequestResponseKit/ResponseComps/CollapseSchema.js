@@ -6,7 +6,7 @@ import SchemaComp from "./SchemaComp";
 
 const CollapseSchema = ({ data, option }) => {
   const
-    apiDocumentation = useSelector(({ app }) => app.appSlice.apiDocumentation),
+    documentation = useSelector(({ app }) => app.documentation),
     [visible, setVisible] = React.useState(false),
 
     renderSchema = (_content, isChild) => {
@@ -23,7 +23,7 @@ const CollapseSchema = ({ data, option }) => {
 
       const
         header = array?.[array?.length - 1],
-        itemArray = apiDocumentation.components.schemas[header];
+        itemArray = documentation.data.components.schemas[header];
       console.log(itemArray)
       return (
         <Row gutter={[12, 12]} className={`${isChild ? "p-24" : "response-schema"}`}>
