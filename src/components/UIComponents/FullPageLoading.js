@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBrandVisible } from "store/features/app";
 import { useNavigate, useParams } from "react-router-dom";
 import { clearOrganizationState } from "store/features/organization";
-import { upperCaseFirstLetter } from "lib/helpers";
+import Logo from "../../assets/img/param-preloader.gif";
+import Typography from "./Typography";
 
-const FullPageLoading = () => {
+const FullPageLoading = ({ message }) => {
   const
-    [brandVisible, environment] = useSelector(({ app }) => [app.appSlice.brandVisible, app.appSlice.environment]),
+    brandVisible = useSelector(({ app }) => app.appSlice.brandVisible),
     navigate = useNavigate(),
     params = useParams(),
     dispatch = useDispatch();
@@ -16,16 +17,17 @@ const FullPageLoading = () => {
     if (brandVisible)
       setTimeout(() => {
         dispatch(setBrandVisible(false));
-        if (params.applicationId) {
-          dispatch(clearOrganizationState(["currentTag", "currentEndpoint"]));
-          navigate(`/organizations/${params.organizationId}/${params.applicationId}`)
+        if (params.organizationId) {
+          dispatch(clearOrganizationState(["currentTag", "currentEndpoint", "currentProduct"]));
+          navigate(`/organizations/${params.organizationId}`)
         }
-      }, 1500)
+      }, 2000)
   }, [brandVisible]);
 
   return (
-    <div className={`fadeOut ${brandVisible ? "out" : ""}`}>
-      <span>{environment.toUpperCase()} ortamına geçiş yapılıyor.</span>
+    <div className={`fadeOut flex-col ${brandVisible ? "out" : ""}`}>
+      <img className="mb-32" src={Logo} alt="loading" />
+      <Typography.P className="shine" >{message}</Typography.P>
     </div>
   )
 }

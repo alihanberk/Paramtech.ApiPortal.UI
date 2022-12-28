@@ -125,8 +125,9 @@
   align-items: center;
   justify-content: space-around;
 }
-.justify-end{
-  justify-content: end; 
+
+.justify-end {
+  justify-content: end;
 }
 
 .font-bold {
@@ -176,23 +177,23 @@ body {
   margin-bottom: 20px
 }
 
-.direction-column{
+.direction-column {
   flex-direction: column;
 }
 
-.auto-height{
+.auto-height {
   height: auto;
 }
 
-.auto-width{
+.auto-width {
   width: auto !important;
 }
 
-.border-none{
+.border-none {
   border: none;
 }
 
-.opacity-0{
+.opacity-0 {
   opacity: 0;
 }
 
@@ -211,6 +212,10 @@ body {
   display: flex;
   color: @primary-color;
 
+  .label-two {
+    color: @color-gray-1;
+  }
+
   &.out {
     visibility: visible;
     opacity: 1;
@@ -224,5 +229,33 @@ body {
     *:not(.gradient) {
       fill: @primary-color;
     }
+  }
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.shine {
+  background: @primary-color -webkit-gradient(linear, left top, right top, from(@primary-color), to(@primary-color), color-stop(0.5, white)) 0 0 no-repeat;
+  -webkit-background-size: 150px;
+  -webkit-background-clip: text;
+  -webkit-animation-name: shine;
+  -webkit-animation-duration: 4s;
+  -webkit-animation-iteration-count: infinite;
+  color: rgba(@color-black, 0.25) !important;
+}
+
+@keyframes shine {
+  0% {
+    background-position: -250px;
+  }
+
+  50% {
+    background-position: 250px;
+  }
+
+  100% {
+    background-position: -250px;
   }
 }

@@ -29,7 +29,7 @@ const MainLayout = ({ withSider }) => {
       <Layout.Header className="header">
         <HeaderComponent />
       </Layout.Header>
-      <FullPageLoading />
+      <FullPageLoading message="Ortam değiştiriliyor"/>
       <BrandHeader />
       <Layout>
         {

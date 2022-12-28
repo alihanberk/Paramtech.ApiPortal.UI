@@ -11,8 +11,10 @@ const BrandHeader = () => {
     [environment, currentProduct, organizations, currentTag] = useSelector(({ app }) => [app.appSlice.environment, app.organization.currentProduct, app.organization.currentOrganization, app.organization.currentTag]),
 
     handleChangeEnv = (e) => {
-      dispatch(setBrandVisible(true));
-      dispatch(setEnvironment(e.key));
+      if (e.key !== environment) {
+        dispatch(setBrandVisible(true));
+        dispatch(setEnvironment(e.key));
+      }
     },
 
     menu = () => (
