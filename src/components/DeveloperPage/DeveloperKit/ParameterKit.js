@@ -3,10 +3,11 @@ import { Card, Col, Input, Row } from "antd";
 import { parameterTypes } from "lib/contants";
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setParameters } from "store/features/app";
+import { setCurrentParameters } from "store/features/currentParameters";
 
 const ParameterKit = () => {
-  const [currentEndpoint, documentation, parameters] = useSelector(({ app }) => [app.organization.currentEndpoint, app.documentation, app.appSlice.parameters]),
+  const
+    [currentEndpoint, documentation, currentKey, currentParameters] = useSelector(({ app }) => [app.organization.currentEndpoint, app.documentation, app.appSlice.currentKey, app.currentParameters]),
 
     dispatch = useDispatch(),
 
@@ -20,26 +21,26 @@ const ParameterKit = () => {
         return true;
       });
 
-      dispatch(setParameters(_parameters));
+      dispatch(setCurrentParameters({ key: currentKey, data: { parameters: _parameters } }));
 
-    }, [currentEndpoint, documentation, dispatch]),
+    }, [documentation, dispatch, currentKey]),
 
     handleChangeParameters = (key, value, dataKey) => {
       const
-        _parameters = [...parameters],
+        _parameters = [...currentParameters?.[currentKey]?.parameters],
         index = _parameters.indexOf(_parameters.find(x => x.key === key)),
         _obj = { ..._parameters[index] };
 
       _obj[dataKey] = value.toString();
       _parameters[index] = { ..._parameters[index], ..._obj }
-      return dispatch(setParameters(_parameters))
+      return dispatch(setCurrentParameters({ key: currentKey, data: { parameters: _parameters } }))
     };
 
   React.useEffect(() => {
-    changeParameters();
-  }, [changeParameters]);
+    if (!currentParameters[currentKey])
+      changeParameters();
+  }, [changeParameters, currentKey]);
 
-  console.log(parameters);
   return (
     <Card
       className="secondary-type"
@@ -47,23 +48,26 @@ const ParameterKit = () => {
     >
       <Row gutter={[8, 20]}>
         {
-          parameters?.map((parameter, i) => (
-            <Col key={i} xs={24}>
-              <Row>
-                <Col xs={6}>
-                  <div className="font-16 color-black text-400">
-                    {parameter.name} {parameter.required && <strong>*</strong>}
-                  </div>
-                  <div>
-                    {parameter.type} | {`{ ${parameter.place} }`}
-                  </div>
-                </Col>
-                <Col xs={18}>
-                  <Input defaultValue={parameter.value} placeholder="Value" onChange={e => handleChangeParameters(parameter.key, e.target.value, "value")} />
-                </Col>
-              </Row>
-            </Col>
-          ))
+          currentParameters?.[currentKey]?.parameters?.map((parameter, i) => {
+            return (
+              <Col key={i} xs={24}>
+                <Row>
+                  <Col xs={6}>
+                    <div className="font-16 color-black text-400">
+                      {parameter.name} {parameter.required && <strong>*</strong>}
+                    </div>
+                    <div>
+                      {parameter.type} | {`{ ${parameter.place} }`}
+                    </div>
+                  </Col>
+                  <Col xs={18}>
+                    <Input value={parameter.value} placeholder="Value" onChange={e => handleChangeParameters(parameter.key, e.target.value, "value")} />
+                  </Col>
+                </Row>
+              </Col>
+            )
+          }
+          )
         }
       </Row>
     </Card>

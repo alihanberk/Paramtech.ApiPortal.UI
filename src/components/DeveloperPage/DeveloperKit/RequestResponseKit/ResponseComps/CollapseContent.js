@@ -9,7 +9,7 @@ const { Panel } = Collapse;
 const CollapseContent = () => {
   const responses = useSelector(({ app }) => {
     const
-      { documentation } = app.documentation.data,
+      documentation = app.documentation.data,
       { currentEndpoint } = app.organization;
     return documentation.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method]?.responses;
   }),

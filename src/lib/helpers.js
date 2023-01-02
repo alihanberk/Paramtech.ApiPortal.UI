@@ -1,9 +1,13 @@
-import { isEmpty } from "lodash";
+import _, { isEmpty } from "lodash";
 import { parameterTypes } from "./contants";
 
 export const classNames = (classNamesList = []) => classNamesList.filter(x => x !== false && x !== undefined && x !== null && x !== "" && x !== "false").join(" ").trim();
 
 export const upperCaseFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
+export const getKey = (method, env, endpoint) => {
+  return `${env}-${method}-${endpoint}`;
+}
 
 export const objectFilterByEmptyValue = object => {
   for (const [key, value] of Object.entries(object)) {
@@ -83,7 +87,7 @@ export const groupingParameter = _parameters => {
   let data = {};
 
   Object.keys(parameterTypes).forEach(key => {
-    if (_parameters.filter(x => x.place === key).length)
+    if (_parameters?.filter(x => x.place === key).length)
       data[key] = _parameters.filter(x => x.place === key)
   })
   return data;
@@ -125,7 +129,8 @@ export const getcURL = ({ currentEndpoint, token, parameters, body }) => {
   if (token) {
     requestHeader += `   -H 'Authorization: ${token}'\n`;
   };
-  if (body) {
+
+  if (!_.isEmpty(body)) {
     requestBody += `  -d '${JSON.stringify(body, undefined, 3)}'`
   }
 
@@ -154,6 +159,6 @@ export const getFetchString = ({ currentEndpoint, token, parameters, body }) => 
   return (`fetch('${_parameters.url}', { 
     method: '${currentEndpoint.method.toUpperCase()}',
     ${!isEmpty(headers) ? `headers: ${JSON.stringify(headers, undefined, 3)},` : ""}
-    ${body ? `body: ${JSON.stringify(body, undefined, 4)},` : ""}
+    ${body.length ? `body: ${JSON.stringify(body, undefined, 4)},` : ""}
     })`).replaceAll('"', "'");
 }

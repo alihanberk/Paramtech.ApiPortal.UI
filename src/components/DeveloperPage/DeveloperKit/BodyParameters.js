@@ -3,21 +3,23 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AceEditor from "react-ace";
 import { v4 } from "uuid";
-import { setRequestBody, setResponseContent } from "store/features/app";
 import CardExtra from "./RequestKit/CardExtra";
+import { setCurrentParameters } from "store/features/currentParameters";
 
 const BodyParameters = () => {
   const
     [
       documentation,
       currentEndpoint,
-      content,
-      body
+      body,
+      currentParameters,
+      currentKey
     ] = useSelector(({ app }) => [
       app.documentation,
       app.organization.currentEndpoint,
-      app.appSlice.responseContent,
-      app.appSlice.requestBody
+      app.appSlice.requestBody,
+      app.currentParameters,
+      app.appSlice.currentKey
     ]),
     selectedEndpoint = documentation.data.paths?.[currentEndpoint?.endpoint]?.[currentEndpoint?.method],
     dispatch = useDispatch(),
@@ -39,35 +41,38 @@ const BodyParameters = () => {
     }, [documentation]),
 
     onBodyChange = React.useCallback(_body => {
-      dispatch(setRequestBody(typeof _body === "string" ? JSON.parse(_body) : _body))
-    }, [dispatch]),
+      dispatch(setCurrentParameters({ key: currentKey, data: { bodyParameters: typeof _body === "string" ? JSON.parse(_body) : _body } }))
+    }, [dispatch, currentKey]),
 
     onSelectChange = (value) => {
-      dispatch(setResponseContent(value))
+      dispatch(setCurrentParameters({ key: currentKey, data: { bodyParametersKey: value } }))
     };
 
   React.useEffect(() => {
-    onBodyChange(content && getContentSchema(selectedEndpoint.requestBody?.content[content].schema))
-  }, [content, selectedEndpoint, getContentSchema, onBodyChange])
+    const bodyParametersKey = currentParameters?.[currentKey]?.bodyParametersKey;
+    if (bodyParametersKey)
+      onBodyChange(getContentSchema(selectedEndpoint.requestBody?.content[bodyParametersKey].schema))
+  }, [currentParameters?.[currentKey]?.bodyParametersKey, selectedEndpoint, getContentSchema, onBodyChange, currentKey]);
 
   return (
     <Card
       className="secondary-type"
       title="Body Parameters"
-      extra={<CardExtra hasCopyButton text={JSON.stringify(body, undefined, 2)} />}
+      extra={<CardExtra hasCopyButton text={JSON.stringify(currentParameters?.[currentKey]?.bodyParameters, undefined, 2)} />}
     >
       {
         selectedEndpoint?.requestBody ?
           <Row gutter={[8, 20]}>
             <Col xs={24}>
               <Select
+                value={currentParameters?.[currentKey]?.bodyParametersKey}
                 onChange={data => onSelectChange(data)}
                 className="full-width"
                 options={Object.keys(selectedEndpoint?.requestBody?.content).map(x => ({ value: x, label: x }))}
               />
             </Col>
             <Col xs={24}>
-              {selectedEndpoint?.requestBody && content &&
+              {selectedEndpoint?.requestBody && currentParameters?.[currentKey]?.bodyParametersKey &&
                 <AceEditor
                   mode="javascript"
                   theme="github"
@@ -78,7 +83,7 @@ const BodyParameters = () => {
                   highlightActiveLine={true}
                   wrapEnabled={true}
                   setOptions={{ enableLiveAutocompletion: true }}
-                  value={JSON.stringify(body, undefined, 2)}
+                  value={JSON.stringify(currentParameters?.[currentKey]?.bodyParameters, undefined, 2)}
                   onChange={e => onBodyChange(e)}
                 />
               }

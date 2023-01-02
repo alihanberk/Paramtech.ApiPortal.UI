@@ -5,13 +5,15 @@ import languageSlice from "./features/language";
 import organization from "./features/organization";
 import sider from "./features/sider";
 import documentation from "./features/documentation";
+import currentParameters from "./features/currentParameters";
 
 const reducers = combineReducers({
 	appSlice,
 	languageSlice,
 	organization,
 	sider,
-	documentation
+	documentation,
+	currentParameters
 })
 
 export const store = configureStore({

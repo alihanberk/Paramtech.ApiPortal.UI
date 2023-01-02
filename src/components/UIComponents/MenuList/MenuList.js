@@ -93,7 +93,7 @@ const MenuList = ({ data }) => {
             <span className="ml-8 font-14 text-400 list-title">{data?.cardTitle}</span>
           </div>
         }
-          className={data?.clickable ? `clickable ${data?.organizationOrProduct}` : ""}
+          className={data?.clickable ? `clickable` : ""}
           bordered={false}
         >
           <List
@@ -101,7 +101,7 @@ const MenuList = ({ data }) => {
             itemLayout="horizontal"
             dataSource={data?.list}
             renderItem={item => (
-              <div onClick={e => handleListClick(e, item)} key={item.key} className={`list-item ${data?.organizationOrProduct}`}>
+              <div onClick={e => handleListClick(e, item)} key={item.key} className={`list-item`}>
                 <List.Item className="pt-24 pb-24 ml-24 mr-24">
                   <RenderItem item={item} />
                   <RightOutlined className="font-10" />

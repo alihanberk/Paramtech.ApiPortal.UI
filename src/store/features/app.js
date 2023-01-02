@@ -29,7 +29,8 @@ export const appSlice = createSlice({
     environment: "test",
     authorizedWarning: false,
     descriptionVisible: false,
-    brandVisible: false
+    brandVisible: false,
+    currentKey: null,
   },
   reducers: {
     setParameters: (state, action) => {
@@ -76,6 +77,9 @@ export const appSlice = createSlice({
     },
     setBrandVisible: (state, action) => {
       state.brandVisible = action.payload
+    },
+    setCurrentKey: (state, action) => {
+      state.currentKey = action.payload;
     }
   },
 
@@ -103,7 +107,8 @@ export const {
   changeRequestLanguage,
   setAuthorizedWarning,
   setDescriptionsVisible,
-  setBrandVisible
+  setBrandVisible,
+  setCurrentKey
 } = appSlice.actions;
 
 export default appSlice.reducer;

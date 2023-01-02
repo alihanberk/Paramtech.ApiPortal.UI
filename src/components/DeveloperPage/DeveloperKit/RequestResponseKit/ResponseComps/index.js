@@ -4,7 +4,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import CollapseContent from "./CollapseContent";
 
 const ResponseCollapseContent = ({ visible, onCloseModal }) => {
-  console.log(visible)
+
   return (
     <div className="modall">
 

@@ -1,12 +1,20 @@
 import { Col, Row } from "antd";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DeveloperKit from "./DeveloperKit";
 import EndpointInfo from "./EndpointInfo";
 import { WarningOutlined } from '@ant-design/icons';
+import { getKey } from "lib/helpers";
+import { setCurrentKey } from "store/features/app";
 
 const DeveloperPage = () => {
-  const currentEndpoint = useSelector(({ app }) => app.organization.currentEndpoint);
+  const [currentEndpoint, environment] = useSelector(({ app }) => [app.organization.currentEndpoint, app.appSlice.environment]),
+    dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (currentEndpoint)
+      dispatch(setCurrentKey(getKey(currentEndpoint?.method, environment, currentEndpoint?.endpoint)));
+  }, [currentEndpoint, dispatch]);
 
   return (
     <>
@@ -25,7 +33,7 @@ const DeveloperPage = () => {
             <WarningOutlined />
             <div>Lütfen bir seçim yapınız</div>
           </div>
-    }
+      }
     </>
   )
 }
