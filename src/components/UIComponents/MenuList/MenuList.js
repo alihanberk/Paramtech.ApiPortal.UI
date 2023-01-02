@@ -1,19 +1,12 @@
 import { Card, Col, List, Row, Switch, Tag } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import { LeftOutlined, RightOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-import { methodColors, pageTypes } from "lib/contants";
+import { methodColors } from "lib/contants";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { clearOrganizationState, setCurrentEndpoint, setCurrentProduct, setCurrentTag } from "store/features/organization";
-import { clearData, setDescriptionsVisible } from "store/features/app";
+import { setAppState } from "store/features/app";
 import ListUtils from "./utils";
 import Description from "../Description";
-
-const reducerTypes = {
-  endpoint: setCurrentEndpoint,
-  organization: setCurrentProduct,
-  product: setCurrentTag
-};
 
 const MenuList = ({ data }) => {
 
@@ -63,8 +56,8 @@ const MenuList = ({ data }) => {
         <div>
           <Switch
             checked={descriptionVisible}
-            onChange={e => dispatch(setDescriptionsVisible(e))}
             checkedChildren={<EyeOutlined />}
+            onChange={e => dispatch(setAppState({ key: "descriptionVisible", data: e }))}
             unCheckedChildren={<EyeInvisibleOutlined />}
           />
         </div>

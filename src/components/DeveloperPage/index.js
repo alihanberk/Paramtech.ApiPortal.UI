@@ -5,7 +5,7 @@ import DeveloperKit from "./DeveloperKit";
 import EndpointInfo from "./EndpointInfo";
 import { WarningOutlined } from '@ant-design/icons';
 import { getKey } from "lib/helpers";
-import { setCurrentKey } from "store/features/app";
+import { setAppState } from "store/features/app";
 
 const DeveloperPage = () => {
   const [currentEndpoint, environment] = useSelector(({ app }) => [app.organization.currentEndpoint, app.appSlice.environment]),
@@ -13,7 +13,7 @@ const DeveloperPage = () => {
 
   React.useEffect(() => {
     if (currentEndpoint)
-      dispatch(setCurrentKey(getKey(currentEndpoint?.method, environment, currentEndpoint?.endpoint)));
+      dispatch(setAppState({ key: "currentKey", data: getKey(currentEndpoint?.method, environment, currentEndpoint?.endpoint) }));
   }, [currentEndpoint, dispatch]);
 
   return (

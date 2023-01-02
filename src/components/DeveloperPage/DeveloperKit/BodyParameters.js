@@ -11,13 +11,11 @@ const BodyParameters = () => {
     [
       documentation,
       currentEndpoint,
-      body,
       currentParameters,
       currentKey
     ] = useSelector(({ app }) => [
       app.documentation,
       app.organization.currentEndpoint,
-      app.appSlice.requestBody,
       app.currentParameters,
       app.appSlice.currentKey
     ]),

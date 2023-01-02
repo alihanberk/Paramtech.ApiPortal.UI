@@ -5,7 +5,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { setAuthorizedWarning, submitRequest } from "store/features/app";
+import { setAppState, setAuthorizedWarning, submitRequest } from "store/features/app";
 import CardExtra from "./CardExtra";
 
 const RequestKit = () => {
@@ -39,7 +39,7 @@ const RequestKit = () => {
       if (token)
         getRequest();
       else {
-        dispatch(setAuthorizedWarning(true));
+        dispatch(setAppState({ key: "authorizedWarning", data: true }));
       }
     },
 

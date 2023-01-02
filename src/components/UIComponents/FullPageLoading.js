@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setBrandVisible } from "store/features/app";
+import { setAppState } from "store/features/app";
 import { useNavigate, useParams } from "react-router-dom";
 import { clearOrganizationState } from "store/features/organization";
 import Logo from "../../assets/img/param-preloader.gif";
@@ -16,7 +16,7 @@ const FullPageLoading = ({ message }) => {
   useEffect(() => {
     if (brandVisible)
       setTimeout(() => {
-        dispatch(setBrandVisible(false));
+        dispatch(setAppState({ key: "brandVisible", data: false }));
         if (params.organizationId) {
           dispatch(clearOrganizationState(["currentTag", "currentEndpoint", "currentProduct"]));
           navigate(`/organizations/${params.organizationId}`)

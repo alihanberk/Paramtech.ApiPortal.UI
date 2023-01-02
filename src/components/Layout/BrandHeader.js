@@ -2,7 +2,7 @@ import { Dropdown, Menu } from "antd";
 import React from "react";
 import { DownOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
-import { setBrandVisible, setEnvironment } from "store/features/app";
+import { setAppState } from "store/features/app";
 import { upperCaseFirstLetter } from "lib/helpers";
 
 const BrandHeader = () => {
@@ -12,8 +12,8 @@ const BrandHeader = () => {
 
     handleChangeEnv = (e) => {
       if (e.key !== environment) {
-        dispatch(setBrandVisible(true));
-        dispatch(setEnvironment(e.key));
+        dispatch(setAppState({ key: "brandVisible", data: true }));
+        dispatch(setAppState({ key: "environment", data: e.key }));
       }
     },
 

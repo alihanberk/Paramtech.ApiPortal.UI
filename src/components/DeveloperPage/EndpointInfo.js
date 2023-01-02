@@ -1,8 +1,8 @@
 import { Button, Col, Input, Row, Tag } from "antd";
 import { methodColors } from "lib/contants";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAuthorizedWarning, setToken } from "store/features/app";
+import { setAppState } from "store/features/app";
 
 const EndpointInfo = () => {
   const
@@ -12,16 +12,16 @@ const EndpointInfo = () => {
 
     handleAuthorizeButton = e => {
       e.stopPropagation();
-      dispatch(setToken(authCode));
+      dispatch(setAppState({ key: "token", data: authCode }));
     }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (warning) {
       setTimeout(() => {
-        dispatch(setAuthorizedWarning(false));
-      }, 3000)
+        dispatch(setAppState({ key: "authorizedWarning", data: false }));
+      }, 3000);
     }
-  }, [warning, dispatch])
+  }, [warning, dispatch]);
 
   return (
     <Row>

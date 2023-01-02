@@ -1,5 +1,5 @@
-
 import { pageTypes } from "lib/contants";
+import { clearData } from "store/features/app";
 import { clearDocumentation } from "store/features/documentation";
 import { setCurrentEndpoint, setCurrentTag, setCurrentProduct, clearOrganizationState } from "store/features/organization";
 
@@ -57,6 +57,7 @@ export const developerForward = payload => {
     dispatch(reducerTypes[type](item.name));
   }
   else if (type === pageTypes.developer) {
+    dispatch(clearData(["requestResponse"]));
     dispatch(reducerTypes[type](item));
     if (params.endpointId !== options.currentTag) {
       const _location = `/organizations/${params.organizationId}/${params.applicationId}/${options.currentTag}`;

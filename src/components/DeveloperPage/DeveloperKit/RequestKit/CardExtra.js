@@ -1,7 +1,7 @@
 import { Button, Dropdown, Menu } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeRequestLanguage } from "store/features/app";
+import { changeRequestLanguage, setAppState } from "store/features/app";
 import { DownOutlined } from '@ant-design/icons';
 import { requestLanguages } from "lib/contants";
 import { CopyButton } from "components/UIComponents";
@@ -18,7 +18,7 @@ const CardExtra = ({ text, hasDropdown, hasCopyButton, hasAdditionalButton, addi
         <Dropdown
           className="mr-32 card-extra"
           overlay={
-            <Menu onClick={e => dispatch(changeRequestLanguage(e.key))}>
+            <Menu onClick={e => dispatch(setAppState({ key: "requestLanguage", data: e.key }))}>
               <Menu.Item className="env-item with-border" key="js">{requestLanguages.js}</Menu.Item>
               <Menu.Item className="env-item" key="bash">{requestLanguages.bash}</Menu.Item>
             </Menu>
