@@ -60,7 +60,13 @@ const
   responseModalDetailType = {
     exampleValue: "Example Value",
     schema: "Schema"
-  }
+  },
+
+  organizationTypes = [
+    { name: "finrota" },
+    { name: "kredim" },
+    { name: "param" }
+  ]
 
 export {
   methodColors,
@@ -71,5 +77,6 @@ export {
   moduleTypes,
   pageTypes,
   requestLanguages,
-  responseModalDetailType
+  responseModalDetailType,
+  organizationTypes
 };

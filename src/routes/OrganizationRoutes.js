@@ -22,7 +22,7 @@ const OrganizationRoutes = {
             element: <ProductsPage />,
         },
         {
-            path: "/organizations/:organizationId/:applicationId/:endpointId",
+            path: "/organizations/:organizationId/:applicationId/:endpointId/:methodId",
             element: <EndpointPages />,
         },
     ],

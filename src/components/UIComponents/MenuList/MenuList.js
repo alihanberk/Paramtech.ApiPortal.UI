@@ -51,7 +51,7 @@ const MenuList = ({ data }) => {
     Footer = () => (
       <div className="p-24 space-between color-black font-14 text-400">
         <div>
-          <span>{currentTag}</span>
+          <span>{currentTag?.tag}</span>
         </div>
         <div>
           <Switch
@@ -66,7 +66,7 @@ const MenuList = ({ data }) => {
 
     handleListClick = (e, item) => {
       e.stopPropagation();
-      ListUtils[`${data.page}Forward`]({ item, dispatch, type: data.type, page: data.page, navigate, location, options: { currentTag }, params });
+      ListUtils[`${data.page}Forward`]({ item, dispatch, type: data.type, page: data.page, navigate, location, params });
     },
 
     handleBackButton = () => {

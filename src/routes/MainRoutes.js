@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import MainLayout from "components/Layout/MainLayout";
 import Loadable from 'components/Loadable';
+import { Navigate } from 'react-router-dom';
 
 const HomePage = Loadable(lazy(() => import('../pages/Home')));
 const FaqPage = Loadable(lazy(() => import('../pages/Faq')));
@@ -12,6 +13,10 @@ const MainRoutes = {
         <MainLayout />
     ),
     children: [
+         {
+            path: "/",
+            element: <Navigate to="/home" /> ,
+        },
         {
             path: "/home",
             element: <HomePage />,

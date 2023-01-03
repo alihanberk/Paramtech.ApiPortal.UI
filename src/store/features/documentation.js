@@ -46,7 +46,7 @@ export const documantation = createSlice({
               data[tag] = [{ method: key, data: value, endpoint: apiKey }]
             }
             if (!tags.find(x => x.name === tag))
-              tags.push({ name: tag, key: tag });
+              tags.push({ name: tag, key: tag, endpoint: apiKey });
           });
         }
       };

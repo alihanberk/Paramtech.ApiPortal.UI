@@ -17,34 +17,24 @@ const Developer = () => {
     app.documentation,
     app.organization.currentTag
   ]),
-    params = useParams(),
     [listData, setListdata] = React.useState({ header: "", list: [], field: "" }),
-
-    location = useLocation(),
     dispatch = useDispatch();
-
-  React.useEffect(() => {
-    if (!organization && params.organizationId && params.applicationId) {
-      dispatch(setCurrentOrganization(params.organizationId))
-      dispatch(setCurrentProduct(params.applicationId))
-    }
-  }, [organization, location, dispatch, params]);
 
   React.useEffect(() => {
     const
       list = {
-        searchFields: currentTag ? "endpoint" : "name",
+        searchFields: currentTag?.tag ? "endpoint" : "name",
         placeholder: "Search API's",
         data: {
           className: "scrollable-menu",
           cardTitle: listData.header,
-          list: currentTag ? documentation.normalizedData.data?.[currentTag] : documentation.normalizedData?.tags,
+          list: currentTag?.tag ? documentation.normalizedData.data?.[currentTag?.tag] : documentation.normalizedData?.tags,
           organizationOrProduct: organization,
           clickable: true,
           field: listData.field,
-          withTag: !!currentTag,
-          withFooter: !!currentTag,
-          type: currentTag ? pageTypes.developer : pageTypes.product,
+          withTag: !!currentTag?.tag,
+          withFooter: !!currentTag?.tag,
+          type: currentTag?.tag ? pageTypes.developer : pageTypes.product,
           page: pageTypes.developer
         }
       }
@@ -52,12 +42,11 @@ const Developer = () => {
   }, [currentTag, documentation, listData, dispatch, organization]);
 
   React.useEffect(() => {
-    if (currentTag)
+    if (currentTag?.tag)
       setListdata({ header: "Go Back to Api List", field: "endpoint" })
     else
       setListdata({ header: "Go Back to Product List", field: "name" })
   }, [currentTag, documentation.normalizedData.data]);
-
 
   return (
     <Content>

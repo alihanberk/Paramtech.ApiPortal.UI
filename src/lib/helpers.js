@@ -9,6 +9,28 @@ export const getKey = (method, env, endpoint) => {
   return `${env}-${method}-${endpoint}`;
 }
 
+export const splitAndCombineByHyphen = data => {
+  const
+    splitedData = data.split("-"),
+    key = splitedData.join("/"),
+    tag = splitedData[0];
+  return { key, tag };
+}
+
+export const combineByHyphen = (data, exceptKey) => {
+  const
+    pathArray = data.split("/").filter(x => x),
+    exceptIndex = pathArray.indexOf(exceptKey);
+
+  pathArray.splice(exceptIndex, 1);
+
+  const
+    key = pathArray.join("-"),
+    tag = pathArray[0];
+  console.log(key, tag)
+  return { key, tag };
+}
+
 export const objectFilterByEmptyValue = object => {
   for (const [key, value] of Object.entries(object)) {
     if (value === "")

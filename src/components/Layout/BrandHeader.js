@@ -27,7 +27,7 @@ const BrandHeader = () => {
     ),
 
     getRouteString = () => {
-      return `Home${organizations ? `  \xa0/\xa0 ${upperCaseFirstLetter(organizations)}` : ""}${currentProduct ? ` \xa0/\xa0 ${upperCaseFirstLetter(currentProduct)}` : ""}${currentTag ? ` \xa0/\xa0 ${upperCaseFirstLetter(currentTag)}` : ""}`
+      return `Home${organizations ? `  \xa0/\xa0 ${upperCaseFirstLetter(organizations)}` : ""}${currentProduct ? ` \xa0/\xa0 ${upperCaseFirstLetter(currentProduct)}` : ""}${currentTag?.tag ? ` \xa0/\xa0 ${upperCaseFirstLetter(currentTag?.tag)}` : ""}`
     }
 
   return (

@@ -4,7 +4,11 @@ const initialState = {
   currentOrganization: null,
   currentProduct: null,
   currentEndpoint: null,
-  currentTag: null,
+  currentTag: {
+    tag: null,
+    pathTag: null,
+    apiKey: null,
+  },
 }
 
 export const organizationSlice = createSlice({

@@ -1,4 +1,5 @@
 import { pageTypes } from "lib/contants";
+import { combineByHyphen } from "lib/helpers";
 import { clearData } from "store/features/app";
 import { clearDocumentation } from "store/features/documentation";
 import { setCurrentEndpoint, setCurrentTag, setCurrentProduct, clearOrganizationState } from "store/features/organization";
@@ -25,14 +26,17 @@ export const organizationBack = payload => {
 };
 
 export const productForward = payload => {
-  const { item, location, dispatch, type, navigate, options } = payload;
+  const
+    { item, location, dispatch, type, navigate } = payload,
+    { key, tag } = combineByHyphen(item.endpoint, "api");
 
   if (type === pageTypes.product) {
-    dispatch(reducerTypes[type](item.name));
+    dispatch(reducerTypes[type]({ tag, pathTag: key, apiKey: item.endpoint }));
   }
-  else if (type === pageTypes.developer && options.currentTag) {
-    dispatch(reducerTypes[type](item))
-    navigate(location.pathname + "/" + options.currentTag);
+  else if (type === pageTypes.developer) {
+    dispatch(reducerTypes[type](item));
+    dispatch(reducerTypes["product"]({ tag, pathTag: key, apiKey: item.endpoint }))
+    navigate(location.pathname + "/" + key + "/" + item.method);
   }
 };
 
@@ -51,16 +55,19 @@ export const productBack = payload => {
 };
 
 export const developerForward = payload => {
-  const { item, dispatch, type, navigate, options, params } = payload;
+  const
+    { item, dispatch, type, navigate, params } = payload,
+    { key, tag } = combineByHyphen(item.endpoint, "api");
 
   if (type === pageTypes.product) {
-    dispatch(reducerTypes[type](item.name));
+    dispatch(reducerTypes[type]({ tag, pathTag: key, apiKey: item.endpoint }));
   }
   else if (type === pageTypes.developer) {
     dispatch(clearData(["requestResponse"]));
     dispatch(reducerTypes[type](item));
-    if (params.endpointId !== options.currentTag) {
-      const _location = `/organizations/${params.organizationId}/${params.applicationId}/${options.currentTag}`;
+    dispatch(reducerTypes["product"]({ tag, pathTag: key, apiKey: item.endpoint }))
+    if (params.endpointId !== key || params.methodId !== item.method) {
+      const _location = `/organizations/${params.organizationId}/${params.applicationId}/${key}/${item.method}`;
       navigate(_location);
     }
   }
@@ -73,6 +80,6 @@ export const developerBack = payload => {
     navigate(`/organizations/${params.organizationId}`);
   }
   else if (type === pageTypes.developer) {
-    dispatch(clearOrganizationState(["currentTag", "currentEndpoint"]));
+    dispatch(clearOrganizationState(["currentTag"]));
   }
 }
