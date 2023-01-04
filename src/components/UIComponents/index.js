@@ -8,3 +8,4 @@ export { default as Hero } from "./Hero";
 export { default as CopyButton } from "./CopyButton";
 export { default as CustomSwitch } from "./Switch";
 export { default as FullPageLoading } from "./FullPageLoading";
+export { default as Loading } from "./Loading";

@@ -7,15 +7,20 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { setAppState } from "store/features/app";
 import ListUtils from "./utils";
 import Description from "../Description";
+import Loading from "../Loading";
 
 const MenuList = ({ data }) => {
-
+  console.log(data);
   const
     params = useParams(),
     location = useLocation(),
     navigate = useNavigate(),
     dispatch = useDispatch(),
-    [currentTag, descriptionVisible] = useSelector(({ app }) => [app.organization.currentTag, app.appSlice.descriptionVisible]),
+    [currentTag, descriptionVisible, loading] = useSelector(({ app }) => {
+      const loading = data?.stateKey ? app[data?.stateKey]?.loading : false;
+      console.log(loading, app[data?.stateKey], data);
+      return [app.organization.currentTag, app.appSlice.descriptionVisible, loading]
+    }),
 
     RenderItem = ({ item }) => {
       return (
@@ -49,7 +54,7 @@ const MenuList = ({ data }) => {
     },
 
     Footer = () => (
-      <div className="p-24 space-between color-black font-14 text-400">
+      <div className="p-24 space-between color-black font-14 text-400 fixed-bottom">
         <div>
           <span>{currentTag?.tag}</span>
         </div>
@@ -89,19 +94,21 @@ const MenuList = ({ data }) => {
           className={data?.clickable ? `clickable` : ""}
           bordered={false}
         >
-          <List
-            className={`${data?.clickable && "clickable"} ${data?.className}`}
-            itemLayout="horizontal"
-            dataSource={data?.list}
-            renderItem={item => (
-              <div onClick={e => handleListClick(e, item)} key={item.key} className={`list-item`}>
-                <List.Item className="pt-24 pb-24 ml-24 mr-24">
-                  <RenderItem item={item} />
-                  <RightOutlined className="font-10" />
-                </List.Item>
-              </div>
-            )}
-          />
+          <Loading size="xxl" loading={loading} >
+            <List
+              className={`${data?.clickable && "clickable"} ${data?.className}`}
+              itemLayout="horizontal"
+              dataSource={data?.list}
+              renderItem={item => (
+                <div onClick={e => handleListClick(e, item)} key={item.key} className={`list-item`}>
+                  <List.Item className="pt-24 pb-24 ml-24 mr-24">
+                    <RenderItem item={item} />
+                    <RightOutlined className="font-10" />
+                  </List.Item>
+                </div>
+              )}
+            />
+          </Loading>
           {
             data?.withFooter &&
             <Footer />

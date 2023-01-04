@@ -26,6 +26,7 @@ const Developer = () => {
         searchFields: currentTag?.tag ? "endpoint" : "name",
         placeholder: "Search API's",
         data: {
+          stateKey: "documentation",
           className: "scrollable-menu",
           cardTitle: listData.header,
           list: currentTag?.tag ? documentation.normalizedData.data?.[currentTag?.tag] : documentation.normalizedData?.tags,

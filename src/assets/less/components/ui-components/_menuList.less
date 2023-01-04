@@ -9,17 +9,26 @@
     border: 1px solid #EEF0F4;
     border-radius: 10px;
 
-    .ant-card{
-      .ant-card-head{
-        .ant-card-head-wrapper{
-          .ant-card-head-title{
+    .ant-card {
+      .ant-card-head {
+        .ant-card-head-wrapper {
+          .ant-card-head-title {
             color: #7D8E9F;
           }
         }
       }
 
-      .ant-card-body{
+      .ant-card-body {
         padding: 0;
+        min-height: 700px;
+
+        .fixed-bottom {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          border-top: 1px solid #EEF0F4;
+        }
       }
     }
   }

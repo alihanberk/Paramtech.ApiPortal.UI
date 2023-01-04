@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import ErrorHandling from "store/errorHandling";
 import service from "store/service";
 
 const initialState = {
@@ -29,7 +30,8 @@ export const documantation = createSlice({
     builder.addCase(getDocumentation.pending, state => ({ loading: true, data: [], normalizedData: [] }));
 
     builder.addCase(getDocumentation.rejected, (state, action) => {
-      console.log(action);
+      ErrorHandling({ message: action.error.message });
+      return { loading: false, data: [], normalizedData: [] }
     });
 
     builder.addCase(getDocumentation.fulfilled, (state, action) => {

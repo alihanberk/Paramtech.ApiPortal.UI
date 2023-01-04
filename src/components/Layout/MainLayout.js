@@ -11,6 +11,7 @@ import { getDocumentation } from 'store/features/documentation';
 import { moduleTypes, organizationTypes } from 'lib/contants';
 import { splitAndCombineByHyphen } from 'lib/helpers';
 import _ from 'lodash';
+import { clearOrganizationState } from "store/features/organization";
 
 const MainLayout = ({ withSider }) => {
   const
@@ -24,7 +25,7 @@ const MainLayout = ({ withSider }) => {
       let organizationData = [];
       if (param.organizationId !== organization) {
         if (!organizationTypes.find(x => x.name === param.organizationId)) {
-          console.log("1")
+          dispatch(clearOrganizationState(["currentTag", "currentEndpoint", "currentProduct", "currentOrganization"]));
           navigate("/home");
         }
         else {
@@ -34,7 +35,7 @@ const MainLayout = ({ withSider }) => {
       if (param.applicationId && param.applicationId !== currentProduct) {
         organizationData = require(`../../data/${param.organizationId}ProductName.data.json`);
         if (!organizationData.find(x => x.route === param.applicationId)) {
-          console.log(organizationData, param.applicationId)
+          dispatch(clearOrganizationState(["currentTag", "currentEndpoint", "currentProduct", "currentOrganization"]));
           navigate("/home");
         }
         else {
@@ -45,12 +46,15 @@ const MainLayout = ({ withSider }) => {
         const { key, tag } = splitAndCombineByHyphen(param.endpointId);
         if (documentation.normalizedData.data && param.methodId && _.isEmpty(currentEndpoint)) {
           const endpoint = documentation.normalizedData.data?.[tag]?.find(x => x.method === param.methodId && x.endpoint.includes(key));
-          if (endpoint)
+          if (endpoint) {
             dispatch(setCurrentEndpoint(endpoint));
-          else
+            dispatch(setCurrentTag({ tag: tag, pathTag: param.endpointId, apiKey: key }));
+          }
+          else {
+            dispatch(clearOrganizationState(["currentTag", "currentEndpoint", "currentProduct", "currentOrganization"]));
             navigate("/home");
+          }
         }
-        dispatch(setCurrentTag({ tag: tag, pathTag: param.endpointId, apiKey: key }));
       }
     }
   }, [param, organization, documentation.normalizedData]);

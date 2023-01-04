@@ -26,6 +26,7 @@ const Product = () => {
         searchFields: currentTag?.tag ? "endpoint" : "name",
         placeholder: "Search API's",
         data: {
+          stateKey: "documentation",
           className: "scrollable-menu",
           header: "API's",
           cardTitle: listData.header,
@@ -52,7 +53,7 @@ const Product = () => {
 
   return (
     <Content>
-      deneme
+      Read me sayfası
     </Content>
   )
 }

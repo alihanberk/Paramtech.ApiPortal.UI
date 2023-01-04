@@ -6,9 +6,10 @@ import EndpointInfo from "./EndpointInfo";
 import { WarningOutlined } from '@ant-design/icons';
 import { getKey } from "lib/helpers";
 import { setAppState } from "store/features/app";
+import { Loading } from "components/UIComponents";
 
 const DeveloperPage = () => {
-  const [currentEndpoint, environment] = useSelector(({ app }) => [app.organization.currentEndpoint, app.appSlice.environment]),
+  const [currentEndpoint, environment, documentation] = useSelector(({ app }) => [app.organization.currentEndpoint, app.appSlice.environment, app.documentation]),
     dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -17,7 +18,7 @@ const DeveloperPage = () => {
   }, [currentEndpoint, dispatch]);
 
   return (
-    <>
+    <Loading size="xxxl" loading={documentation.loading}>
       {
         currentEndpoint ?
           <Row className="developer-page">
@@ -34,7 +35,7 @@ const DeveloperPage = () => {
             <div>Lütfen bir seçim yapınız</div>
           </div>
       }
-    </>
+    </Loading>
   )
 }
 
