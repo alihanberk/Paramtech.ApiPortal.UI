@@ -10,7 +10,6 @@ import Description from "../Description";
 import Loading from "../Loading";
 
 const MenuList = ({ data }) => {
-  console.log(data);
   const
     params = useParams(),
     location = useLocation(),
@@ -18,7 +17,6 @@ const MenuList = ({ data }) => {
     dispatch = useDispatch(),
     [currentTag, descriptionVisible, loading] = useSelector(({ app }) => {
       const loading = data?.stateKey ? app[data?.stateKey]?.loading : false;
-      console.log(loading, app[data?.stateKey], data);
       return [app.organization.currentTag, app.appSlice.descriptionVisible, loading]
     }),
 

@@ -1,9 +1,8 @@
 import Content from "components/Layout/Content/Content";
-import { moduleTypes, pageTypes } from "lib/contants";
+import { pageTypes } from "lib/contants";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDocumentation } from "store/features/documentation";
-import { clearSiderProps, setSiderProps } from "store/features/sider";
+import { setSiderProps } from "store/features/sider";
 
 
 const Product = () => {

@@ -6,7 +6,7 @@ import CollapseContent from "./CollapseContent";
 const ResponseCollapseContent = ({ visible, onCloseModal }) => {
 
   return (
-    <div className="modall">
+    <div className="modal">
 
       <Modal
         width={648}

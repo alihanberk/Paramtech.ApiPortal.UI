@@ -1,13 +1,11 @@
-import { Button, Col, Empty, Row } from "antd";
+import { Col, Empty, Row } from "antd";
 import React from "react";
-import OutsideClickHandler from "react-outside-click-handler";
 import { useSelector } from "react-redux";
 import SchemaComp from "./SchemaComp";
 
 const CollapseSchema = ({ data, option }) => {
   const
     documentation = useSelector(({ app }) => app.documentation),
-    [visible, setVisible] = React.useState(false),
 
     renderSchema = (_content, isChild) => {
       let array = [];
@@ -24,7 +22,7 @@ const CollapseSchema = ({ data, option }) => {
       const
         header = array?.[array?.length - 1],
         itemArray = documentation.data.components.schemas[header];
-      console.log(itemArray)
+
       return (
         <Row gutter={[12, 12]} className={`${isChild ? "p-24" : "response-schema"}`}>
           <Col className="font-14 text-600 color-black" xs={24}>{header}</Col>

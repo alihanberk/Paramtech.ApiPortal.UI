@@ -22,7 +22,7 @@ const EndpointInfo = () => {
       }, 3000);
     }
   }, [warning, dispatch]);
-  console.log(currentEndpoint);
+
   return (
     <Row>
       <Col xs={12}>

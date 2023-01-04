@@ -56,7 +56,7 @@ const BodyParameters = () => {
     <Card
       className="secondary-type"
       title="Body Parameters"
-      extra={<CardExtra hasCopyButton text={JSON.stringify(currentParameters?.[currentKey]?.bodyParameters, undefined, 2)} />}
+      extra={<CardExtra hasCopyButton={selectedEndpoint?.requestBody} text={JSON.stringify(currentParameters?.[currentKey]?.bodyParameters, undefined, 2)} />}
     >
       {
         selectedEndpoint?.requestBody ?

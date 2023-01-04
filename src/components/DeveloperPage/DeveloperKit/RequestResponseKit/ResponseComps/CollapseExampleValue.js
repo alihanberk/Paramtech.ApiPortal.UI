@@ -10,7 +10,6 @@ const CollapseExampleValue = ({ data, option }) => {
   const documentation = useSelector(({ app }) => app.documentation),
 
     getContentSchema = _content => {
-      console.log(_content);
       let array = [];
       if (_content?.items?.["$ref"]) {
         array = _content?.items?.["$ref"]?.split("/");

@@ -3,8 +3,6 @@ import Content from "components/Layout/Content/Content";
 import { pageTypes } from "lib/contants";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
-import { setCurrentOrganization, setCurrentProduct } from "store/features/organization";
 import { setSiderProps } from "store/features/sider";
 
 const Developer = () => {

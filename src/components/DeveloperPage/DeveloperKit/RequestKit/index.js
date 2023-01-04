@@ -5,7 +5,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { setAppState, setAuthorizedWarning, submitRequest } from "store/features/app";
+import { setAppState, submitRequest } from "store/features/app";
 import CardExtra from "./CardExtra";
 
 const RequestKit = () => {

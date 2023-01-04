@@ -66,6 +66,14 @@ const
     { name: "finrota" },
     { name: "kredim" },
     { name: "param" }
+  ],
+
+  navbarKeys = [
+    {name: "faq"},
+    {name: "kredim"},
+    {name: "param"},
+    {name: "finrota"},
+    {name: "home"}
   ]
 
 export {
@@ -78,5 +86,6 @@ export {
   pageTypes,
   requestLanguages,
   responseModalDetailType,
-  organizationTypes
+  organizationTypes,
+  navbarKeys
 };

@@ -1,7 +1,7 @@
 import { Button, Dropdown, Menu } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeRequestLanguage, setAppState } from "store/features/app";
+import { setAppState } from "store/features/app";
 import { DownOutlined } from '@ant-design/icons';
 import { requestLanguages } from "lib/contants";
 import { CopyButton } from "components/UIComponents";

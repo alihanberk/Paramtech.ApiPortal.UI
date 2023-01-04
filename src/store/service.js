@@ -83,7 +83,7 @@ class service {
   }
 
   static delete = payload => {
-    let endpoint = payload.url, headers = {}, params = {};
+    let endpoint = payload.url, params = {};
     if (payload.id) endpoint += `/${payload.id}`;
     if (payload.parameters) {
       params = { ...payload.parameters };

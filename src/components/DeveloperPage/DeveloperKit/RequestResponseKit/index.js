@@ -11,8 +11,7 @@ import ResponseCollapseContent from "./ResponseComps";
 const RequesResponseKit = () => {
   const
     { isOpenModal, onOpenModal, onCloseModal } = useModal(),
-    response = useSelector(({ app }) => app.appSlice.requestResponse),
-    responsesRef = React.useRef();
+    response = useSelector(({ app }) => app.appSlice.requestResponse);
 
 
   return (

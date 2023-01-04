@@ -1,5 +1,5 @@
 import _, { isEmpty } from "lodash";
-import { parameterTypes } from "./contants";
+import { navbarKeys, parameterTypes } from "./contants";
 
 export const classNames = (classNamesList = []) => classNamesList.filter(x => x !== false && x !== undefined && x !== null && x !== "" && x !== "false").join(" ").trim();
 
@@ -27,7 +27,7 @@ export const combineByHyphen = (data, exceptKey) => {
   const
     key = pathArray.join("-"),
     tag = pathArray[0];
-  console.log(key, tag)
+
   return { key, tag };
 }
 
@@ -183,4 +183,17 @@ export const getFetchString = ({ currentEndpoint, token, parameters, body }) => 
     ${!isEmpty(headers) ? `headers: ${JSON.stringify(headers, undefined, 3)},` : ""}
     ${body.length ? `body: ${JSON.stringify(body, undefined, 4)},` : ""}
     })`).replaceAll('"', "'");
+}
+
+export const getMenuSelectedKeys = location => {
+  const _locationArray = location.pathname.split("/");
+  let selectedKeys = "";
+
+  navbarKeys.forEach(x => {
+    const keyIndex = _locationArray.indexOf(x.name);
+    if (keyIndex > -1)
+      selectedKeys = _locationArray[keyIndex];
+  });
+
+  return selectedKeys;
 }

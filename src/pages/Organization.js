@@ -33,7 +33,7 @@ const Organization = () => {
         }
       }
     dispatch(setSiderProps(list));
-  }, [organization]);
+  }, [organization, dispatch]);
 
 
 
