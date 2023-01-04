@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentEndpoint, setCurrentOrganization, setCurrentProduct, setCurrentTag } from 'store/features/organization';
 import { FullPageLoading } from 'components/UIComponents';
 import { getDocumentation } from 'store/features/documentation';
-import { moduleTypes, organizationTypes } from 'lib/contants';
-import { splitAndCombineByHyphen } from 'lib/helpers';
+import { organizationTypes } from 'lib/contants';
+import { formatUrl, splitAndCombineByHyphen } from 'lib/helpers';
 import _ from 'lodash';
 import { clearOrganizationState } from "store/features/organization";
 
@@ -62,7 +62,7 @@ const MainLayout = ({ withSider }) => {
 
   useEffect(() => {
     if (product && !brandVisible)
-      dispatch(getDocumentation(`https://${environment}_${moduleTypes[product]}api.e-cozum.com/swagger/v1/swagger.json`));
+      dispatch(getDocumentation(`${formatUrl()}/swagger/v1/swagger.json`));
   }, [environment, product, brandVisible]);
 
 

@@ -12,7 +12,7 @@ const EndpointInfo = () => {
 
     handleAuthorizeButton = e => {
       e.stopPropagation();
-      dispatch(setAppState({ key: "token", data: authCode }));
+      dispatch(setAppState({ key: "token", data: { ...token, ...{ key: authCode } } }));
     }
 
   React.useEffect(() => {
@@ -23,6 +23,12 @@ const EndpointInfo = () => {
     }
   }, [warning, dispatch]);
 
+  React.useEffect(() => {
+    if (token.key && token.runAnimation)
+    setTimeout(() => {
+      dispatch(setAppState({ key: "token", data: { ...token, ...{ runAnimation: false } } }))
+    }, 1000);
+  }, [token, dispatch])
   return (
     <Row>
       <Col xs={12}>
@@ -31,16 +37,16 @@ const EndpointInfo = () => {
       </Col>
       <Col xs={{ span: 8, offset: 4 }}>
         <Input
-          disabled={token}
+          disabled={token.key}
           onChange={e => setAuthCode(e.target.value)}
-          className={`input-type-secondary p-8 input-secondary ${token ? "closeInput" : ""} ${warning ? "unauthorized" : ""} element-right auto-width`}
+          className={`input-type-secondary p-8 input-secondary ${token.key ? `${token.runAnimation && "runAnimation"} closeInput` : ""} ${warning ? "unauthorized" : ""} element-right auto-width`}
           placeholder="Bearer Token"
           suffix={
             <Button
-              className={`${token ? "successAuthorized" : ""} ${warning ? "unauthorized shakeButton" : ""}`}
-              onClick={e => token ? null : handleAuthorizeButton(e)}
+              className={`${token.key ? "successAuthorized" : ""} ${warning ? "unauthorized shakeButton" : ""}`}
+              onClick={e => token.key ? null : handleAuthorizeButton(e)}
               type="primary">
-              {token ?
+              {token.key ?
                 "Authorized" :
                 "Authorize"}
             </Button>

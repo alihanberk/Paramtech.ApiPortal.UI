@@ -84,7 +84,7 @@ const MenuList = ({ data }) => {
       }
       <div className="menu-list">
         <Card title={
-          <div onClick={() => handleBackButton()}>
+          <div onClick={() => !loading && handleBackButton()}>
             <LeftOutlined className="font-12" />
             <span className="ml-8 font-14 text-400 list-title">{data?.cardTitle}</span>
           </div>

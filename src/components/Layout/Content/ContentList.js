@@ -8,7 +8,13 @@ import seacrhIcon from "../../../assets/img/ui-icons/search.svg";
 
 const ContentList = () => {
   const
-    sider = useSelector(({ app }) => app.sider.list),
+    [sider, loading] = useSelector(({ app }) => {
+      const
+        { sider } = app,
+        loading = sider.list.data?.stateKey ? app[sider.list.data.stateKey]?.loading : false;
+
+      return [sider.list, loading];
+    }),
     [filter, setFilter] = React.useState(null),
     [data, setData] = React.useState([]),
 
@@ -36,7 +42,7 @@ const ContentList = () => {
   return (
     <div>
       <div className="mb-40" >
-        <Input value={filter} onChange={e => handleChange(e.target.value)} prefix={<ReactSVG className="svg-prefix" src={seacrhIcon} />} className="input-type-secondary" placeholder={sider.placeholder} />
+        <Input disabled={loading} value={filter} onChange={e => handleChange(e.target.value)} prefix={<ReactSVG className="svg-prefix" src={seacrhIcon} />} className="input-type-secondary" placeholder={sider.placeholder} />
       </div>
       <div>
         <MenuList {...{ data: filter ? data : sider.data, }} />

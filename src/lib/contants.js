@@ -69,12 +69,51 @@ const
   ],
 
   navbarKeys = [
-    {name: "faq"},
-    {name: "kredim"},
-    {name: "param"},
-    {name: "finrota"},
-    {name: "home"}
-  ]
+    { name: "faq" },
+    { name: "kredim" },
+    { name: "param" },
+    { name: "finrota" },
+    { name: "home" }
+  ],
+
+  urlTypes = {
+    test: [
+      { key: "tenant", name: "tenantapi", suffix: "e-cozum" },
+      { key: "dbs", name: "dbsapi", suffix: "ecozum", withoutHyphen: true },
+      { key: "netekstre", name: "nteapi", suffix: "e-cozum" },
+      { key: "netahsilat", name: "nthapi", suffix: "e-cozum" },
+      { key: "pos", name: "posapi", suffix: "e-cozum" },
+      { key: "tos", name: "tosapi", suffix: "e-cozum" },
+      { key: "posrapor", name: "posraporapi", suffix: "e-cozum" },
+    ],
+    uat: [
+      { key: "tenant", name: "tenantapi", suffix: "e-cozum" },
+      { key: "dbs", name: "dbsapi", suffix: "ecozum", withoutHyphen: true },
+      { key: "netekstre", name: "nteapi", suffix: "e-cozum" },
+      { key: "netahsilat", name: "nthapi", suffix: "e-cozum" },
+      { key: "pos", name: "posapi", suffix: "e-cozum" },
+      { key: "tos", name: "tosapi", suffix: "e-cozum" },
+      { key: "posrapor", name: "posraporapi", suffix: "e-cozum" },
+    ],
+    prodtest: [
+      { key: "tenant", name: "tntapi", suffix: "ecozum", endpointSuffix: "api" },
+      { key: "dbs", name: "dbsapi", suffix: "ecozum", withoutHyphen: true },
+      { key: "netekstre", name: "nteapi", suffix: "ecozum" },
+      { key: "netahsilat", name: "nthapi", suffix: "ecozum" },
+      { key: "pos", name: "posapi", suffix: "ecozum" },
+      { key: "tos", name: "tosapi", suffix: "ecozum" },
+      { key: "posrapor", name: "posraporapi", suffix: "ecozum" },
+    ],
+    dev: [
+      { key: "tenant", name: "tenantapi", suffix: "e-cozum" },
+      { key: "dbs", name: "dbsapi", suffix: "ecozum", withoutHyphen: true },
+      { key: "netekstre", name: "nteapi", suffix: "e-cozum" },
+      { key: "netahsilat", name: "nthapi", suffix: "e-cozum" },
+      { key: "pos", name: "posapi", suffix: "e-cozum" },
+      { key: "tos", name: "tosapi", suffix: "e-cozum" },
+      { key: "posrapor", name: "posraporapi", suffix: "e-cozum" },
+    ]
+  }
 
 export {
   methodColors,
@@ -87,5 +126,6 @@ export {
   requestLanguages,
   responseModalDetailType,
   organizationTypes,
-  navbarKeys
+  navbarKeys,
+  urlTypes
 };

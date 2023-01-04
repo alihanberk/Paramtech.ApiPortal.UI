@@ -9,34 +9,48 @@ import { setAppState, submitRequest } from "store/features/app";
 import CardExtra from "./CardExtra";
 
 const RequestKit = () => {
-  const [
-    currentEndpoint,
-    token,
-    requestLanguage,
-    currentParameters,
-    currentKey
-  ] = useSelector(({ app }) => [
-    app.organization.currentEndpoint,
-    app.appSlice.token,
-    app.appSlice.requestLanguage,
-    app.currentParameters,
-    app.appSlice.currentKey
-  ]),
+  const
+    [
+      currentEndpoint,
+      token,
+      requestLanguage,
+      currentParameters,
+      currentKey
+    ] = useSelector(({ app }) => [
+      app.organization.currentEndpoint,
+      app.appSlice.token,
+      app.appSlice.requestLanguage,
+      app.currentParameters,
+      app.appSlice.currentKey
+    ]),
 
     dispatch = useDispatch(),
 
     getCodeString = React.useCallback(() => {
-      return requestTypes.find(x => x.type === requestLanguage)?.function({ currentEndpoint, token, parameters: currentParameters[currentKey]?.parameters, body: currentParameters[currentKey]?.bodyParameters });
+      return requestTypes
+        .find(x => x.type === requestLanguage)
+        ?.function({
+          currentEndpoint,
+          token: token.key,
+          parameters: currentParameters[currentKey]?.parameters,
+          body: currentParameters[currentKey]?.bodyParameters
+        });
     }, [currentEndpoint, token, requestLanguage, currentKey, currentParameters]),
 
     getRequest = () => {
-      const _parameters = getRequestPayload(token, currentEndpoint, currentParameters[currentKey]?.parameters, "objectQuery");
+      const _parameters = getRequestPayload(token.key, currentEndpoint, currentParameters[currentKey]?.parameters, "objectQuery");
 
-      dispatch(submitRequest({ url: _parameters.url, method: currentEndpoint.method, parameters: _parameters.parameters, headers: _parameters.headers, data: currentParameters[currentKey]?.bodyParameters }));
+      dispatch(submitRequest({
+        url: _parameters.url,
+        method: currentEndpoint.method,
+        parameters: _parameters.parameters,
+        headers: _parameters.headers,
+        data: currentParameters[currentKey]?.bodyParameters
+      }));
     },
 
     onHandleRequest = () => {
-      if (token)
+      if (token.key)
         getRequest();
       else {
         dispatch(setAppState({ key: "authorizedWarning", data: true }));

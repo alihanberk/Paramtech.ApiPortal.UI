@@ -14,7 +14,10 @@ export const submitRequest = createAsyncThunk("exampleRequest",
 );
 
 const initialState = {
-  token: null,
+  token: {
+    key: null,
+    runAnimation: true
+  },
   requestResponse: {},
   requestLanguage: "bash",
   environment: "test",

@@ -19,7 +19,7 @@ const BrandHeader = () => {
 
     menu = () => (
       <Menu onClick={handleChangeEnv}>
-        <Menu.Item key="prod" className="env-item with-border">PROD</Menu.Item>
+        <Menu.Item key="prodtest" className="env-item with-border">PRODTEST</Menu.Item>
         <Menu.Item key="uat" className="env-item with-border">UAT</Menu.Item>
         <Menu.Item key="test" className="env-item with-border">TEST</Menu.Item>
         <Menu.Item key="dev" className="env-item">DEV</Menu.Item>
@@ -38,7 +38,7 @@ const BrandHeader = () => {
       <Dropdown
         trigger={["click"]}
         overlay={menu}>
-        <div className="dropdown space-between">
+        <div className="dropdown auto-width space-between">
           <span>{environment.toUpperCase()}</span>
           <DownOutlined />
         </div>

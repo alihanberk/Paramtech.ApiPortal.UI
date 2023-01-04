@@ -1,5 +1,6 @@
 import _, { isEmpty } from "lodash";
-import { navbarKeys, parameterTypes } from "./contants";
+import { store } from "store/store";
+import { navbarKeys, parameterTypes, urlTypes } from "./contants";
 
 export const classNames = (classNamesList = []) => classNamesList.filter(x => x !== false && x !== undefined && x !== null && x !== "" && x !== "false").join(" ").trim();
 
@@ -134,20 +135,30 @@ export const getRequestPayload = (token, currentEndpoint, parameters, queryType)
   if (token)
     _parameters.headers["Authorization"] = token;
 
-  _parameters.url = `https://test_tenantapi.e-cozum.com${_parameters.path}${queryType === "stringQuery" ? _parameters.parameters : ""}`;
+  _parameters.url = `${formatUrl()}${_parameters.path}${queryType === "stringQuery" ? _parameters.parameters : ""}`;
 
   return _parameters;
+}
+
+export const formatUrl = () => {
+  const
+    { app } = store.getState(),
+    { environment } = app.appSlice,
+    { currentProduct } = app.organization,
+    currentType = urlTypes[environment].find(x => x.key === currentProduct);
+
+  return `https://${environment}${currentType.withoutHyphen ? "" : currentType.notUnderScore ? "-" : "_"}${currentType.name}.${currentType.suffix}.com`;
 }
 
 export const getcURL = ({ currentEndpoint, token, parameters, body }) => {
   let
     endpoint = currentEndpoint.endpoint,
-    url = "https://test_tenantapi.e-cozum.com",
+    url = formatUrl(),
     requestParameter = "",
     requestHeader = " -H 'Content-Type: application/json'\n",
     requestBody = "",
     groupedData = groupingParameter(parameters);
-
+  formatUrl()
   if (token) {
     requestHeader += `   -H 'Authorization: ${token}'\n`;
   };
