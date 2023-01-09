@@ -20,11 +20,11 @@ const Organization = () => {
     const
       list = {
         searchFields: "name",
-        placeholder: "Search Product",
+        placeholder: "label.searchProduct",
         data: {
           className: "scrollable-menu",
           header: "API's",
-          cardTitle: "Go Back to Home Page",
+          cardTitle: "label.backHome",
           list: importList,
           organizationOrProduct: organization,
           clickable: true,

@@ -4,5 +4,13 @@
   "label.mementoDescription": "Reward System",
   "label.finrotaApi": "Finrota APIs",
   "label.paramApi": "Param APIs",
-  "label.kredimApi": "Kredim APIs"
+  "label.kredimApi": "Kredim APIs",
+  "label.home": "Home",
+  "label.faq": "FAQ",
+  "label.searchProduct": "Search Product",
+  "label.searchApi": "Search Api",
+  "label.searchEndpoint": "Search Endpoint",
+  "label.backHome": "Go Back to Home Page",
+  "label.backProductList": "Go Back To Product List",
+  "label.backApiList": "Go Back To Api List"
 }

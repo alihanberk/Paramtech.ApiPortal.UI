@@ -38,9 +38,9 @@ const Navbar = () => {
         mode="horizontal"
         selectedKeys={selectedKeys}
         items={[
-          { label: "Home", key: "home", onClick: () => handleClick("home", null, clearFields) },
+          { label: intl.formatMessage({ id: "label.home" }), key: "home", onClick: () => handleClick("home", null, clearFields) },
           ...navbarItem,
-          { label: "FAQ", key: "faq", onClick: () => handleClick("faq", null, clearFields) }
+          { label: intl.formatMessage({ id: "label.faq" }), key: "faq", onClick: () => handleClick("faq", null, clearFields) }
         ]}
       />
       <LanguageSelection />

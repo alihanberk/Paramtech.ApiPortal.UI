@@ -23,7 +23,7 @@ const Product = () => {
     const
       list = {
         searchFields: currentTag?.tag ? "endpoint" : "name",
-        placeholder: "Search API's",
+        placeholder: "label.searchApi",
         data: {
           stateKey: "documentation",
           className: "scrollable-menu",
@@ -44,9 +44,9 @@ const Product = () => {
 
   useEffect(() => {
     if (currentTag?.tag)
-      setListdata({ header: "Go Back to Api List", field: "endpoint" })
+      setListdata({ header: "label.backApiList", field: "endpoint" })
     else
-      setListdata({ header: "Go Back to Product List", field: "name" })
+      setListdata({ header: "label.backProductList", field: "name" })
   }, [currentTag, documentation.normalizedData.data]);
 
 

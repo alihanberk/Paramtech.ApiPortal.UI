@@ -8,9 +8,11 @@ import { setAppState } from "store/features/app";
 import ListUtils from "./utils";
 import Description from "../Description";
 import Loading from "../Loading";
+import { useIntl } from "react-intl";
 
 const MenuList = ({ data }) => {
   const
+    intl = useIntl(),
     params = useParams(),
     location = useLocation(),
     navigate = useNavigate(),
@@ -86,7 +88,7 @@ const MenuList = ({ data }) => {
         <Card title={
           <div onClick={() => !loading && handleBackButton()}>
             <LeftOutlined className="font-12" />
-            <span className="ml-8 font-14 text-400 list-title">{data?.cardTitle}</span>
+            <span className="ml-8 font-14 text-400 list-title">{data?.cardTitle && intl.formatMessage({ id: data?.cardTitle })}</span>
           </div>
         }
           className={data?.clickable ? `clickable` : ""}

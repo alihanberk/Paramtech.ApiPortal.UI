@@ -4,5 +4,13 @@
   "label.mementoDescription": "Ödüllendirme Sistemi",
   "label.finrotaApi": "Finrota APIs",
   "label.paramApi": "Param APIs",
-  "label.kredimApi": "Kredim APIs"
+  "label.kredimApi": "Kredim APIs",
+  "label.home": "Ana Sayfa",
+  "label.faq": "SSS",
+  "label.searchProduct": "Ürün Ara",
+  "label.searchApi": "Api Ara",
+  "label.searchEndpoint": "Endpoint Ara",
+  "label.backHome": "Ana Sayfaya Dön",
+  "label.backProductList": "Ürün Listesine Dön",
+  "label.backApiList": "API Listesine Dön"
 }

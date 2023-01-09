@@ -2,12 +2,14 @@ import { Input } from "antd";
 import { MenuList } from "components/UIComponents";
 import _ from "lodash";
 import React, { useEffect } from "react";
+import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { ReactSVG } from "react-svg";
 import seacrhIcon from "../../../assets/img/ui-icons/search.svg";
 
 const ContentList = () => {
   const
+    intl = useIntl(),
     [sider, loading] = useSelector(({ app }) => {
       const
         { sider } = app,
@@ -42,7 +44,7 @@ const ContentList = () => {
   return (
     <div>
       <div className="mb-40" >
-        <Input disabled={loading} value={filter} onChange={e => handleChange(e.target.value)} prefix={<ReactSVG className="svg-prefix" src={seacrhIcon} />} className="input-type-secondary" placeholder={sider.placeholder} />
+        <Input disabled={loading} value={filter} onChange={e => handleChange(e.target.value)} prefix={<ReactSVG className="svg-prefix" src={seacrhIcon} />} className="input-type-secondary" placeholder={sider.placeholder && intl.formatMessage({ id: sider.placeholder })} />
       </div>
       <div>
         <MenuList {...{ data: filter ? data : sider.data, }} />

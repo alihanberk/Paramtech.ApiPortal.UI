@@ -6,9 +6,11 @@ import { setAppState } from "store/features/app";
 import { upperCaseFirstLetter } from "lib/helpers";
 import { useLocation } from "react-router-dom";
 import environmentList from "../../data/environmentByOrganizations.data.json";
+import { useIntl } from "react-intl";
 
 const BrandHeader = () => {
   const
+    intl = useIntl(),
     dispatch = useDispatch(),
     location = useLocation(),
     [
@@ -39,7 +41,7 @@ const BrandHeader = () => {
     ),
 
     getRouteString = () => {
-      return `Home${organizations ? `  \xa0/\xa0 ${upperCaseFirstLetter(organizations)}` : ""}${currentProduct ? ` \xa0/\xa0 ${upperCaseFirstLetter(currentProduct)}` : ""}${currentTag?.tag ? ` \xa0/\xa0 ${upperCaseFirstLetter(currentTag?.tag)}` : ""}`
+      return `${intl.formatMessage({ id: "label.home" })}${organizations ? `  \xa0/\xa0 ${upperCaseFirstLetter(organizations)}` : ""}${currentProduct ? ` \xa0/\xa0 ${upperCaseFirstLetter(currentProduct)}` : ""}${currentTag?.tag ? ` \xa0/\xa0 ${upperCaseFirstLetter(currentTag?.tag)}` : ""}`
     }
 
   React.useEffect(() => {
