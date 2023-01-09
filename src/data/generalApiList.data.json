@@ -1,5 +1,6 @@
 {
  "test": {
+   "paramApi": "https://testemapi.param.com.tr",
    "kredimApi": "https://test_api.kredim.com.tr",
    "tenant": "https://test_tenantapi.e-cozum.com",
    "dbs": "https://testdbsapi.ecozum.com",
@@ -9,5 +10,46 @@
    "posrapor": "https://test_posraporapi.e-cozum.com",
    "pos": "https://test_posapi.e-cozum.com",
    "auth": "https://test_authapi.e-cozum.com"
+  },
+  "uat": {
+    "tenant": "https://uat_tenantapi.e-cozum.com",
+    "dbs": "https://uatdbsapi.ecozum.com",
+    "netekstre": "https://uat_nteapi.e-cozum.com",
+    "netahsilat": "https://uat_nthapi.e-cozum.com",
+    "tos": "https://uat_tosapi.e-cozum.com",
+    "posrapor": "https://uat_posraporapi.e-cozum.com",
+    "pos": "https://uat_posapi.e-cozum.com",
+    "auth": "https://uat_authapi.e-cozum.com"
+  },
+  "prodtest": {
+    "tenant": "https://prodtest_tntapi.ecozum.com/api",
+    "dbs": "https://prodtestdbsapi.ecozum.com",
+    "netekstre": "https://prodtest_nteapi.ecozum.com",
+    "netahsilat": "https://prodtest_nthapi.ecozum.com",
+    "tos": "https://prodtest_tosapi.ecozum.com",
+    "posrapor": "https://prodtest_posraporapi.ecozum.com",
+    "pos": "https://prodtest_posapi.ecozum.com",
+    "auth": "https://prodtest_authapi.ecozum.com"
+  },
+  "prod": {
+    "kredimApi": "https://api.kredim.com.tr",
+    "tenant": "https://tenantapi.ecozum.com",
+    "dbs": "https://devdbsapi.ecozum.com",
+    "netekstre": "https://nteapi.ecozum.com",
+    "netahsilat": "https://nthapi.ecozum.com",
+    "tos": "https://tosapi.ecozum.com",
+    "posrapor": "https://posraporapi.ecozum.com",
+    "pos": "https://posapi.ecozum.com",
+    "auth": "https://authapi.ecozum.com"
+  },
+  "dev": {
+    "tenant": "https://dev_tenantapi.e-cozum.com",
+    "dbs": "https://devdbsapi.ecozum.com",
+    "netekstre": "https://dev_nteapi.e-cozum.com",
+    "netahsilat": "https://dev_nthapi.e-cozum.com",
+    "tos": "https://dev_tosapi.e-cozum.com",
+    "posrapor": "https://dev_posraporapi.e-cozum.com",
+    "pos": "https://dev_posapi.e-cozum.com",
+    "auth": "https://dev_authapi.e-cozum.com"
   }
 }

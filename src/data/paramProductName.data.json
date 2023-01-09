@@ -1,1 +1,7 @@
-[]
+[
+  {
+    "key": "paramApi",
+    "route": "paramApi",
+    "name": "ParamApi"
+  }
+]

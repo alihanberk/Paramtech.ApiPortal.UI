@@ -32,7 +32,7 @@ const ContentList = () => {
   useEffect(() => {
     if (sider.data?.list && filter) {
       const
-        list = sider.data.list.filter(x => x[sider.searchFields]?.includes(filter)),
+        list = sider.data.list.filter(x => x[sider.searchFields]?.toLowerCase().includes(filter.toLowerCase())),
         _data = _.cloneDeep(data);
       _data.list = list;
       setData(_data);
