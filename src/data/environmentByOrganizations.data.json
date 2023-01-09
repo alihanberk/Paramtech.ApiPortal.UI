@@ -1,0 +1,4 @@
+{
+  "kredim": ["test", "prod"], 
+  "finrota": ["test", "dev", "uat", "prodtest", "prod" ] 
+}

@@ -28,7 +28,7 @@ export const organizationBack = payload => {
 export const productForward = payload => {
   const
     { item, location, dispatch, type, navigate } = payload,
-    { key, tag } = combineByHyphen(item.endpoint, "api");
+    { key, tag } = combineByHyphen(item.endpoint, ["api", "v1"]);
 
   if (type === pageTypes.product) {
     dispatch(reducerTypes[type]({ tag, pathTag: key, apiKey: item.endpoint }));
@@ -57,7 +57,7 @@ export const productBack = payload => {
 export const developerForward = payload => {
   const
     { item, dispatch, type, navigate, params } = payload,
-    { key, tag } = combineByHyphen(item.endpoint, "api");
+    { key, tag } = combineByHyphen(item.endpoint, ["api", "v1"]);
 
   if (type === pageTypes.product) {
     dispatch(reducerTypes[type]({ tag, pathTag: key, apiKey: item.endpoint }));

@@ -20,7 +20,7 @@ const initialState = {
   },
   requestResponse: {},
   requestLanguage: "bash",
-  environment: "test",
+  environment: undefined,
   authorizedWarning: false,
   descriptionVisible: false,
   brandVisible: false,

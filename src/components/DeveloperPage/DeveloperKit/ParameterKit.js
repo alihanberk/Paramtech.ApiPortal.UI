@@ -1,5 +1,5 @@
 
-import { Card, Col, Input, Row } from "antd";
+import { Card, Col, Empty, Input, Row } from "antd";
 import { parameterTypes } from "lib/contants";
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,36 +40,40 @@ const ParameterKit = () => {
     if (!currentParameters[currentKey])
       changeParameters();
   }, [changeParameters, currentKey]);
-
+  console.log(currentParameters);
   return (
     <Card
       className="secondary-type"
       title="Parameters"
     >
-      <Row gutter={[8, 20]}>
-        {
-          currentParameters?.[currentKey]?.parameters?.map((parameter, i) => {
-            return (
-              <Col key={i} xs={24}>
-                <Row>
-                  <Col xs={6}>
-                    <div className="font-16 color-black text-400">
-                      {parameter.name} {parameter.required && <strong>*</strong>}
-                    </div>
-                    <div>
-                      {parameter.type} | {`{ ${parameter.place} }`}
-                    </div>
+      {
+        currentParameters?.[currentKey]?.parameters.length ?
+          <Row gutter={[8, 20]}>
+            {
+              currentParameters?.[currentKey]?.parameters.map((parameter, i) => {
+                return (
+                  <Col key={i} xs={24}>
+                    <Row>
+                      <Col xs={6}>
+                        <div className="font-16 color-black text-400">
+                          {parameter.name} {parameter.required && <strong>*</strong>}
+                        </div>
+                        <div>
+                          {parameter.type} | {`{ ${parameter.place} }`}
+                        </div>
+                      </Col>
+                      <Col xs={18}>
+                        <Input value={parameter.value} placeholder="Value" onChange={e => handleChangeParameters(parameter.key, e.target.value, "value")} />
+                      </Col>
+                    </Row>
                   </Col>
-                  <Col xs={18}>
-                    <Input value={parameter.value} placeholder="Value" onChange={e => handleChangeParameters(parameter.key, e.target.value, "value")} />
-                  </Col>
-                </Row>
-              </Col>
-            )
-          }
-          )
-        }
-      </Row>
+                )
+              }
+              )
+            }
+          </Row>
+          : <Empty description="Does not have Parameters" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      }
     </Card>
   )
 }

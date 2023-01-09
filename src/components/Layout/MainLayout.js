@@ -9,16 +9,17 @@ import { setCurrentEndpoint, setCurrentOrganization, setCurrentProduct, setCurre
 import { FullPageLoading } from 'components/UIComponents';
 import { getDocumentation } from 'store/features/documentation';
 import { organizationTypes } from 'lib/contants';
-import { formatUrl, splitAndCombineByHyphen } from 'lib/helpers';
+import { splitAndCombineByHyphen } from 'lib/helpers';
 import _ from 'lodash';
 import { clearOrganizationState } from "store/features/organization";
+import ApiList from "../../data/generalApiList.data.json";
 
 const MainLayout = ({ withSider }) => {
   const
     param = useParams(),
     dispatch = useDispatch(),
     navigate = useNavigate(),
-    [organization, product, brandVisible, environment, documentation, currentProduct, currentEndpoint] = useSelector(({ app }) => [app.organization.currentOrganization, app.organization.currentProduct, app.appSlice.brandVisible, app.appSlice.environment, app.documentation, app.organization.currentProduct, app.organization.currentEndpoint])
+    [organization, brandVisible, environment, documentation, currentProduct, currentEndpoint] = useSelector(({ app }) => [app.organization.currentOrganization, app.appSlice.brandVisible, app.appSlice.environment, app.documentation, app.organization.currentProduct, app.organization.currentEndpoint])
 
   useEffect(() => {
     if (param.organizationId) {
@@ -33,6 +34,7 @@ const MainLayout = ({ withSider }) => {
         }
       }
       if (param.applicationId && param.applicationId !== currentProduct) {
+        console.log(param.applicationId, param.organizationId);
         organizationData = require(`../../data/${param.organizationId}ProductName.data.json`);
         if (!organizationData.find(x => x.route === param.applicationId)) {
           dispatch(clearOrganizationState(["currentTag", "currentEndpoint", "currentProduct", "currentOrganization"]));
@@ -46,6 +48,7 @@ const MainLayout = ({ withSider }) => {
         const { key, tag } = splitAndCombineByHyphen(param.endpointId);
         if (documentation.normalizedData.data && param.methodId && _.isEmpty(currentEndpoint)) {
           const endpoint = documentation.normalizedData.data?.[tag]?.find(x => x.method === param.methodId && x.endpoint.includes(key));
+          console.log(documentation.normalizedData.data, tag);
           if (endpoint) {
             dispatch(setCurrentEndpoint(endpoint));
             dispatch(setCurrentTag({ tag: tag, pathTag: param.endpointId, apiKey: key }));
@@ -59,11 +62,10 @@ const MainLayout = ({ withSider }) => {
     }
   }, [param, organization, documentation.normalizedData]);
 
-
   useEffect(() => {
-    if (product && !brandVisible)
-      dispatch(getDocumentation(`${formatUrl()}/swagger/v1/swagger.json`));
-  }, [environment, product, brandVisible]);
+    if (currentProduct && !brandVisible)
+      dispatch(getDocumentation(`${ApiList[environment][currentProduct]}/swagger/v1/swagger.json`));
+  }, [environment, currentProduct, brandVisible]);
 
 
   return (

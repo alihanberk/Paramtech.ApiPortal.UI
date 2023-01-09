@@ -1,6 +1,7 @@
 import _, { isEmpty } from "lodash";
 import { store } from "store/store";
 import { navbarKeys, parameterTypes, urlTypes } from "./contants";
+import ApiList from "../data/generalApiList.data.json";
 
 export const classNames = (classNamesList = []) => classNamesList.filter(x => x !== false && x !== undefined && x !== null && x !== "" && x !== "false").join(" ").trim();
 
@@ -14,20 +15,22 @@ export const splitAndCombineByHyphen = data => {
   const
     splitedData = data.split("-"),
     key = splitedData.join("/"),
-    tag = splitedData[0];
+    tag = upperCaseFirstLetter(splitedData[0]);
   return { key, tag };
 }
 
-export const combineByHyphen = (data, exceptKey) => {
+export const combineByHyphen = (data, exceptKeys) => {
   const
-    pathArray = data.split("/").filter(x => x),
-    exceptIndex = pathArray.indexOf(exceptKey);
-
-  pathArray.splice(exceptIndex, 1);
+    pathArray = data.split("/").filter(x => x);
+  exceptKeys.forEach(x => {
+    const exceptIndex = pathArray.indexOf(x);
+    if (exceptIndex > -1)
+      pathArray.splice(exceptIndex, 1);
+  });
 
   const
     key = pathArray.join("-"),
-    tag = pathArray[0];
+    tag = upperCaseFirstLetter(pathArray[0]);
 
   return { key, tag };
 }
@@ -150,15 +153,14 @@ export const formatUrl = () => {
   return `https://${environment}${currentType.withoutHyphen ? "" : currentType.notUnderScore ? "-" : "_"}${currentType.name}.${currentType.suffix}.com`;
 }
 
-export const getcURL = ({ currentEndpoint, token, parameters, body }) => {
+export const getcURL = ({ currentEndpoint, token, parameters, body, currentProduct, environment }) => {
   let
     endpoint = currentEndpoint.endpoint,
-    url = formatUrl(),
+    url = ApiList[environment][currentProduct],
     requestParameter = "",
     requestHeader = " -H 'Content-Type: application/json'\n",
     requestBody = "",
     groupedData = groupingParameter(parameters);
-  formatUrl()
   if (token) {
     requestHeader += `   -H 'Authorization: ${token}'\n`;
   };

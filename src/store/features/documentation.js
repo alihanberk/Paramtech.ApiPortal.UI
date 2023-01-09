@@ -52,7 +52,6 @@ export const documantation = createSlice({
           });
         }
       };
-
       return { loading: false, data: action.payload, normalizedData: { data, tags } }
     })
   }

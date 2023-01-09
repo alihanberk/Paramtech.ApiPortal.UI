@@ -15,13 +15,17 @@ const RequestKit = () => {
       token,
       requestLanguage,
       currentParameters,
-      currentKey
+      currentKey,
+      currentProduct,
+      environment
     ] = useSelector(({ app }) => [
       app.organization.currentEndpoint,
       app.appSlice.token,
       app.appSlice.requestLanguage,
       app.currentParameters,
-      app.appSlice.currentKey
+      app.appSlice.currentKey,
+      app.organization.currentProduct,
+      app.appSlice.environment
     ]),
 
     dispatch = useDispatch(),
@@ -33,9 +37,11 @@ const RequestKit = () => {
           currentEndpoint,
           token: token.key,
           parameters: currentParameters[currentKey]?.parameters,
-          body: currentParameters[currentKey]?.bodyParameters
+          body: currentParameters[currentKey]?.bodyParameters,
+          currentProduct,
+          environment
         });
-    }, [currentEndpoint, token, requestLanguage, currentKey, currentParameters]),
+    }, [currentEndpoint, token, requestLanguage, currentKey, currentParameters, currentProduct]),
 
     getRequest = () => {
       const _parameters = getRequestPayload(token.key, currentEndpoint, currentParameters[currentKey]?.parameters, "objectQuery");

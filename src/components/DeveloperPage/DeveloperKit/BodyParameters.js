@@ -88,7 +88,7 @@ const BodyParameters = () => {
             </Col>
           </Row>
           :
-          <Empty description="No Body Parameters" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          <Empty description="Does not have Body Parameters" image={Empty.PRESENTED_IMAGE_SIMPLE} />
       }
     </Card>
   )

@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearOrganizationState, setCurrentOrganization } from "store/features/organization";
 import { getMenuSelectedKeys } from "lib/helpers";
+import { clearData } from "store/features/app";
 
 const Navbar = () => {
   const
@@ -19,6 +20,7 @@ const Navbar = () => {
 
     handleClick = (route, key, fields) => {
       dispatch(clearOrganizationState(fields))
+      dispatch(clearData(["environment"]));
       key && dispatch(setCurrentOrganization(key));
       navigate(route);
     },

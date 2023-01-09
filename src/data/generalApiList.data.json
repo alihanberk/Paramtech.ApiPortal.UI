@@ -1,0 +1,13 @@
+{
+ "test": {
+   "kredimApi": "https://test_api.kredim.com.tr",
+   "tenant": "https://test_tenantapi.e-cozum.com",
+   "dbs": "https://testdbsapi.ecozum.com",
+   "netekstre": "https://test_nteapi.e-cozum.com",
+   "netahsilat": "https://test_nthapi.e-cozum.com",
+   "tos": "https://test_tosapi.e-cozum.com",
+   "posrapor": "https://test_posraporapi.e-cozum.com",
+   "pos": "https://test_posapi.e-cozum.com",
+   "auth": "https://test_authapi.e-cozum.com"
+  }
+}

@@ -18,11 +18,11 @@ const CustomList = ({ data, type = "row" }) => {
           data.children.map((child, index) => (
             type === "row" ?
               <Col className="mb-20" xs={24} key={index}>
-                < Row >
-                  <Col className="flex align-center mr-16">
+                <Row gutter={[16, 16]}>
+                  <Col xs={6} className="flex align-center">
                     <Button type="secondary" ><ReactSVG className="plus-svg" src={plus} /></Button>
                   </Col>
-                  <Col>
+                  <Col xs={18}>
                     <Row className="block line-20">
                       <Col>
                         <Typography.Label color="#000" className="text-700">{child.name}</Typography.Label>
